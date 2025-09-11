@@ -6,6 +6,10 @@ class TravelExplorationMap {
     this.currentCategory = 'all';
     this.favorites = this.loadFavorites();
     this.currentDestination = null;
+    this.searchResults = [];
+    this.isSearching = false;
+    this.currentImageIndex = 0;
+    this.currentImages = [];
     
     this.init();
   }
@@ -275,16 +279,16 @@ class TravelExplorationMap {
     this.enterImmersiveMode(destination);
     
     const modal = document.getElementById('cardModal');
-    const img = document.getElementById('cardImg');
     const category = document.getElementById('cardCategory');
     const title = document.getElementById('cardTitle');
     const description = document.getElementById('cardDescription');
     const tagsContainer = document.getElementById('cardTags');
     const favoriteBtn = document.getElementById('favoriteBtn');
 
+    // 初始化图片轮播
+    this.initImageCarousel(destination.images);
+
     // 设置卡片内容
-    img.src = destination.image;
-    img.alt = destination.name;
     category.textContent = categoryMap[destination.category];
     category.style.background = categoryColors[destination.category];
     title.textContent = destination.name;
@@ -311,8 +315,9 @@ class TravelExplorationMap {
     // 添加沉浸式模式类
     mapContainer.classList.add('immersive-mode');
     
-    // 设置背景图片
-    backgroundImage.style.backgroundImage = `url(${destination.image})`;
+    // 设置背景图片（使用第一张图片）
+    const firstImage = destination.images ? destination.images[0] : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
+    backgroundImage.style.backgroundImage = `url(${firstImage})`;
     
     // 激活背景层
     setTimeout(() => {
@@ -501,11 +506,239 @@ class TravelExplorationMap {
     return saved ? JSON.parse(saved) : [];
   }
 
+  // 搜索功能
+  searchDestinations(query) {
+    if (!query || query.trim().length < 1) {
+      return [];
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+    return destinationsData.filter(destination => {
+      return (
+        destination.name.toLowerCase().includes(searchTerm) ||
+        destination.description.toLowerCase().includes(searchTerm) ||
+        categoryMap[destination.category].toLowerCase().includes(searchTerm)
+      );
+    });
+  }
+
+  // 显示搜索结果
+  showSearchResults(results) {
+    const searchResults = document.getElementById('searchResults');
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = `
+        <div class="search-result-item">
+          <div class="search-result-info">
+            <div class="search-result-name">未找到相关目的地</div>
+            <div class="search-result-desc">请尝试其他关键词</div>
+          </div>
+        </div>
+      `;
+    } else {
+      searchResults.innerHTML = results.map(destination => {
+        const firstImage = destination.images ? destination.images[0] : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
+        return `
+          <div class="search-result-item" data-id="${destination.id}">
+            <div class="search-result-icon" style="background-image: url(${firstImage})"></div>
+            <div class="search-result-info">
+              <div class="search-result-name">${destination.name}</div>
+              <div class="search-result-desc">${destination.description.substring(0, 40)}...</div>
+            </div>
+            <div class="search-result-category">${categoryMap[destination.category]}</div>
+          </div>
+        `;
+      }).join('');
+
+      // 为搜索结果添加点击事件
+      searchResults.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          const destination = destinationsData.find(d => d.id === id);
+          if (destination) {
+            this.hideSearchResults();
+            this.showDestinationCard(destination);
+            this.flyToDestination(destination.coordinates);
+          }
+        });
+      });
+    }
+    
+    searchResults.classList.add('show');
+  }
+
+  // 隐藏搜索结果
+  hideSearchResults() {
+    const searchResults = document.getElementById('searchResults');
+    searchResults.classList.remove('show');
+  }
+
+  // 清空搜索
+  clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    
+    searchInput.value = '';
+    searchClear.classList.remove('show');
+    this.hideSearchResults();
+    this.isSearching = false;
+  }
+
+  // 初始化图片轮播
+  initImageCarousel(images) {
+    this.currentImages = images || [];
+    this.currentImageIndex = 0;
+
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselIndicators = document.getElementById('carouselIndicators');
+
+    // 清空现有内容
+    carouselTrack.innerHTML = '';
+    carouselIndicators.innerHTML = '';
+
+    // 如果没有图片，显示默认图片
+    if (this.currentImages.length === 0) {
+      this.currentImages = ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop'];
+    }
+
+    // 创建图片幻灯片
+    this.currentImages.forEach((image, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.innerHTML = `<img src="${image}" alt="景点图片 ${index + 1}" loading="lazy">`;
+      carouselTrack.appendChild(slide);
+
+      // 创建指示器
+      const indicator = document.createElement('div');
+      indicator.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
+      indicator.addEventListener('click', () => this.goToSlide(index));
+      carouselIndicators.appendChild(indicator);
+    });
+
+    // 如果只有一张图片，隐藏控制元素
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    
+    if (this.currentImages.length <= 1) {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+      carouselIndicators.style.display = 'none';
+    } else {
+      prevBtn.style.display = 'flex';
+      nextBtn.style.display = 'flex';
+      carouselIndicators.style.display = 'flex';
+    }
+
+    // 更新轮播状态
+    this.updateCarousel();
+  }
+
+  // 切换到指定幻灯片
+  goToSlide(index) {
+    if (index < 0 || index >= this.currentImages.length) return;
+    
+    this.currentImageIndex = index;
+    this.updateCarousel();
+  }
+
+  // 上一张图片
+  previousSlide() {
+    const newIndex = this.currentImageIndex === 0 
+      ? this.currentImages.length - 1 
+      : this.currentImageIndex - 1;
+    this.goToSlide(newIndex);
+  }
+
+  // 下一张图片
+  nextSlide() {
+    const newIndex = this.currentImageIndex === this.currentImages.length - 1 
+      ? 0 
+      : this.currentImageIndex + 1;
+    this.goToSlide(newIndex);
+  }
+
+  // 更新轮播显示
+  updateCarousel() {
+    const carouselTrack = document.getElementById('carouselTrack');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+
+    // 移动轮播轨道
+    const translateX = -this.currentImageIndex * 100;
+    carouselTrack.style.transform = `translateX(${translateX}%)`;
+
+    // 更新指示器
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === this.currentImageIndex);
+    });
+
+    // 更新按钮状态（可选：禁用边界按钮）
+    // prevBtn.disabled = this.currentImageIndex === 0;
+    // nextBtn.disabled = this.currentImageIndex === this.currentImages.length - 1;
+  }
+
   // 绑定事件监听器
   bindEvents() {
+    // 搜索功能事件
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    
+    let searchTimeout;
+    
+    // 搜索输入事件
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value;
+      
+      // 显示/隐藏清除按钮
+      if (query.length > 0) {
+        searchClear.classList.add('show');
+      } else {
+        searchClear.classList.remove('show');
+        this.hideSearchResults();
+      }
+      
+      // 防抖搜索
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        if (query.length > 0) {
+          const results = this.searchDestinations(query);
+          this.showSearchResults(results);
+          this.isSearching = true;
+        } else {
+          this.hideSearchResults();
+          this.isSearching = false;
+        }
+      }, 300);
+    });
+    
+    // 清除搜索
+    searchClear.addEventListener('click', () => {
+      this.clearSearch();
+    });
+    
+    // 点击外部隐藏搜索结果
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        this.hideSearchResults();
+      }
+    });
+    
+    // 键盘导航
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.clearSearch();
+      }
+    });
+
     // 标签筛选按钮
     document.querySelectorAll('.tag-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        // 清空搜索
+        if (this.isSearching) {
+          this.clearSearch();
+        }
+        
         // 更新按钮状态
         document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -514,6 +747,15 @@ class TravelExplorationMap {
         const category = btn.dataset.category;
         this.filterDestinations(category);
       });
+    });
+
+    // 图片轮播控制
+    document.getElementById('carouselPrev').addEventListener('click', () => {
+      this.previousSlide();
+    });
+
+    document.getElementById('carouselNext').addEventListener('click', () => {
+      this.nextSlide();
     });
 
     // 卡片关闭按钮

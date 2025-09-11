@@ -1,3 +1,38 @@
+// 图片库 - 为不同类型的景点提供多样化的图片
+const imagePool = {
+  food: [
+    'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=400&fit=crop'
+  ],
+  culture: [
+    'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1580837119756-563d608dd119?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1528127269322-539801943592?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1562813733-b31f71025d54?w=600&h=400&fit=crop'
+  ],
+  nature: [
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=400&fit=crop'
+  ]
+};
+
+// 随机获取指定类别的图片数组
+function getRandomImages(category, count = 3) {
+  const pool = imagePool[category] || imagePool.nature;
+  const shuffled = [...pool].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
 // 旅行目的地数据
 const destinationsData = [
   // 美食类
@@ -7,7 +42,11 @@ const destinationsData = [
     coordinates: [116.6227, 23.6618],
     category: 'food',
     description: '千年古城的潮汕美食天堂，牛肉火锅、功夫茶文化的发源地',
-    image: 'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=300&fit=crop'
+    images: [
+      'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop'
+    ]
   },
   {
     id: 2,
@@ -15,7 +54,11 @@ const destinationsData = [
     coordinates: [109.4281, 24.3146],
     category: 'food',
     description: '螺蛳粉的故乡，广西工业重镇中的美食惊喜',
-    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop'
+    images: [
+      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&h=400&fit=crop'
+    ]
   },
   {
     id: 3,
@@ -23,7 +66,11 @@ const destinationsData = [
     coordinates: [121.4287, 28.6561],
     category: 'food',
     description: '浙江沿海小城，海鲜美食和温岭大溪的特色小吃',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
+    images: [
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&h=400&fit=crop'
+    ]
   },
   {
     id: 4,
@@ -31,7 +78,7 @@ const destinationsData = [
     coordinates: [103.8236, 36.0581],
     category: 'food',
     description: '黄河穿城而过，正宗兰州拉面和西北美食的集大成者',
-    image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop'
+    images: getRandomImages('food')
   },
   {
     id: 5,
@@ -421,3 +468,15 @@ const categoryColors = {
   culture: '#4ecdc4',
   nature: '#45b7d1'
 };
+
+// 为所有没有images属性的景点添加图片数组
+destinationsData.forEach(destination => {
+  if (!destination.images && destination.image) {
+    // 如果有单个image属性，转换为images数组并添加更多图片
+    destination.images = [destination.image, ...getRandomImages(destination.category, 2)];
+    delete destination.image; // 删除旧的image属性
+  } else if (!destination.images) {
+    // 如果没有任何图片，生成默认图片数组
+    destination.images = getRandomImages(destination.category, 3);
+  }
+});

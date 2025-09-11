@@ -28,6 +28,18 @@
       <p class="app-subtitle">发现国内冷门特色旅行目的地</p>
     </header>
 
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索目的地...">
+        <button class="search-clear" id="searchClear">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
     <!-- 兴趣标签筛选 -->
     <div class="filter-tags">
       <button class="tag-btn active" data-category="all">
@@ -71,7 +83,22 @@
         </button>
         
         <div class="card-image">
-          <img id="cardImg" src="" alt="">
+          <div class="image-carousel" id="imageCarousel">
+            <div class="carousel-container">
+              <div class="carousel-track" id="carouselTrack">
+                <!-- 图片将动态插入这里 -->
+              </div>
+            </div>
+            <button class="carousel-btn carousel-prev" id="carouselPrev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn carousel-next" id="carouselNext">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-indicators" id="carouselIndicators">
+              <!-- 指示器将动态插入这里 -->
+            </div>
+          </div>
           <div class="card-category" id="cardCategory"></div>
         </div>
         
