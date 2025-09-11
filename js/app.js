@@ -3,6 +3,7 @@ class TravelExplorationMap {
   constructor() {
     this.map = null;
     this.markers = [];
+    this.markerClusterGroup = null; // 聚合标记组
     this.currentCategory = 'all';
     this.favorites = this.loadFavorites();
     this.currentDestination = null;
@@ -10,16 +11,35 @@ class TravelExplorationMap {
     this.isSearching = false;
     this.currentImageIndex = 0;
     this.currentImages = [];
+    this.loadingProgress = 0;
+    this.loadingSteps = ['初始化应用...', '加载地图数据...', '准备景点信息...', '完成加载！'];
+    this.currentStep = 0;
     
     this.init();
   }
 
   // 初始化应用
-  init() {
-    this.initMap();
-    this.bindEvents();
-    this.updateFavoritesCount();
-    this.hideLoading();
+  async init() {
+    try {
+      this.updateLoadingProgress(0, '初始化应用...');
+      
+      await this.sleep(500); // 模拟初始化时间
+      this.updateLoadingProgress(25, '加载地图数据...');
+      
+      await this.initMap();
+      this.updateLoadingProgress(60, '准备景点信息...');
+      
+      await this.sleep(300);
+      this.bindEvents();
+      this.updateFavoritesCount();
+      this.updateLoadingProgress(100, '完成加载！');
+      
+      await this.sleep(500);
+      this.hideLoading();
+    } catch (error) {
+      this.showError('应用初始化失败，请刷新页面重试');
+      console.error('Initialization error:', error);
+    }
   }
 
   // 初始化地图
@@ -30,6 +50,14 @@ class TravelExplorationMap {
 
   // 初始化Leaflet地图
   initLeafletMap() {
+    // 检查地图容器是否已经初始化，如果是则清理
+    const mapContainer = document.getElementById('map');
+    if (mapContainer._leaflet_id) {
+      // 清理已存在的地图实例
+      mapContainer._leaflet_id = null;
+      mapContainer.innerHTML = '';
+    }
+
     // 中国边界范围
     const chinaBounds = [
       [18.16, 73.50], // 西南角
@@ -69,8 +97,169 @@ class TravelExplorationMap {
 
     // 地图加载完成后添加标记
     this.map.whenReady(() => {
+      this.initMarkerCluster();
       this.addDestinationMarkers();
       this.setupMapInteractions();
+    });
+  }
+
+  // 初始化标记聚合组
+  initMarkerCluster() {
+    // 创建聚合标记组，配置聚合参数
+    this.markerClusterGroup = L.markerClusterGroup({
+      // 聚合距离（像素）
+      maxClusterRadius: 80,
+      // 禁用聚合的最大缩放级别
+      disableClusteringAtZoom: 10,
+      // 聚合动画
+      animate: true,
+      animateAddingMarkers: true,
+      // 聚合标记样式函数
+      iconCreateFunction: (cluster) => {
+        const childCount = cluster.getChildCount();
+        let className = 'marker-cluster ';
+        
+        // 根据聚合数量设置不同样式
+        if (childCount < 5) {
+          className += 'marker-cluster-small';
+        } else if (childCount < 15) {
+          className += 'marker-cluster-medium';
+        } else {
+          className += 'marker-cluster-large';
+        }
+        
+        const icon = new L.DivIcon({
+          html: `<div><span>${childCount}</span></div>`,
+          className: className,
+          iconSize: new L.Point(40, 40)
+        });
+        
+        // 为聚合标记添加悬停提示
+        setTimeout(() => {
+          this.addClusterTooltip(cluster, childCount);
+        }, 100);
+        
+        return icon;
+      },
+      // 聚合标记点击事件
+      spiderfyOnMaxZoom: true, // 在最大缩放时展开蜘蛛腿
+      showCoverageOnHover: false, // 悬停时不显示覆盖范围
+      zoomToBoundsOnClick: true, // 点击时缩放到边界
+      // 自定义展开动画
+      spiderfyDistanceMultiplier: 1.5,
+      // 聚合标记的HTML模板
+      polygonOptions: {
+        fillColor: 'rgba(100, 181, 246, 0.2)',
+        color: 'rgba(100, 181, 246, 0.6)',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.5
+      }
+    });
+
+    // 将聚合组添加到地图
+    this.map.addLayer(this.markerClusterGroup);
+    
+    // 添加聚合事件监听
+    this.setupClusterEvents();
+  }
+
+  // 设置聚合事件
+  setupClusterEvents() {
+    // 聚合标记创建时的动画
+    this.markerClusterGroup.on('clustercreate', (event) => {
+      const cluster = event.layer;
+      const element = cluster.getElement();
+      
+      if (element) {
+        // 添加出现动画
+        element.style.opacity = '0';
+        element.style.transform = 'scale(0.3)';
+        
+        setTimeout(() => {
+          element.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          element.style.opacity = '1';
+          element.style.transform = 'scale(1)';
+        }, 50);
+      }
+    });
+
+    // 聚合标记点击时的反馈
+    this.markerClusterGroup.on('clusterclick', (event) => {
+      const cluster = event.layer;
+      const element = cluster.getElement();
+      
+      if (element) {
+        // 添加点击反馈动画
+        element.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          element.style.transform = 'scale(1)';
+        }, 150);
+      }
+    });
+
+    // 标记展开时的动画（蜘蛛腿效果）
+    this.markerClusterGroup.on('spiderfied', (event) => {
+      const markers = event.markers;
+      markers.forEach((marker, index) => {
+        const element = marker.getElement();
+        if (element) {
+          element.style.opacity = '0';
+          element.style.transform = 'scale(0.5)';
+          
+          setTimeout(() => {
+            element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            element.style.opacity = '1';
+            element.style.transform = 'scale(1)';
+          }, index * 50);
+        }
+      });
+    });
+
+    // 标记收起时的动画
+    this.markerClusterGroup.on('unspiderfied', (event) => {
+      // 收起时的动画由CSS处理，这里可以添加额外的逻辑
+    });
+  }
+
+  // 为聚合标记添加工具提示
+  addClusterTooltip(cluster, childCount) {
+    const childMarkers = cluster.getAllChildMarkers();
+    const categories = {};
+    
+    // 统计聚合中各类别的数量
+    childMarkers.forEach(marker => {
+      const destination = this.markers.find(m => m.marker === marker)?.destination;
+      if (destination) {
+        categories[destination.category] = (categories[destination.category] || 0) + 1;
+      }
+    });
+
+    // 生成类别描述
+    const categoryMap = {
+      'food': '美食',
+      'culture': '文化',
+      'nature': '自然',
+      'adventure': '探险'
+    };
+
+    const categoryTexts = Object.entries(categories).map(([cat, count]) => 
+      `${categoryMap[cat] || cat}: ${count}个`
+    ).join(' | ');
+
+    const tooltipContent = `
+      <div class="cluster-info">
+        <div class="cluster-count">${childCount} 个景点</div>
+        <div class="cluster-categories">${categoryTexts}</div>
+      </div>
+    `;
+
+    // 添加工具提示到聚合标记
+    cluster.bindTooltip(tooltipContent, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, -10],
+      className: 'cluster-tooltip'
     });
   }
 
@@ -83,7 +272,7 @@ class TravelExplorationMap {
       // 创建标记
       const marker = L.marker([destination.coordinates[1], destination.coordinates[0]], {
         icon: customIcon
-      }).addTo(this.map);
+      });
 
       // 添加点击事件
       marker.on('click', () => {
@@ -99,11 +288,14 @@ class TravelExplorationMap {
         className: 'custom-tooltip'
       });
 
+      // 添加标记到聚合组而不是直接到地图
+      this.markerClusterGroup.addLayer(marker);
+
       // 保存标记引用
       this.markers.push({
         marker: marker,
         destination: destination,
-        element: marker.getElement()
+        element: null // 聚合标记的element会动态变化
       });
     });
   }
@@ -411,19 +603,30 @@ class TravelExplorationMap {
   filterDestinations(category) {
     this.currentCategory = category;
     
-    this.markers.forEach(({ marker, destination, element }) => {
+    // 清空聚合组
+    this.markerClusterGroup.clearLayers();
+    
+    // 添加符合筛选条件的标记到聚合组
+    this.markers.forEach(({ marker, destination }) => {
       if (category === 'all' || destination.category === category) {
-        // 显示标记
-        this.map.addLayer(marker);
-        if (element) {
-          element.style.opacity = '1';
-          element.style.transform = 'scale(1)';
-        }
-      } else {
-        // 隐藏标记
-        this.map.removeLayer(marker);
+        this.markerClusterGroup.addLayer(marker);
       }
     });
+    
+    // 添加聚合组重新加载的动画效果
+    setTimeout(() => {
+      const clusterElements = document.querySelectorAll('.marker-cluster');
+      clusterElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'scale(0.5)';
+        
+        setTimeout(() => {
+          element.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          element.style.opacity = '1';
+          element.style.transform = 'scale(1)';
+        }, index * 100);
+      });
+    }, 100);
   }
 
   // 显示收藏清单
@@ -550,15 +753,29 @@ class TravelExplorationMap {
         `;
       }).join('');
 
-      // 为搜索结果添加点击事件
-      searchResults.querySelectorAll('.search-result-item').forEach(item => {
+      // 为搜索结果添加点击事件和进入动画
+      searchResults.querySelectorAll('.search-result-item').forEach((item, index) => {
+        // 添加进入动画
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-20px)';
+        
+        setTimeout(() => {
+          item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+          item.style.opacity = '1';
+          item.style.transform = 'translateX(0)';
+        }, index * 50); // 错开动画时间
+        
         item.addEventListener('click', () => {
           const id = parseInt(item.dataset.id);
           const destination = destinationsData.find(d => d.id === id);
           if (destination) {
-            this.hideSearchResults();
-            this.showDestinationCard(destination);
-            this.flyToDestination(destination.coordinates);
+            // 添加点击反馈动画
+            item.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              this.hideSearchResults();
+              this.showDestinationCard(destination);
+              this.flyToDestination(destination.coordinates);
+            }, 150);
           }
         });
       });
@@ -605,7 +822,24 @@ class TravelExplorationMap {
     this.currentImages.forEach((image, index) => {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide';
-      slide.innerHTML = `<img src="${image}" alt="景点图片 ${index + 1}" loading="lazy">`;
+      
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = `景点图片 ${index + 1}`;
+      img.loading = 'lazy';
+      
+      // 图片加载事件
+      img.addEventListener('load', () => {
+        slide.classList.add('loaded');
+      });
+      
+      img.addEventListener('error', () => {
+        slide.classList.add('error');
+        img.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
+        this.showError('图片加载失败，已显示默认图片', 3000);
+      });
+      
+      slide.appendChild(img);
       carouselTrack.appendChild(slide);
 
       // 创建指示器
@@ -764,9 +998,23 @@ class TravelExplorationMap {
     });
 
     // 收藏按钮
-    document.getElementById('favoriteBtn').addEventListener('click', () => {
+    document.getElementById('favoriteBtn').addEventListener('click', (e) => {
       if (this.currentDestination) {
-        this.toggleFavorite(this.currentDestination);
+        // 添加点击动画效果
+        const btn = e.currentTarget;
+        btn.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+          btn.style.transform = 'scale(1.1)';
+          this.toggleFavorite(this.currentDestination);
+          
+          // 添加心形爆炸效果
+          this.createHeartExplosion(btn);
+          
+          setTimeout(() => {
+            btn.style.transform = '';
+          }, 200);
+        }, 100);
       }
     });
 
@@ -801,6 +1049,11 @@ class TravelExplorationMap {
       }
     });
 
+    // 错误提示关闭按钮
+    document.getElementById('errorClose').addEventListener('click', () => {
+      this.hideError();
+    });
+
     // 分享按钮（示例功能）
     document.querySelector('.share-btn').addEventListener('click', () => {
       if (this.currentDestination && navigator.share) {
@@ -808,25 +1061,140 @@ class TravelExplorationMap {
           title: `探索${this.currentDestination.name}`,
           text: this.currentDestination.description,
           url: window.location.href
+        }).catch(() => {
+          this.showError('分享功能暂不可用', 3000);
         });
       } else {
         // 复制链接到剪贴板
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert('链接已复制到剪贴板！');
-        });
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            this.showError('链接已复制到剪贴板！', 2000);
+          }).catch(() => {
+            this.showError('复制失败，请手动复制链接', 3000);
+          });
+        } else {
+          this.showError('浏览器不支持复制功能', 3000);
+        }
       }
     });
   }
 
+  // 工具方法：延时
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // 更新加载进度
+  updateLoadingProgress(progress, text) {
+    const progressBar = document.getElementById('loadingProgressBar');
+    const loadingText = document.getElementById('loadingText');
+    
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+    
+    if (loadingText && text) {
+      loadingText.textContent = text;
+    }
+    
+    this.loadingProgress = progress;
+  }
+
   // 隐藏加载动画
   hideLoading() {
+    const loading = document.getElementById('loading');
+    loading.classList.add('hidden');
     setTimeout(() => {
-      const loading = document.getElementById('loading');
-      loading.classList.add('hidden');
+      loading.style.display = 'none';
+    }, 800);
+  }
+
+  // 显示图片加载指示器
+  showImageLoading() {
+    const overlay = document.getElementById('imageLoadingOverlay');
+    if (overlay) {
+      overlay.classList.add('show');
+    }
+  }
+
+  // 隐藏图片加载指示器
+  hideImageLoading() {
+    const overlay = document.getElementById('imageLoadingOverlay');
+    if (overlay) {
+      overlay.classList.remove('show');
+    }
+  }
+
+  // 显示错误提示
+  showError(message, duration = 5000) {
+    const errorToast = document.getElementById('errorToast');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    if (errorMessage) {
+      errorMessage.textContent = message;
+    }
+    
+    if (errorToast) {
+      errorToast.classList.add('show');
+      
+      // 自动隐藏
       setTimeout(() => {
-        loading.style.display = 'none';
-      }, 500);
-    }, 1000);
+        this.hideError();
+      }, duration);
+    }
+  }
+
+  // 隐藏错误提示
+  hideError() {
+    const errorToast = document.getElementById('errorToast');
+    if (errorToast) {
+      errorToast.classList.remove('show');
+    }
+  }
+
+  // 创建心形爆炸效果
+  createHeartExplosion(element) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // 创建多个心形粒子
+    for (let i = 0; i < 8; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.style.cssText = `
+        position: fixed;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        font-size: 16px;
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 1;
+        transform: scale(1);
+      `;
+      
+      document.body.appendChild(heart);
+
+      // 随机方向和距离
+      const angle = (i / 8) * Math.PI * 2;
+      const distance = 80 + Math.random() * 40;
+      const deltaX = Math.cos(angle) * distance;
+      const deltaY = Math.sin(angle) * distance - 50; // 向上偏移
+
+      // 动画效果
+      setTimeout(() => {
+        heart.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.3)`;
+        heart.style.opacity = '0';
+      }, 50);
+
+      // 清理元素
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 800);
+    }
   }
 }
 
@@ -835,11 +1203,13 @@ let app;
 
 // 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', () => {
+  // 如果已有实例，先清理
+  if (app && app.map) {
+    app.map.remove();
+    app = null;
+  }
+  
   app = new TravelExplorationMap();
-});
-
-// 全局函数供HTML调用
-window.app = null;
-document.addEventListener('DOMContentLoaded', () => {
-  window.app = new TravelExplorationMap();
+  // 同时设置为全局变量供调试使用
+  window.app = app;
 });
