@@ -267,15 +267,19 @@ class TravelExplorationMap {
     });
   }
 
-  // 显示目的地卡片
+  // 显示目的地卡片（沉浸式模式）
   showDestinationCard(destination) {
     this.currentDestination = destination;
+    
+    // 进入沉浸式模式
+    this.enterImmersiveMode(destination);
     
     const modal = document.getElementById('cardModal');
     const img = document.getElementById('cardImg');
     const category = document.getElementById('cardCategory');
     const title = document.getElementById('cardTitle');
     const description = document.getElementById('cardDescription');
+    const tagsContainer = document.getElementById('cardTags');
     const favoriteBtn = document.getElementById('favoriteBtn');
 
     // 设置卡片内容
@@ -286,18 +290,74 @@ class TravelExplorationMap {
     title.textContent = destination.name;
     description.textContent = destination.description;
 
+    // 创建标签
+    tagsContainer.innerHTML = this.generateTags(destination);
+
     // 更新收藏按钮状态
     this.updateFavoriteButton(favoriteBtn, destination);
 
-    // 显示模态框
-    modal.classList.add('show');
+    // 延迟显示模态框以配合背景动画
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 300);
+  }
+
+  // 进入沉浸式模式
+  enterImmersiveMode(destination) {
+    const mapContainer = document.getElementById('map');
+    const immersiveBackground = document.getElementById('immersiveBackground');
+    const backgroundImage = document.getElementById('backgroundImage');
+    
+    // 添加沉浸式模式类
+    mapContainer.classList.add('immersive-mode');
+    
+    // 设置背景图片
+    backgroundImage.style.backgroundImage = `url(${destination.image})`;
+    
+    // 激活背景层
+    setTimeout(() => {
+      immersiveBackground.classList.add('active');
+    }, 100);
+  }
+
+  // 生成标签HTML
+  generateTags(destination) {
+    const tags = [
+      categoryMap[destination.category],
+      '探索发现',
+      '冷门景点'
+    ];
+    
+    return tags.map(tag => 
+      `<span class="card-tag"># ${tag}</span>`
+    ).join('');
   }
 
   // 隐藏目的地卡片
   hideDestinationCard() {
     const modal = document.getElementById('cardModal');
+    
+    // 先隐藏卡片
     modal.classList.remove('show');
+    
+    // 延迟退出沉浸式模式
+    setTimeout(() => {
+      this.exitImmersiveMode();
+    }, 200);
+    
     this.currentDestination = null;
+  }
+
+  // 退出沉浸式模式
+  exitImmersiveMode() {
+    const mapContainer = document.getElementById('map');
+    const immersiveBackground = document.getElementById('immersiveBackground');
+    
+    // 移除沉浸式模式类
+    mapContainer.classList.remove('immersive-mode');
+    
+    // 隐藏背景层
+    immersiveBackground.classList.remove('active');
   }
 
   // 更新收藏按钮状态

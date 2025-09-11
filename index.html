@@ -49,7 +49,13 @@
     </div>
 
     <!-- 地图容器 -->
-    <div id="map" class="map-container"></div>
+    <div id="map" class="map-container">
+      <!-- 沉浸式背景层 -->
+      <div class="immersive-background" id="immersiveBackground">
+        <div class="background-image" id="backgroundImage"></div>
+        <div class="background-overlay"></div>
+      </div>
+    </div>
 
     <!-- 收藏按钮 -->
     <button class="favorites-btn" id="favoritesBtn">
@@ -57,9 +63,9 @@
       <span class="favorites-count">0</span>
     </button>
 
-    <!-- 灵感卡片弹窗 -->
-    <div class="card-modal" id="cardModal">
-      <div class="card-content">
+    <!-- 沉浸式灵感卡片 -->
+    <div class="immersive-card-modal" id="cardModal">
+      <div class="immersive-card" id="immersiveCard">
         <button class="card-close" id="cardClose">
           <i class="fas fa-times"></i>
         </button>
@@ -69,9 +75,13 @@
           <div class="card-category" id="cardCategory"></div>
         </div>
         
-        <div class="card-info">
+        <div class="card-content">
           <h3 class="card-title" id="cardTitle"></h3>
           <p class="card-description" id="cardDescription"></p>
+          
+          <div class="card-tags" id="cardTags">
+            <!-- 动态生成标签 -->
+          </div>
           
           <div class="card-actions">
             <button class="favorite-btn" id="favoriteBtn">
@@ -81,6 +91,10 @@
             <button class="share-btn">
               <i class="fas fa-share-alt"></i>
               分享
+            </button>
+            <button class="explore-btn">
+              <i class="fas fa-compass"></i>
+              探索更多
             </button>
           </div>
         </div>
