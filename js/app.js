@@ -103,147 +103,15 @@ class TravelExplorationMap {
     });
   }
 
-  // 初始化标记聚合组
+  // 初始化标记组（不使用聚合）
   initMarkerCluster() {
-    // 创建聚合标记组，使用简化配置
-    this.markerClusterGroup = L.markerClusterGroup({
-      maxClusterRadius: 60,
-      disableClusteringAtZoom: 12,
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
-      // 简化的图标创建函数
-      iconCreateFunction: (cluster) => {
-        const childCount = cluster.getChildCount();
-        let size = 40;
-        let className = 'marker-cluster marker-cluster-small';
-        
-        if (childCount >= 10) {
-          size = 60;
-          className = 'marker-cluster marker-cluster-large';
-        } else if (childCount >= 5) {
-          size = 50;
-          className = 'marker-cluster marker-cluster-medium';
-        }
-        
-        return L.divIcon({
-          html: `<div><span>${childCount}</span></div>`,
-          className: className,
-          iconSize: [size, size],
-          iconAnchor: [size/2, size/2],
-          popupAnchor: [0, -size/2]
-        });
-      }
-    });
-
-    // 将聚合组添加到地图
+    // 创建普通的图层组来管理标记
+    this.markerClusterGroup = L.layerGroup();
+    
+    // 将标记组添加到地图
     this.map.addLayer(this.markerClusterGroup);
-    
-    // 添加聚合事件监听
-    this.setupClusterEvents();
   }
 
-  // 设置聚合事件
-  setupClusterEvents() {
-    // 聚合标记创建时的动画和工具提示
-    this.markerClusterGroup.on('clustercreate', (event) => {
-      const cluster = event.layer;
-      const element = cluster.getElement();
-      
-      if (element) {
-        // 添加工具提示
-        this.addClusterTooltip(cluster, cluster.getChildCount());
-        
-        // 添加出现动画
-        element.style.opacity = '0';
-        element.style.transform = 'scale(0.3)';
-        
-        setTimeout(() => {
-          element.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          element.style.opacity = '1';
-          element.style.transform = 'scale(1)';
-        }, 50);
-      }
-    });
-
-    // 聚合标记点击时的反馈
-    this.markerClusterGroup.on('clusterclick', (event) => {
-      const cluster = event.layer;
-      const element = cluster.getElement();
-      
-      if (element) {
-        // 添加点击反馈动画
-        element.style.transform = 'scale(0.9)';
-        setTimeout(() => {
-          element.style.transform = 'scale(1)';
-        }, 150);
-      }
-    });
-
-    // 标记展开时的动画（蜘蛛腿效果）
-    this.markerClusterGroup.on('spiderfied', (event) => {
-      const markers = event.markers;
-      markers.forEach((marker, index) => {
-        const element = marker.getElement();
-        if (element) {
-          element.style.opacity = '0';
-          element.style.transform = 'scale(0.5)';
-          
-          setTimeout(() => {
-            element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            element.style.opacity = '1';
-            element.style.transform = 'scale(1)';
-          }, index * 50);
-        }
-      });
-    });
-
-    // 标记收起时的动画
-    this.markerClusterGroup.on('unspiderfied', (event) => {
-      // 收起时的动画由CSS处理，这里可以添加额外的逻辑
-    });
-  }
-
-  // 为聚合标记添加工具提示
-  addClusterTooltip(cluster, childCount) {
-    const childMarkers = cluster.getAllChildMarkers();
-    const categories = {};
-    
-    // 统计聚合中各类别的数量
-    childMarkers.forEach(marker => {
-      const destination = this.markers.find(m => m.marker === marker)?.destination;
-      if (destination) {
-        categories[destination.category] = (categories[destination.category] || 0) + 1;
-      }
-    });
-
-    // 生成类别描述
-    const categoryMap = {
-      'food': '美食',
-      'culture': '文化',
-      'nature': '自然',
-      'adventure': '探险'
-    };
-
-    const categoryTexts = Object.entries(categories).map(([cat, count]) => 
-      `${categoryMap[cat] || cat}: ${count}个`
-    ).join(' | ');
-
-    const tooltipContent = `
-      <div class="cluster-info">
-        <div class="cluster-count">${childCount} 个景点</div>
-        <div class="cluster-categories">${categoryTexts}</div>
-      </div>
-    `;
-
-    // 添加工具提示到聚合标记
-    cluster.bindTooltip(tooltipContent, {
-      permanent: false,
-      direction: 'top',
-      offset: [0, -10],
-      className: 'cluster-tooltip'
-    });
-  }
 
   // 添加目的地标记
   addDestinationMarkers() {
@@ -284,7 +152,7 @@ class TravelExplorationMap {
         className: 'custom-tooltip'
       });
 
-      // 添加标记到聚合组
+      // 添加标记到图层组
       this.markerClusterGroup.addLayer(marker);
 
       // 保存标记引用
@@ -624,30 +492,24 @@ class TravelExplorationMap {
   filterDestinations(category) {
     this.currentCategory = category;
     
-    // 清空聚合组
+    // 保存当前地图视图状态
+    const currentCenter = this.map.getCenter();
+    const currentZoom = this.map.getZoom();
+    
+    // 清空标记组
     this.markerClusterGroup.clearLayers();
     
-    // 添加符合筛选条件的标记到聚合组
+    // 添加符合筛选条件的标记到标记组
     this.markers.forEach(({ marker, destination }) => {
       if (category === 'all' || destination.category === category) {
         this.markerClusterGroup.addLayer(marker);
       }
     });
     
-    // 添加聚合组重新加载的动画效果
+    // 恢复地图视图状态
     setTimeout(() => {
-      const clusterElements = document.querySelectorAll('.marker-cluster');
-      clusterElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'scale(0.5)';
-        
-        setTimeout(() => {
-          element.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          element.style.opacity = '1';
-          element.style.transform = 'scale(1)';
-        }, index * 100);
-      });
-    }, 100);
+      this.map.setView(currentCenter, currentZoom, { animate: false });
+    }, 50);
   }
 
   // 显示收藏清单
