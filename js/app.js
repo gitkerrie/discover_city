@@ -105,55 +105,34 @@ class TravelExplorationMap {
 
   // 初始化标记聚合组
   initMarkerCluster() {
-    // 创建聚合标记组，配置聚合参数
+    // 创建聚合标记组，使用简化配置
     this.markerClusterGroup = L.markerClusterGroup({
-      // 聚合距离（像素）
-      maxClusterRadius: 80,
-      // 禁用聚合的最大缩放级别
-      disableClusteringAtZoom: 10,
-      // 聚合动画
-      animate: true,
-      animateAddingMarkers: true,
-      // 聚合标记样式函数
+      maxClusterRadius: 60,
+      disableClusteringAtZoom: 12,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      // 简化的图标创建函数
       iconCreateFunction: (cluster) => {
         const childCount = cluster.getChildCount();
-        let className = 'marker-cluster ';
+        let size = 40;
+        let className = 'marker-cluster marker-cluster-small';
         
-        // 根据聚合数量设置不同样式
-        if (childCount < 5) {
-          className += 'marker-cluster-small';
-        } else if (childCount < 15) {
-          className += 'marker-cluster-medium';
-        } else {
-          className += 'marker-cluster-large';
+        if (childCount >= 10) {
+          size = 60;
+          className = 'marker-cluster marker-cluster-large';
+        } else if (childCount >= 5) {
+          size = 50;
+          className = 'marker-cluster marker-cluster-medium';
         }
         
-        const icon = new L.DivIcon({
+        return L.divIcon({
           html: `<div><span>${childCount}</span></div>`,
           className: className,
-          iconSize: new L.Point(40, 40)
+          iconSize: [size, size],
+          iconAnchor: [size/2, size/2],
+          popupAnchor: [0, -size/2]
         });
-        
-        // 为聚合标记添加悬停提示
-        setTimeout(() => {
-          this.addClusterTooltip(cluster, childCount);
-        }, 100);
-        
-        return icon;
-      },
-      // 聚合标记点击事件
-      spiderfyOnMaxZoom: true, // 在最大缩放时展开蜘蛛腿
-      showCoverageOnHover: false, // 悬停时不显示覆盖范围
-      zoomToBoundsOnClick: true, // 点击时缩放到边界
-      // 自定义展开动画
-      spiderfyDistanceMultiplier: 1.5,
-      // 聚合标记的HTML模板
-      polygonOptions: {
-        fillColor: 'rgba(100, 181, 246, 0.2)',
-        color: 'rgba(100, 181, 246, 0.6)',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.5
       }
     });
 
@@ -166,12 +145,15 @@ class TravelExplorationMap {
 
   // 设置聚合事件
   setupClusterEvents() {
-    // 聚合标记创建时的动画
+    // 聚合标记创建时的动画和工具提示
     this.markerClusterGroup.on('clustercreate', (event) => {
       const cluster = event.layer;
       const element = cluster.getElement();
       
       if (element) {
+        // 添加工具提示
+        this.addClusterTooltip(cluster, cluster.getChildCount());
+        
         // 添加出现动画
         element.style.opacity = '0';
         element.style.transform = 'scale(0.3)';
@@ -266,11 +248,25 @@ class TravelExplorationMap {
   // 添加目的地标记
   addDestinationMarkers() {
     destinationsData.forEach(destination => {
-      // 创建自定义标记图标
-      const customIcon = this.createLeafletIcon(destination);
+      // 验证坐标是否在中国范围内
+      const lng = destination.coordinates[0]; // 经度
+      const lat = destination.coordinates[1]; // 纬度
       
-      // 创建标记
-      const marker = L.marker([destination.coordinates[1], destination.coordinates[0]], {
+      // 中国大陆的大致边界范围
+      const chinaLngRange = [73.66, 135.05]; // 经度范围
+      const chinaLatRange = [18.16, 53.55];  // 纬度范围
+      
+      if (lng < chinaLngRange[0] || lng > chinaLngRange[1] || 
+          lat < chinaLatRange[0] || lat > chinaLatRange[1]) {
+        console.warn(`坐标超出中国范围: ${destination.name} [${lng}, ${lat}]`);
+        return; // 跳过这个标记
+      }
+      
+      // 创建简化的自定义标记图标
+      const customIcon = this.createSimpleIcon(destination);
+      
+      // 创建标记 (Leaflet需要[纬度,经度]格式，我们的数据是[经度,纬度])
+      const marker = L.marker([lat, lng], {
         icon: customIcon
       });
 
@@ -288,7 +284,7 @@ class TravelExplorationMap {
         className: 'custom-tooltip'
       });
 
-      // 添加标记到聚合组而不是直接到地图
+      // 添加标记到聚合组
       this.markerClusterGroup.addLayer(marker);
 
       // 保存标记引用
@@ -300,7 +296,32 @@ class TravelExplorationMap {
     });
   }
 
-  // 创建Leaflet自定义图标
+  // 创建简化的自定义图标
+  createSimpleIcon(destination) {
+    const color = categoryColors[destination.category];
+    
+    // 使用简单的HTML + CSS 圆形图标
+    const iconHtml = `
+      <div style="
+        width: 20px;
+        height: 20px;
+        background: ${color};
+        border: 2px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>
+    `;
+
+    return L.divIcon({
+      html: iconHtml,
+      className: 'simple-marker',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      popupAnchor: [0, -10]
+    });
+  }
+
+  // 创建Leaflet自定义图标 (备用)
   createLeafletIcon(destination) {
     const color = categoryColors[destination.category];
     
@@ -956,7 +977,7 @@ class TravelExplorationMap {
       if (!e.target.closest('.search-container')) {
         this.hideSearchResults();
       }
-    });
+    })
     
     // 键盘导航
     searchInput.addEventListener('keydown', (e) => {

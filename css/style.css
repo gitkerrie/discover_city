@@ -1523,10 +1523,15 @@ body {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
 }
 
 .marker-cluster:hover {
-  transform: scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
   background: linear-gradient(135deg, rgba(100, 181, 246, 1) 0%, rgba(66, 165, 245, 1) 100%);
 }
