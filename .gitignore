@@ -76,3 +76,5 @@ __pycache__/
 # 项目特定的忽略文件
 # 如果有本地配置文件可以添加到这里
 # local-config.js
+
+.vercel

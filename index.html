@@ -3,199 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>动态探索地图 - 发现冷门旅行目的地</title>
-  
-  <!-- Leaflet 地图库 -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta name="description" content="在中国地图上探索 12 座美食城市，收藏想去的地方，发现每座城市的招牌味道。">
+  <meta name="theme-color" content="#171713">
+  <title>寻味中国 - 中国美食探索地图</title>
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
-  
-  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  
-  <!-- 字体图标 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- 主容器 -->
-  <div class="app-container">
-    
-    <!-- 头部标题 -->
-    <header class="app-header">
-      <h1 class="app-title">
-        <i class="fas fa-map-marked-alt"></i>
-        探索地图
-      </h1>
-      <p class="app-subtitle">发现国内冷门特色旅行目的地</p>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="返回寻味中国地图首页">
+        <span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-bowl-food"></i></span>
+        <span class="brand-copy">
+          <strong>寻味中国</strong>
+          <small>12 座城市，一张好吃的地图</small>
+        </span>
+      </a>
+
+      <div class="search" id="searchContainer">
+        <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <label class="sr-only" for="searchInput">搜索城市或招牌美食</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="搜索城市或招牌美食" aria-controls="searchResults" aria-expanded="false">
+        <button class="icon-btn search-clear" id="searchClear" type="button" aria-label="清空搜索" title="清空搜索">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div class="search-results" id="searchResults" role="listbox" aria-label="搜索结果"></div>
+      </div>
+
+      <button class="favorites-trigger" id="favoritesBtn" type="button" aria-label="打开我的想吃清单">
+        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+        <span class="favorites-label">想吃清单</span>
+        <span class="favorites-count" aria-label="收藏数量">0</span>
+      </button>
     </header>
 
-    <!-- 搜索框 -->
-    <div class="search-container">
-      <div class="search-box">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="搜索目的地...">
-        <button class="search-clear" id="searchClear">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="search-results" id="searchResults"></div>
-    </div>
+    <main class="map-stage">
+      <div id="map" class="map" aria-label="中国美食城市地图"></div>
 
-    <!-- 兴趣标签筛选 -->
-    <div class="filter-tags">
-      <button class="tag-btn active" data-category="all">
-        <i class="fas fa-globe"></i>
-        全部
-      </button>
-      <button class="tag-btn" data-category="food">
-        <i class="fas fa-utensils"></i>
-        美食
-      </button>
-      <button class="tag-btn" data-category="culture">
-        <i class="fas fa-landmark"></i>
-        文化
-      </button>
-      <button class="tag-btn" data-category="nature">
-        <i class="fas fa-mountain"></i>
-        自然
-      </button>
-    </div>
-
-    <!-- 地图容器 -->
-    <div id="map" class="map-container">
-      <!-- 沉浸式背景层 -->
-      <div class="immersive-background" id="immersiveBackground">
-        <div class="background-image" id="backgroundImage"></div>
-        <div class="background-overlay"></div>
-      </div>
-    </div>
-
-    <!-- 收藏按钮 -->
-    <button class="favorites-btn" id="favoritesBtn">
-      <i class="fas fa-heart"></i>
-      <span class="favorites-count">0</span>
-    </button>
-
-    <!-- 沉浸式灵感卡片 -->
-    <div class="immersive-card-modal" id="cardModal">
-      <div class="immersive-card" id="immersiveCard">
-        <button class="card-close" id="cardClose">
-          <i class="fas fa-times"></i>
-        </button>
-        
-        <div class="card-image">
-          <div class="image-carousel" id="imageCarousel">
-            <div class="carousel-container">
-              <div class="carousel-track" id="carouselTrack">
-                <!-- 图片将动态插入这里 -->
-              </div>
-            </div>
-            <button class="carousel-btn carousel-prev" id="carouselPrev">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn carousel-next" id="carouselNext">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-indicators" id="carouselIndicators">
-              <!-- 指示器将动态插入这里 -->
-            </div>
-          </div>
-          <div class="card-category" id="cardCategory"></div>
+      <section class="map-intro" aria-labelledby="mapIntroTitle">
+        <span class="eyebrow">中国美食探索地图</span>
+        <h1 id="mapIntroTitle">顺着味道，认识一座城</h1>
+        <p>点击地图上的城市，从一碗面、一笼点心或一锅热汤开始。</p>
+        <div class="map-stats" aria-label="地图数据概览">
+          <span><strong>12</strong> 座城市</span>
+          <span><strong>48</strong> 道招牌味道</span>
         </div>
-        
-        <div class="card-content">
-          <h3 class="card-title" id="cardTitle"></h3>
-          <p class="card-description" id="cardDescription"></p>
-          
-          <div class="card-tags" id="cardTags">
-            <!-- 动态生成标签 -->
+      </section>
+
+      <nav class="city-index" aria-label="首发美食城市">
+        <span class="city-index-title">城市索引</span>
+        <div class="city-index-list" id="cityIndex"></div>
+      </nav>
+
+      <div class="map-key" aria-hidden="true">
+        <span><i class="key-dot classic"></i>经典城市</span>
+        <span><i class="key-dot hidden-gem"></i>宝藏城市</span>
+      </div>
+    </main>
+
+    <button class="drawer-backdrop" id="drawerBackdrop" type="button" aria-label="关闭城市详情"></button>
+
+    <aside class="city-drawer" id="cityDrawer" role="dialog" aria-modal="false" aria-labelledby="cityName" aria-hidden="true">
+      <button class="icon-btn drawer-close" id="drawerClose" type="button" aria-label="关闭城市详情" title="关闭">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <div class="drawer-scroll">
+        <figure class="city-visual" id="cityVisual">
+          <img id="cityImage" src="" alt="">
+          <figcaption class="image-credit">
+            图片许可见 <a href="assets/cities/SOURCES.md" target="_blank" rel="noopener">来源说明</a>
+          </figcaption>
+        </figure>
+
+        <div class="city-content">
+          <div class="city-heading">
+            <span class="city-group" id="cityGroup"></span>
+            <span class="city-province" id="cityProvince"></span>
+            <h2 id="cityName"></h2>
+            <p class="city-tagline" id="cityTagline"></p>
           </div>
-          
-          <div class="card-actions">
-            <button class="favorite-btn" id="favoriteBtn">
-              <i class="far fa-heart"></i>
-              <span>收藏</span>
-            </button>
-            <button class="share-btn">
-              <i class="fas fa-share-alt"></i>
-              分享
-            </button>
-            <button class="explore-btn">
-              <i class="fas fa-compass"></i>
-              探索更多
-            </button>
-          </div>
+
+          <div class="flavor-tags" id="flavorTags" aria-label="风味标签"></div>
+          <p class="city-description" id="cityDescription"></p>
+
+          <section class="dish-section" aria-labelledby="dishTitle">
+            <div class="section-heading">
+              <span>01</span>
+              <h3 id="dishTitle">招牌味道</h3>
+            </div>
+            <ol class="dish-list" id="dishList"></ol>
+          </section>
+
+          <section class="food-tip" aria-labelledby="tipTitle">
+            <div class="section-heading">
+              <span>02</span>
+              <h3 id="tipTitle">怎么吃更对味</h3>
+            </div>
+            <p id="cityTip"></p>
+          </section>
         </div>
       </div>
-    </div>
 
-    <!-- 收藏清单弹窗 -->
-    <div class="favorites-modal" id="favoritesModal">
-      <div class="favorites-content">
-        <div class="favorites-header">
-          <h3>
-            <i class="fas fa-heart"></i>
-            我的想去清单
-          </h3>
-          <button class="favorites-close" id="favoritesClose">
-            <i class="fas fa-times"></i>
+      <div class="drawer-actions">
+        <button class="command-btn favorite-action" id="favoriteBtn" type="button">
+          <i class="fa-regular fa-heart" aria-hidden="true"></i>
+          <span>加入想吃清单</span>
+        </button>
+        <button class="command-btn share-action" id="shareBtn" type="button">
+          <i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i>
+          <span>分享城市</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="modal" id="favoritesModal" role="dialog" aria-modal="true" aria-labelledby="favoritesTitle" aria-hidden="true">
+      <button class="modal-backdrop" id="favoritesBackdrop" type="button" aria-label="关闭想吃清单"></button>
+      <section class="favorites-panel">
+        <header class="favorites-header">
+          <div>
+            <span class="eyebrow">MY FOOD MAP</span>
+            <h2 id="favoritesTitle">我的想吃清单</h2>
+          </div>
+          <button class="icon-btn" id="favoritesClose" type="button" aria-label="关闭想吃清单" title="关闭">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
-        </div>
-        
-        <div class="favorites-list" id="favoritesList">
-          <div class="empty-favorites">
-            <i class="far fa-heart"></i>
-            <p>还没有收藏任何目的地</p>
-            <p>快去地图上探索吧！</p>
-          </div>
-        </div>
-      </div>
+        </header>
+        <div class="favorites-list" id="favoritesList"></div>
+      </section>
     </div>
 
-    <!-- 主加载动画 -->
-    <div class="loading" id="loading">
-      <div class="loading-content">
-        <div class="loading-logo">
-          <i class="fas fa-map-marked-alt"></i>
-        </div>
-        <div class="loading-spinner-container">
-          <div class="loading-spinner"></div>
-          <div class="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-        <p class="loading-text" id="loadingText">正在加载地图...</p>
-        <div class="loading-progress">
-          <div class="loading-progress-bar" id="loadingProgressBar"></div>
-        </div>
-      </div>
-    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- 图片加载指示器 -->
-    <div class="image-loading-overlay" id="imageLoadingOverlay">
-      <div class="image-loading-spinner">
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-      </div>
+    <div class="loading" id="loading" role="status" aria-live="polite">
+      <span class="loading-mark"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i></span>
+      <span>正在铺开美食地图</span>
     </div>
-
-    <!-- 错误提示 -->
-    <div class="error-toast" id="errorToast">
-      <div class="error-content">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span class="error-message" id="errorMessage">网络连接异常，请稍后重试</span>
-        <button class="error-close" id="errorClose">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
-
   </div>
 
-  <!-- JavaScript 文件 -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>

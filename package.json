@@ -1,22 +1,20 @@
 {
-  "name": "travel-exploration-map",
-  "version": "1.0.0",
-  "description": "动态探索地图 - 发现国内冷门特色旅行目的地",
+  "name": "discover-china-food",
+  "version": "2.0.0",
+  "description": "寻味中国 - 中国美食探索地图",
   "main": "index.html",
   "scripts": {
-    "start": "python -m http.server 8000",
-    "dev": "python -m http.server 8000"
+    "start": "node scripts/server.js",
+    "dev": "node scripts/server.js",
+    "check": "node --check js/data.js && node --check js/app.js && node --check scripts/server.js && node scripts/validate-data.js && node scripts/test-app.js"
   },
   "keywords": [
-    "travel",
+    "food",
     "map",
     "exploration",
     "china",
-    "tourism"
+    "cuisine"
   ],
-  "author": "Travel Explorer",
-  "license": "MIT",
-  "dependencies": {
-    "mapbox-gl": "^2.15.0"
-  }
+  "author": "Discover China Food",
+  "license": "MIT"
 }

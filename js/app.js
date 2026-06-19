@@ -1,1098 +1,622 @@
-// 应用主逻辑
-class TravelExplorationMap {
+// 中国美食探索地图交互逻辑。
+class FoodMapApp {
   constructor() {
+    this.cities = foodCitiesData;
     this.map = null;
-    this.markers = [];
-    this.markerClusterGroup = null; // 聚合标记组
-    this.currentCategory = 'all';
-    this.favorites = this.loadFavorites();
-    this.currentDestination = null;
-    this.searchResults = [];
-    this.isSearching = false;
-    this.currentImageIndex = 0;
-    this.currentImages = [];
-    this.loadingProgress = 0;
-    this.loadingSteps = ['初始化应用...', '加载地图数据...', '准备景点信息...', '完成加载！'];
-    this.currentStep = 0;
-    
-    this.init();
+    this.markers = new Map();
+    this.currentCity = null;
+    this.lastTrigger = null;
+    this.toastTimer = null;
+    this.tileErrorShown = false;
+    this.favoriteSlugs = this.loadFavorites();
+
+    this.cacheElements();
+    this.renderCityIndex();
+    this.bindEvents();
+    this.updateFavoritesCount();
+    this.initMap();
   }
 
-  // 初始化应用
-  async init() {
-    try {
-      this.updateLoadingProgress(0, '初始化应用...');
-      
-      await this.sleep(500); // 模拟初始化时间
-      this.updateLoadingProgress(25, '加载地图数据...');
-      
-      await this.initMap();
-      this.updateLoadingProgress(60, '准备景点信息...');
-      
-      await this.sleep(300);
-      this.bindEvents();
-      this.updateFavoritesCount();
-      this.updateLoadingProgress(100, '完成加载！');
-      
-      await this.sleep(500);
-      this.hideLoading();
-    } catch (error) {
-      this.showError('应用初始化失败，请刷新页面重试');
-      console.error('Initialization error:', error);
-    }
+  cacheElements() {
+    this.elements = {
+      loading: document.getElementById('loading'),
+      searchContainer: document.getElementById('searchContainer'),
+      searchInput: document.getElementById('searchInput'),
+      searchClear: document.getElementById('searchClear'),
+      searchResults: document.getElementById('searchResults'),
+      cityIndex: document.getElementById('cityIndex'),
+      cityDrawer: document.getElementById('cityDrawer'),
+      drawerBackdrop: document.getElementById('drawerBackdrop'),
+      drawerClose: document.getElementById('drawerClose'),
+      cityVisual: document.getElementById('cityVisual'),
+      cityImage: document.getElementById('cityImage'),
+      cityGroup: document.getElementById('cityGroup'),
+      cityProvince: document.getElementById('cityProvince'),
+      cityName: document.getElementById('cityName'),
+      cityTagline: document.getElementById('cityTagline'),
+      flavorTags: document.getElementById('flavorTags'),
+      cityDescription: document.getElementById('cityDescription'),
+      dishList: document.getElementById('dishList'),
+      cityTip: document.getElementById('cityTip'),
+      favoriteBtn: document.getElementById('favoriteBtn'),
+      shareBtn: document.getElementById('shareBtn'),
+      favoritesBtn: document.getElementById('favoritesBtn'),
+      favoritesCount: document.querySelector('.favorites-count'),
+      favoritesModal: document.getElementById('favoritesModal'),
+      favoritesBackdrop: document.getElementById('favoritesBackdrop'),
+      favoritesClose: document.getElementById('favoritesClose'),
+      favoritesList: document.getElementById('favoritesList'),
+      toast: document.getElementById('toast')
+    };
   }
 
-  // 初始化地图
   initMap() {
-    // 使用Leaflet + OpenStreetMap
-    this.initLeafletMap();
-  }
-
-  // 初始化Leaflet地图
-  initLeafletMap() {
-    // 检查地图容器是否已经初始化，如果是则清理
-    const mapContainer = document.getElementById('map');
-    if (mapContainer._leaflet_id) {
-      // 清理已存在的地图实例
-      mapContainer._leaflet_id = null;
-      mapContainer.innerHTML = '';
+    if (typeof L === 'undefined') {
+      this.hideLoading();
+      this.showToast('地图资源加载失败，请检查网络后刷新');
+      return;
     }
 
-    // 中国边界范围
-    const chinaBounds = [
-      [18.16, 73.50], // 西南角
-      [53.56, 135.05] // 东北角
-    ];
+    const chinaBounds = [[18.1, 73.4], [53.6, 135.1]];
 
-    // 创建地图实例，限制在中国范围内
     this.map = L.map('map', {
-      center: [35.8617, 104.1954], // 中国中心位置
+      center: [35.8, 103.8],
       zoom: 5,
       minZoom: 4,
-      maxZoom: 12,
-      zoomControl: true,
-      attributionControl: false, // 关闭默认版权信息
-      maxBounds: chinaBounds, // 限制地图边界
-      maxBoundsViscosity: 1.0 // 边界粘性，防止拖拽出边界
+      maxZoom: 11,
+      zoomControl: false,
+      attributionControl: false,
+      maxBounds: chinaBounds,
+      maxBoundsViscosity: 0.85
     });
 
-    // 使用中文地图瓦片（高德地图样式，无需API Key）
-    const chineseMapLayer = L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
-      attribution: '© 高德地图',
-      subdomains: '1234',
-      maxZoom: 18
+    L.control.zoom({ position: 'bottomleft' }).addTo(this.map);
+
+    const tileLayer = L.tileLayer(
+      'https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+      {
+        subdomains: '1234',
+        maxZoom: 18,
+        attribution: '高德地图'
+      }
+    );
+
+    tileLayer.on('tileerror', () => {
+      if (!this.tileErrorShown) {
+        this.tileErrorShown = true;
+        this.showToast('部分地图瓦片未能加载，请检查网络');
+      }
     });
 
-    // 添加中文地图图层
-    chineseMapLayer.addTo(this.map);
+    tileLayer.addTo(this.map);
+    L.control.attribution({ position: 'bottomright', prefix: false })
+      .addAttribution('高德地图 · 寻味中国')
+      .addTo(this.map);
 
-    // 添加自定义版权信息
-    L.control.attribution({
-      position: 'bottomright',
-      prefix: false
-    }).addAttribution('© 高德地图 | 探索地图').addTo(this.map);
+    this.addMarkers();
+    this.map.fitBounds(chinaBounds, { padding: [24, 24] });
 
-    // 设置地图初始视图为中国
-    this.map.fitBounds(chinaBounds);
-
-    // 地图加载完成后添加标记
     this.map.whenReady(() => {
-      this.initMarkerCluster();
-      this.addDestinationMarkers();
-      this.setupMapInteractions();
+      this.hideLoading();
+      this.syncFromHash();
     });
   }
 
-  // 初始化标记组（不使用聚合）
-  initMarkerCluster() {
-    // 创建普通的图层组来管理标记
-    this.markerClusterGroup = L.layerGroup();
-    
-    // 将标记组添加到地图
-    this.map.addLayer(this.markerClusterGroup);
-  }
-
-
-  // 添加目的地标记
-  addDestinationMarkers() {
-    destinationsData.forEach(destination => {
-      // 验证坐标是否在中国范围内
-      const lng = destination.coordinates[0]; // 经度
-      const lat = destination.coordinates[1]; // 纬度
-      
-      // 中国大陆的大致边界范围
-      const chinaLngRange = [73.66, 135.05]; // 经度范围
-      const chinaLatRange = [18.16, 53.55];  // 纬度范围
-      
-      if (lng < chinaLngRange[0] || lng > chinaLngRange[1] || 
-          lat < chinaLatRange[0] || lat > chinaLatRange[1]) {
-        console.warn(`坐标超出中国范围: ${destination.name} [${lng}, ${lat}]`);
-        return; // 跳过这个标记
-      }
-      
-      // 创建简化的自定义标记图标
-      const customIcon = this.createSimpleIcon(destination);
-      
-      // 创建标记 (Leaflet需要[纬度,经度]格式，我们的数据是[经度,纬度])
-      const marker = L.marker([lat, lng], {
-        icon: customIcon
+  addMarkers() {
+    this.cities.forEach(city => {
+      const marker = L.marker([city.coordinates[1], city.coordinates[0]], {
+        icon: this.createMarkerIcon(city, false),
+        title: `${city.name} · ${city.tagline}`,
+        alt: `${city.name}美食城市标记`,
+        riseOnHover: true
       });
 
-      // 添加点击事件
-      marker.on('click', () => {
-        this.showDestinationCard(destination);
-        this.flyToDestination(destination.coordinates);
+      marker.on('click', event => {
+        this.lastTrigger = event.originalEvent?.target || null;
+        this.selectCity(city, { updateHash: true });
       });
 
-      // 添加悬停提示（中文标签）
-      marker.bindTooltip(destination.name, {
-        permanent: false,
+      marker.bindTooltip(`${city.name} · ${city.dishes[0].name}`, {
         direction: 'top',
-        offset: [0, -20],
-        className: 'custom-tooltip'
+        offset: [0, -18],
+        className: 'city-tooltip'
       });
 
-      // 添加标记到图层组
-      this.markerClusterGroup.addLayer(marker);
+      marker.addTo(this.map);
+      this.markers.set(city.slug, marker);
+    });
+  }
 
-      // 保存标记引用
-      this.markers.push({
-        marker: marker,
-        destination: destination,
-        element: null // 聚合标记的element会动态变化
+  createMarkerIcon(city, selected) {
+    const groupClass = city.group === '经典' ? 'classic' : 'hidden-gem';
+    const selectedClass = selected ? ' is-selected' : '';
+
+    return L.divIcon({
+      className: 'city-marker-shell',
+      html: `
+        <span class="city-marker ${groupClass}${selectedClass}">
+          <i class="marker-pulse"></i>
+          <i class="marker-core"></i>
+          <span class="marker-label">${city.name}</span>
+        </span>
+      `,
+      iconSize: [40, 40],
+      iconAnchor: [20, 20]
+    });
+  }
+
+  renderCityIndex() {
+    const fragment = document.createDocumentFragment();
+
+    this.cities.forEach((city, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'city-index-btn';
+      button.dataset.slug = city.slug;
+      button.innerHTML = `<span>${String(index + 1).padStart(2, '0')}</span>${city.name}`;
+      button.addEventListener('click', event => {
+        this.lastTrigger = event.currentTarget;
+        this.selectCity(city, { updateHash: true });
       });
+      fragment.appendChild(button);
     });
+
+    this.elements.cityIndex.replaceChildren(fragment);
   }
 
-  // 创建简化的自定义图标
-  createSimpleIcon(destination) {
-    const color = categoryColors[destination.category];
-    
-    // 使用简单的HTML + CSS 圆形图标
-    const iconHtml = `
-      <div style="
-        width: 20px;
-        height: 20px;
-        background: ${color};
-        border: 2px solid white;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      "></div>
-    `;
+  selectCity(city, { updateHash = false } = {}) {
+    if (!city) return;
 
-    return L.divIcon({
-      html: iconHtml,
-      className: 'simple-marker',
-      iconSize: [20, 20],
-      iconAnchor: [10, 10],
-      popupAnchor: [0, -10]
-    });
-  }
+    this.currentCity = city;
+    this.populateDrawer(city);
+    this.updateSelectedCity(city.slug);
+    this.elements.cityDrawer.classList.add('is-open');
+    this.elements.drawerBackdrop.classList.add('is-visible');
+    this.elements.cityDrawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('drawer-open');
 
-  // 创建Leaflet自定义图标 (备用)
-  createLeafletIcon(destination) {
-    const color = categoryColors[destination.category];
-    
-    // 创建SVG图标
-    const svgIcon = `
-      <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge> 
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        <circle cx="15" cy="15" r="8" fill="${color}" stroke="rgba(255,255,255,0.8)" stroke-width="2" filter="url(#glow)"/>
-        <circle cx="15" cy="15" r="12" fill="none" stroke="${color}" stroke-width="1" opacity="0.5">
-          <animate attributeName="r" values="8;15;8" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
-        </circle>
-      </svg>
-    `;
+    if (this.map) {
+      const targetZoom = window.matchMedia('(max-width: 760px)').matches ? 6 : 7;
+      this.map.flyTo([city.coordinates[1], city.coordinates[0]], targetZoom, {
+        duration: 0.8
+      });
+    }
 
-    return L.divIcon({
-      html: svgIcon,
-      className: 'custom-leaflet-marker',
-      iconSize: [30, 30],
-      iconAnchor: [15, 15],
-      popupAnchor: [0, -15]
-    });
-  }
-
-  // 创建简化的标记元素
-  createSimpleMarkerElement(destination) {
-    const element = document.createElement('div');
-    element.className = `destination-point category-${destination.category}`;
-    element.style.cssText = `
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: ${categoryColors[destination.category]};
-      border: 3px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translate(-50%, -50%);
-      z-index: 100;
-    `;
-
-    // 添加脉冲效果
-    const pulse = document.createElement('div');
-    pulse.style.cssText = `
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: ${categoryColors[destination.category]};
-      opacity: 0.6;
-      animation: pulse 2s infinite;
-      pointer-events: none;
-      z-index: -1;
-    `;
-    element.appendChild(pulse);
-
-    // 悬停效果
-    element.addEventListener('mouseenter', () => {
-      element.style.transform = 'translate(-50%, -50%) scale(1.3)';
-      element.style.zIndex = '1000';
-    });
-
-    element.addEventListener('mouseleave', () => {
-      element.style.transform = 'translate(-50%, -50%) scale(1)';
-      element.style.zIndex = '100';
-    });
-
-    return element;
-  }
-
-  // 创建自定义标记元素（保留原方法以防需要）
-  createMarkerElement(destination) {
-    const element = document.createElement('div');
-    element.className = 'custom-marker';
-    element.style.cssText = `
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: ${categoryColors[destination.category]};
-      border: 3px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    `;
-
-    // 添加脉冲效果
-    const pulse = document.createElement('div');
-    pulse.style.cssText = `
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: ${categoryColors[destination.category]};
-      opacity: 0.6;
-      animation: pulse 2s infinite;
-    `;
-    element.appendChild(pulse);
-
-    // 悬停效果
-    element.addEventListener('mouseenter', () => {
-      element.style.transform = 'scale(1.3)';
-      element.style.zIndex = '1000';
-    });
-
-    element.addEventListener('mouseleave', () => {
-      element.style.transform = 'scale(1)';
-      element.style.zIndex = 'auto';
-    });
-
-    return element;
-  }
-
-  // 设置地图交互
-  setupMapInteractions() {
-    // 地图点击时关闭卡片
-    this.map.on('click', (e) => {
-      // 检查是否点击在标记上
-      if (!e.originalEvent.target.closest('.custom-leaflet-marker')) {
-        this.hideDestinationCard();
+    if (updateHash) {
+      const nextHash = `#city=${city.slug}`;
+      if (window.location.hash !== nextHash) {
+        history.pushState(null, '', nextHash);
       }
-    });
-  }
-
-  // 飞到目的地
-  flyToDestination(coordinates) {
-    // 使用Leaflet的flyTo方法
-    this.map.flyTo([coordinates[1], coordinates[0]], 8, {
-      animate: true,
-      duration: 1.5
-    });
-    
-    // 找到对应的标记并添加高亮效果
-    this.markers.forEach(({ marker, destination, element }) => {
-      if (element) {
-        element.classList.remove('highlighted');
-      }
-      if (destination.coordinates[0] === coordinates[0] && destination.coordinates[1] === coordinates[1]) {
-        if (element) {
-          element.classList.add('highlighted');
-          // 3秒后移除高亮
-          setTimeout(() => {
-            element.classList.remove('highlighted');
-          }, 3000);
-        }
-      }
-    });
-  }
-
-  // 显示目的地卡片（沉浸式模式）
-  showDestinationCard(destination) {
-    this.currentDestination = destination;
-    
-    // 进入沉浸式模式
-    this.enterImmersiveMode(destination);
-    
-    const modal = document.getElementById('cardModal');
-    const category = document.getElementById('cardCategory');
-    const title = document.getElementById('cardTitle');
-    const description = document.getElementById('cardDescription');
-    const tagsContainer = document.getElementById('cardTags');
-    const favoriteBtn = document.getElementById('favoriteBtn');
-
-    // 初始化图片轮播
-    this.initImageCarousel(destination.images);
-
-    // 设置卡片内容
-    category.textContent = categoryMap[destination.category];
-    category.style.background = categoryColors[destination.category];
-    title.textContent = destination.name;
-    description.textContent = destination.description;
-
-    // 创建标签
-    tagsContainer.innerHTML = this.generateTags(destination);
-
-    // 更新收藏按钮状态
-    this.updateFavoriteButton(favoriteBtn, destination);
-
-    // 延迟显示模态框以配合背景动画
-    setTimeout(() => {
-      modal.classList.add('show');
-    }, 300);
-  }
-
-  // 进入沉浸式模式
-  enterImmersiveMode(destination) {
-    const mapContainer = document.getElementById('map');
-    const immersiveBackground = document.getElementById('immersiveBackground');
-    const backgroundImage = document.getElementById('backgroundImage');
-    
-    // 添加沉浸式模式类
-    mapContainer.classList.add('immersive-mode');
-    
-    // 设置背景图片（使用第一张图片）
-    const firstImage = destination.images ? destination.images[0] : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
-    backgroundImage.style.backgroundImage = `url(${firstImage})`;
-    
-    // 激活背景层
-    setTimeout(() => {
-      immersiveBackground.classList.add('active');
-    }, 100);
-  }
-
-  // 生成标签HTML
-  generateTags(destination) {
-    const tags = [
-      categoryMap[destination.category],
-      '探索发现',
-      '冷门景点'
-    ];
-    
-    return tags.map(tag => 
-      `<span class="card-tag"># ${tag}</span>`
-    ).join('');
-  }
-
-  // 隐藏目的地卡片
-  hideDestinationCard() {
-    const modal = document.getElementById('cardModal');
-    
-    // 先隐藏卡片
-    modal.classList.remove('show');
-    
-    // 延迟退出沉浸式模式
-    setTimeout(() => {
-      this.exitImmersiveMode();
-    }, 200);
-    
-    this.currentDestination = null;
-  }
-
-  // 退出沉浸式模式
-  exitImmersiveMode() {
-    const mapContainer = document.getElementById('map');
-    const immersiveBackground = document.getElementById('immersiveBackground');
-    
-    // 移除沉浸式模式类
-    mapContainer.classList.remove('immersive-mode');
-    
-    // 隐藏背景层
-    immersiveBackground.classList.remove('active');
-  }
-
-  // 更新收藏按钮状态
-  updateFavoriteButton(button, destination) {
-    const isFavorited = this.favorites.some(fav => fav.id === destination.id);
-    
-    if (isFavorited) {
-      button.classList.add('favorited');
-      button.innerHTML = '<i class="fas fa-heart"></i><span>已收藏</span>';
-    } else {
-      button.classList.remove('favorited');
-      button.innerHTML = '<i class="far fa-heart"></i><span>收藏</span>';
     }
   }
 
-  // 切换收藏状态
-  toggleFavorite(destination) {
-    const index = this.favorites.findIndex(fav => fav.id === destination.id);
-    
-    if (index > -1) {
-      // 取消收藏
-      this.favorites.splice(index, 1);
+  populateDrawer(city) {
+    const { elements } = this;
+
+    elements.cityVisual.classList.remove('image-fallback');
+    elements.cityImage.hidden = false;
+    elements.cityImage.src = city.heroImage;
+    elements.cityImage.alt = city.imageAlt;
+    elements.cityGroup.textContent = city.group === '经典' ? '经典风味' : '宝藏风味';
+    elements.cityGroup.dataset.group = city.group;
+    elements.cityProvince.textContent = city.province;
+    elements.cityName.textContent = city.name;
+    elements.cityTagline.textContent = city.tagline;
+    elements.cityDescription.textContent = city.description;
+    elements.cityTip.textContent = city.tip;
+
+    const tagFragment = document.createDocumentFragment();
+    city.flavorTags.forEach(tag => {
+      const span = document.createElement('span');
+      span.textContent = tag;
+      tagFragment.appendChild(span);
+    });
+    elements.flavorTags.replaceChildren(tagFragment);
+
+    const dishFragment = document.createDocumentFragment();
+    city.dishes.forEach((dish, index) => {
+      const item = document.createElement('li');
+      const number = document.createElement('span');
+      const content = document.createElement('div');
+      const name = document.createElement('h4');
+      const description = document.createElement('p');
+
+      number.textContent = String(index + 1).padStart(2, '0');
+      name.textContent = dish.name;
+      description.textContent = dish.description;
+      content.append(name, description);
+      item.append(number, content);
+      dishFragment.appendChild(item);
+    });
+    elements.dishList.replaceChildren(dishFragment);
+
+    this.updateFavoriteButton();
+    document.querySelector('.drawer-scroll').scrollTop = 0;
+  }
+
+  closeDrawer({ updateHash = true, restoreFocus = true } = {}) {
+    if (!this.currentCity) return;
+
+    this.elements.cityDrawer.classList.remove('is-open');
+    this.elements.drawerBackdrop.classList.remove('is-visible');
+    this.elements.cityDrawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('drawer-open');
+    this.updateSelectedCity(null);
+    this.currentCity = null;
+
+    if (updateHash && window.location.hash.startsWith('#city=')) {
+      history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    }
+
+    if (restoreFocus && this.lastTrigger instanceof HTMLElement) {
+      this.lastTrigger.focus({ preventScroll: true });
+    }
+  }
+
+  updateSelectedCity(slug) {
+    this.markers.forEach((marker, markerSlug) => {
+      const city = this.findCity(markerSlug);
+      marker.setIcon(this.createMarkerIcon(city, markerSlug === slug));
+    });
+
+    document.querySelectorAll('.city-index-btn').forEach(button => {
+      const selected = button.dataset.slug === slug;
+      button.classList.toggle('is-active', selected);
+      button.setAttribute('aria-current', selected ? 'true' : 'false');
+    });
+  }
+
+  searchCities(query) {
+    const term = query.trim().toLocaleLowerCase('zh-CN');
+    if (!term) return [];
+
+    return this.cities.filter(city => {
+      const haystack = [
+        city.name,
+        city.province,
+        city.group,
+        city.tagline,
+        city.description,
+        ...city.flavorTags,
+        ...city.dishes.flatMap(dish => [dish.name, dish.description])
+      ].join(' ').toLocaleLowerCase('zh-CN');
+
+      return haystack.includes(term);
+    });
+  }
+
+  renderSearchResults(query) {
+    const results = this.searchCities(query);
+    const fragment = document.createDocumentFragment();
+
+    if (results.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'search-empty';
+      empty.textContent = '没有找到相关城市或美食';
+      fragment.appendChild(empty);
     } else {
-      // 添加收藏
-      this.favorites.push({
-        id: destination.id,
-        name: destination.name,
-        description: destination.description,
-        image: destination.image,
-        category: destination.category,
-        coordinates: destination.coordinates
+      results.forEach(city => {
+        const button = document.createElement('button');
+        const matchedDishes = city.dishes
+          .filter(dish => dish.name.includes(query.trim()))
+          .map(dish => dish.name);
+
+        button.type = 'button';
+        button.className = 'search-result';
+        button.setAttribute('role', 'option');
+        button.innerHTML = `
+          <img src="${city.heroImage}" alt="">
+          <span class="search-result-copy">
+            <strong>${city.name}<small>${city.province}</small></strong>
+            <span>${matchedDishes.length ? `匹配：${matchedDishes.join('、')}` : city.tagline}</span>
+          </span>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        `;
+        button.addEventListener('click', event => {
+          this.lastTrigger = event.currentTarget;
+          this.selectCity(city, { updateHash: true });
+          this.clearSearch();
+        });
+        fragment.appendChild(button);
       });
+    }
+
+    this.elements.searchResults.replaceChildren(fragment);
+    this.elements.searchResults.classList.add('is-visible');
+    this.elements.searchInput.setAttribute('aria-expanded', 'true');
+  }
+
+  clearSearch() {
+    this.elements.searchInput.value = '';
+    this.elements.searchClear.classList.remove('is-visible');
+    this.closeSearchResults();
+  }
+
+  closeSearchResults() {
+    this.elements.searchResults.classList.remove('is-visible');
+    this.elements.searchInput.setAttribute('aria-expanded', 'false');
+  }
+
+  loadFavorites() {
+    const validSlugs = new Set(this.cities.map(city => city.slug));
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('foodFavoritesV2'));
+      if (Array.isArray(saved)) {
+        return [...new Set(saved.filter(slug => validSlugs.has(slug)))];
+      }
+    } catch (error) {
+      console.warn('无法读取新版收藏数据：', error);
+    }
+
+    const legacyIdMap = {
+      1: 'chaozhou',
+      2: 'liuzhou',
+      3: 'taizhou',
+      5: 'yangzhou'
+    };
+
+    try {
+      const legacyFavorites = JSON.parse(localStorage.getItem('travelFavorites'));
+      if (!Array.isArray(legacyFavorites)) return [];
+
+      const migrated = legacyFavorites
+        .map(favorite => {
+          if (favorite.slug && validSlugs.has(favorite.slug)) return favorite.slug;
+          const cityByName = this.cities.find(city => city.name === favorite.name);
+          return cityByName?.slug || legacyIdMap[favorite.id] || null;
+        })
+        .filter(slug => slug && validSlugs.has(slug));
+
+      const uniqueMigrated = [...new Set(migrated)];
+      localStorage.setItem('foodFavoritesV2', JSON.stringify(uniqueMigrated));
+      localStorage.removeItem('travelFavorites');
+      return uniqueMigrated;
+    } catch (error) {
+      console.warn('无法迁移旧收藏数据：', error);
+      return [];
+    }
+  }
+
+  saveFavorites() {
+    localStorage.setItem('foodFavoritesV2', JSON.stringify(this.favoriteSlugs));
+  }
+
+  toggleFavorite() {
+    if (!this.currentCity) return;
+
+    const slug = this.currentCity.slug;
+    const existingIndex = this.favoriteSlugs.indexOf(slug);
+
+    if (existingIndex >= 0) {
+      this.favoriteSlugs.splice(existingIndex, 1);
+      this.showToast(`已从想吃清单移除${this.currentCity.name}`);
+    } else {
+      this.favoriteSlugs.push(slug);
+      this.showToast(`已把${this.currentCity.name}加入想吃清单`);
     }
 
     this.saveFavorites();
+    this.updateFavoriteButton();
     this.updateFavoritesCount();
-    
-    // 更新当前卡片的收藏按钮
-    if (this.currentDestination && this.currentDestination.id === destination.id) {
-      const favoriteBtn = document.getElementById('favoriteBtn');
-      this.updateFavoriteButton(favoriteBtn, destination);
-    }
   }
 
-  // 筛选目的地
-  filterDestinations(category) {
-    this.currentCategory = category;
-    
-    // 保存当前地图视图状态
-    const currentCenter = this.map.getCenter();
-    const currentZoom = this.map.getZoom();
-    
-    // 清空标记组
-    this.markerClusterGroup.clearLayers();
-    
-    // 添加符合筛选条件的标记到标记组
-    this.markers.forEach(({ marker, destination }) => {
-      if (category === 'all' || destination.category === category) {
-        this.markerClusterGroup.addLayer(marker);
-      }
-    });
-    
-    // 恢复地图视图状态
-    setTimeout(() => {
-      this.map.setView(currentCenter, currentZoom, { animate: false });
-    }, 50);
+  updateFavoriteButton() {
+    if (!this.currentCity) return;
+
+    const favorited = this.favoriteSlugs.includes(this.currentCity.slug);
+    const icon = this.elements.favoriteBtn.querySelector('i');
+    const label = this.elements.favoriteBtn.querySelector('span');
+
+    this.elements.favoriteBtn.classList.toggle('is-favorited', favorited);
+    this.elements.favoriteBtn.setAttribute('aria-pressed', favorited ? 'true' : 'false');
+    icon.className = favorited ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    label.textContent = favorited ? '已加入想吃清单' : '加入想吃清单';
   }
 
-  // 显示收藏清单
-  showFavoritesList() {
-    const modal = document.getElementById('favoritesModal');
-    const list = document.getElementById('favoritesList');
-    
-    if (this.favorites.length === 0) {
-      list.innerHTML = `
-        <div class="empty-favorites">
-          <i class="far fa-heart"></i>
-          <p>还没有收藏任何目的地</p>
-          <p>快去地图上探索吧！</p>
-        </div>
-      `;
-    } else {
-      list.innerHTML = this.favorites.map(fav => `
-        <div class="favorite-item" data-id="${fav.id}">
-          <img src="${fav.image}" alt="${fav.name}">
-          <div class="favorite-item-info">
-            <div class="favorite-item-name">${fav.name}</div>
-            <div class="favorite-item-desc">${fav.description}</div>
-          </div>
-          <button class="remove-favorite" onclick="app.removeFavorite(${fav.id})">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-      `).join('');
-
-      // 为收藏项添加点击事件
-      list.querySelectorAll('.favorite-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          if (e.target.closest('.remove-favorite')) return;
-          
-          const id = parseInt(item.dataset.id);
-          const destination = destinationsData.find(d => d.id === id);
-          if (destination) {
-            this.hideFavoritesList();
-            this.showDestinationCard(destination);
-            this.flyToDestination(destination.coordinates);
-          }
-        });
-      });
-    }
-    
-    modal.classList.add('show');
-  }
-
-  // 隐藏收藏清单
-  hideFavoritesList() {
-    const modal = document.getElementById('favoritesModal');
-    modal.classList.remove('show');
-  }
-
-  // 移除收藏
-  removeFavorite(id) {
-    const index = this.favorites.findIndex(fav => fav.id === id);
-    if (index > -1) {
-      this.favorites.splice(index, 1);
-      this.saveFavorites();
-      this.updateFavoritesCount();
-      this.showFavoritesList(); // 刷新列表
-    }
-  }
-
-  // 更新收藏数量
   updateFavoritesCount() {
-    const countElement = document.querySelector('.favorites-count');
-    countElement.textContent = this.favorites.length;
+    this.elements.favoritesCount.textContent = this.favoriteSlugs.length;
   }
 
-  // 保存收藏到本地存储
-  saveFavorites() {
-    localStorage.setItem('travelFavorites', JSON.stringify(this.favorites));
+  openFavorites() {
+    this.renderFavorites();
+    this.elements.favoritesModal.classList.add('is-open');
+    this.elements.favoritesModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    this.elements.favoritesClose.focus();
   }
 
-  // 从本地存储加载收藏
-  loadFavorites() {
-    const saved = localStorage.getItem('travelFavorites');
-    return saved ? JSON.parse(saved) : [];
+  closeFavorites() {
+    this.elements.favoritesModal.classList.remove('is-open');
+    this.elements.favoritesModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    this.elements.favoritesBtn.focus({ preventScroll: true });
   }
 
-  // 搜索功能
-  searchDestinations(query) {
-    if (!query || query.trim().length < 1) {
-      return [];
-    }
+  renderFavorites() {
+    const favoriteCities = this.favoriteSlugs
+      .map(slug => this.findCity(slug))
+      .filter(Boolean);
+    const fragment = document.createDocumentFragment();
 
-    const searchTerm = query.toLowerCase().trim();
-    return destinationsData.filter(destination => {
-      return (
-        destination.name.toLowerCase().includes(searchTerm) ||
-        destination.description.toLowerCase().includes(searchTerm) ||
-        categoryMap[destination.category].toLowerCase().includes(searchTerm)
-      );
-    });
-  }
-
-  // 显示搜索结果
-  showSearchResults(results) {
-    const searchResults = document.getElementById('searchResults');
-    
-    if (results.length === 0) {
-      searchResults.innerHTML = `
-        <div class="search-result-item">
-          <div class="search-result-info">
-            <div class="search-result-name">未找到相关目的地</div>
-            <div class="search-result-desc">请尝试其他关键词</div>
-          </div>
-        </div>
+    if (favoriteCities.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'favorites-empty';
+      empty.innerHTML = `
+        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+        <h3>清单还是空的</h3>
+        <p>在地图上打开一座城市，把想吃的味道留在这里。</p>
       `;
+      fragment.appendChild(empty);
     } else {
-      searchResults.innerHTML = results.map(destination => {
-        const firstImage = destination.images ? destination.images[0] : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
-        return `
-          <div class="search-result-item" data-id="${destination.id}">
-            <div class="search-result-icon" style="background-image: url(${firstImage})"></div>
-            <div class="search-result-info">
-              <div class="search-result-name">${destination.name}</div>
-              <div class="search-result-desc">${destination.description.substring(0, 40)}...</div>
-            </div>
-            <div class="search-result-category">${categoryMap[destination.category]}</div>
-          </div>
+      favoriteCities.forEach(city => {
+        const item = document.createElement('article');
+        const openButton = document.createElement('button');
+        const removeButton = document.createElement('button');
+
+        item.className = 'favorite-item';
+        openButton.type = 'button';
+        openButton.className = 'favorite-open';
+        openButton.innerHTML = `
+          <img src="${city.heroImage}" alt="">
+          <span>
+            <small>${city.province} · ${city.group}</small>
+            <strong>${city.name}</strong>
+            <em>${city.dishes.map(dish => dish.name).slice(0, 3).join(' · ')}</em>
+          </span>
         `;
-      }).join('');
-
-      // 为搜索结果添加点击事件和进入动画
-      searchResults.querySelectorAll('.search-result-item').forEach((item, index) => {
-        // 添加进入动画
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-20px)';
-        
-        setTimeout(() => {
-          item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-          item.style.opacity = '1';
-          item.style.transform = 'translateX(0)';
-        }, index * 50); // 错开动画时间
-        
-        item.addEventListener('click', () => {
-          const id = parseInt(item.dataset.id);
-          const destination = destinationsData.find(d => d.id === id);
-          if (destination) {
-            // 添加点击反馈动画
-            item.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              this.hideSearchResults();
-              this.showDestinationCard(destination);
-              this.flyToDestination(destination.coordinates);
-            }, 150);
-          }
+        openButton.addEventListener('click', event => {
+          this.closeFavorites();
+          this.lastTrigger = event.currentTarget;
+          this.selectCity(city, { updateHash: true });
         });
-      });
-    }
-    
-    searchResults.classList.add('show');
-  }
 
-  // 隐藏搜索结果
-  hideSearchResults() {
-    const searchResults = document.getElementById('searchResults');
-    searchResults.classList.remove('show');
-  }
-
-  // 清空搜索
-  clearSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchClear = document.getElementById('searchClear');
-    
-    searchInput.value = '';
-    searchClear.classList.remove('show');
-    this.hideSearchResults();
-    this.isSearching = false;
-  }
-
-  // 初始化图片轮播
-  initImageCarousel(images) {
-    this.currentImages = images || [];
-    this.currentImageIndex = 0;
-
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselIndicators = document.getElementById('carouselIndicators');
-
-    // 清空现有内容
-    carouselTrack.innerHTML = '';
-    carouselIndicators.innerHTML = '';
-
-    // 如果没有图片，显示默认图片
-    if (this.currentImages.length === 0) {
-      this.currentImages = ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop'];
-    }
-
-    // 创建图片幻灯片
-    this.currentImages.forEach((image, index) => {
-      const slide = document.createElement('div');
-      slide.className = 'carousel-slide';
-      
-      const img = document.createElement('img');
-      img.src = image;
-      img.alt = `景点图片 ${index + 1}`;
-      img.loading = 'lazy';
-      
-      // 图片加载事件
-      img.addEventListener('load', () => {
-        slide.classList.add('loaded');
-      });
-      
-      img.addEventListener('error', () => {
-        slide.classList.add('error');
-        img.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop';
-        this.showError('图片加载失败，已显示默认图片', 3000);
-      });
-      
-      slide.appendChild(img);
-      carouselTrack.appendChild(slide);
-
-      // 创建指示器
-      const indicator = document.createElement('div');
-      indicator.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
-      indicator.addEventListener('click', () => this.goToSlide(index));
-      carouselIndicators.appendChild(indicator);
-    });
-
-    // 如果只有一张图片，隐藏控制元素
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-    
-    if (this.currentImages.length <= 1) {
-      prevBtn.style.display = 'none';
-      nextBtn.style.display = 'none';
-      carouselIndicators.style.display = 'none';
-    } else {
-      prevBtn.style.display = 'flex';
-      nextBtn.style.display = 'flex';
-      carouselIndicators.style.display = 'flex';
-    }
-
-    // 更新轮播状态
-    this.updateCarousel();
-  }
-
-  // 切换到指定幻灯片
-  goToSlide(index) {
-    if (index < 0 || index >= this.currentImages.length) return;
-    
-    this.currentImageIndex = index;
-    this.updateCarousel();
-  }
-
-  // 上一张图片
-  previousSlide() {
-    const newIndex = this.currentImageIndex === 0 
-      ? this.currentImages.length - 1 
-      : this.currentImageIndex - 1;
-    this.goToSlide(newIndex);
-  }
-
-  // 下一张图片
-  nextSlide() {
-    const newIndex = this.currentImageIndex === this.currentImages.length - 1 
-      ? 0 
-      : this.currentImageIndex + 1;
-    this.goToSlide(newIndex);
-  }
-
-  // 更新轮播显示
-  updateCarousel() {
-    const carouselTrack = document.getElementById('carouselTrack');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-
-    // 移动轮播轨道
-    const translateX = -this.currentImageIndex * 100;
-    carouselTrack.style.transform = `translateX(${translateX}%)`;
-
-    // 更新指示器
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === this.currentImageIndex);
-    });
-
-    // 更新按钮状态（可选：禁用边界按钮）
-    // prevBtn.disabled = this.currentImageIndex === 0;
-    // nextBtn.disabled = this.currentImageIndex === this.currentImages.length - 1;
-  }
-
-  // 绑定事件监听器
-  bindEvents() {
-    // 搜索功能事件
-    const searchInput = document.getElementById('searchInput');
-    const searchClear = document.getElementById('searchClear');
-    
-    let searchTimeout;
-    
-    // 搜索输入事件
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value;
-      
-      // 显示/隐藏清除按钮
-      if (query.length > 0) {
-        searchClear.classList.add('show');
-      } else {
-        searchClear.classList.remove('show');
-        this.hideSearchResults();
-      }
-      
-      // 防抖搜索
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        if (query.length > 0) {
-          const results = this.searchDestinations(query);
-          this.showSearchResults(results);
-          this.isSearching = true;
-        } else {
-          this.hideSearchResults();
-          this.isSearching = false;
-        }
-      }, 300);
-    });
-    
-    // 清除搜索
-    searchClear.addEventListener('click', () => {
-      this.clearSearch();
-    });
-    
-    // 点击外部隐藏搜索结果
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.search-container')) {
-        this.hideSearchResults();
-      }
-    })
-    
-    // 键盘导航
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.clearSearch();
-      }
-    });
-
-    // 标签筛选按钮
-    document.querySelectorAll('.tag-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // 清空搜索
-        if (this.isSearching) {
-          this.clearSearch();
-        }
-        
-        // 更新按钮状态
-        document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // 筛选目的地
-        const category = btn.dataset.category;
-        this.filterDestinations(category);
-      });
-    });
-
-    // 图片轮播控制
-    document.getElementById('carouselPrev').addEventListener('click', () => {
-      this.previousSlide();
-    });
-
-    document.getElementById('carouselNext').addEventListener('click', () => {
-      this.nextSlide();
-    });
-
-    // 卡片关闭按钮
-    document.getElementById('cardClose').addEventListener('click', () => {
-      this.hideDestinationCard();
-    });
-
-    // 收藏按钮
-    document.getElementById('favoriteBtn').addEventListener('click', (e) => {
-      if (this.currentDestination) {
-        // 添加点击动画效果
-        const btn = e.currentTarget;
-        btn.style.transform = 'scale(0.9)';
-        
-        setTimeout(() => {
-          btn.style.transform = 'scale(1.1)';
-          this.toggleFavorite(this.currentDestination);
-          
-          // 添加心形爆炸效果
-          this.createHeartExplosion(btn);
-          
-          setTimeout(() => {
-            btn.style.transform = '';
-          }, 200);
-        }, 100);
-      }
-    });
-
-    // 收藏清单按钮
-    document.getElementById('favoritesBtn').addEventListener('click', () => {
-      this.showFavoritesList();
-    });
-
-    // 收藏清单关闭按钮
-    document.getElementById('favoritesClose').addEventListener('click', () => {
-      this.hideFavoritesList();
-    });
-
-    // 点击模态框背景关闭
-    document.getElementById('cardModal').addEventListener('click', (e) => {
-      if (e.target.id === 'cardModal') {
-        this.hideDestinationCard();
-      }
-    });
-
-    document.getElementById('favoritesModal').addEventListener('click', (e) => {
-      if (e.target.id === 'favoritesModal') {
-        this.hideFavoritesList();
-      }
-    });
-
-    // ESC 键关闭模态框
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.hideDestinationCard();
-        this.hideFavoritesList();
-      }
-    });
-
-    // 错误提示关闭按钮
-    document.getElementById('errorClose').addEventListener('click', () => {
-      this.hideError();
-    });
-
-    // 分享按钮（示例功能）
-    document.querySelector('.share-btn').addEventListener('click', () => {
-      if (this.currentDestination && navigator.share) {
-        navigator.share({
-          title: `探索${this.currentDestination.name}`,
-          text: this.currentDestination.description,
-          url: window.location.href
-        }).catch(() => {
-          this.showError('分享功能暂不可用', 3000);
+        removeButton.type = 'button';
+        removeButton.className = 'icon-btn favorite-remove';
+        removeButton.setAttribute('aria-label', `从想吃清单移除${city.name}`);
+        removeButton.title = '移除';
+        removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+        removeButton.addEventListener('click', () => {
+          this.favoriteSlugs = this.favoriteSlugs.filter(slug => slug !== city.slug);
+          this.saveFavorites();
+          this.updateFavoritesCount();
+          this.renderFavorites();
         });
-      } else {
-        // 复制链接到剪贴板
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(window.location.href).then(() => {
-            this.showError('链接已复制到剪贴板！', 2000);
-          }).catch(() => {
-            this.showError('复制失败，请手动复制链接', 3000);
-          });
-        } else {
-          this.showError('浏览器不支持复制功能', 3000);
-        }
+
+        item.append(openButton, removeButton);
+        fragment.appendChild(item);
+      });
+    }
+
+    this.elements.favoritesList.replaceChildren(fragment);
+  }
+
+  async shareCurrentCity() {
+    if (!this.currentCity) return;
+
+    const city = this.currentCity;
+    const shareUrl = new URL(window.location.href);
+    shareUrl.hash = `city=${city.slug}`;
+    const shareData = {
+      title: `寻味${city.name} - 寻味中国`,
+      text: `${city.tagline} 招牌味道：${city.dishes.map(dish => dish.name).join('、')}`,
+      url: shareUrl.toString()
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
       }
-    });
-  }
-
-  // 工具方法：延时
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  // 更新加载进度
-  updateLoadingProgress(progress, text) {
-    const progressBar = document.getElementById('loadingProgressBar');
-    const loadingText = document.getElementById('loadingText');
-    
-    if (progressBar) {
-      progressBar.style.width = `${progress}%`;
     }
-    
-    if (loadingText && text) {
-      loadingText.textContent = text;
+
+    try {
+      await navigator.clipboard.writeText(shareData.url);
+      this.showToast('城市链接已复制');
+    } catch (error) {
+      window.prompt('复制这个城市链接：', shareData.url);
     }
-    
-    this.loadingProgress = progress;
   }
 
-  // 隐藏加载动画
+  syncFromHash() {
+    const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const slug = params.get('city');
+    const city = this.findCity(slug);
+
+    if (city) {
+      this.selectCity(city, { updateHash: false });
+    } else if (this.currentCity) {
+      this.closeDrawer({ updateHash: false, restoreFocus: false });
+    }
+  }
+
+  findCity(slug) {
+    return this.cities.find(city => city.slug === slug);
+  }
+
+  showToast(message) {
+    window.clearTimeout(this.toastTimer);
+    this.elements.toast.textContent = message;
+    this.elements.toast.classList.add('is-visible');
+    this.toastTimer = window.setTimeout(() => {
+      this.elements.toast.classList.remove('is-visible');
+    }, 2800);
+  }
+
   hideLoading() {
-    const loading = document.getElementById('loading');
-    loading.classList.add('hidden');
-    setTimeout(() => {
-      loading.style.display = 'none';
-    }, 800);
+    this.elements.loading.classList.add('is-hidden');
+    window.setTimeout(() => this.elements.loading.remove(), 350);
   }
 
-  // 显示图片加载指示器
-  showImageLoading() {
-    const overlay = document.getElementById('imageLoadingOverlay');
-    if (overlay) {
-      overlay.classList.add('show');
-    }
-  }
+  bindEvents() {
+    this.elements.searchInput.addEventListener('input', event => {
+      const query = event.target.value;
+      this.elements.searchClear.classList.toggle('is-visible', Boolean(query));
 
-  // 隐藏图片加载指示器
-  hideImageLoading() {
-    const overlay = document.getElementById('imageLoadingOverlay');
-    if (overlay) {
-      overlay.classList.remove('show');
-    }
-  }
+      if (query.trim()) {
+        this.renderSearchResults(query);
+      } else {
+        this.closeSearchResults();
+      }
+    });
 
-  // 显示错误提示
-  showError(message, duration = 5000) {
-    const errorToast = document.getElementById('errorToast');
-    const errorMessage = document.getElementById('errorMessage');
-    
-    if (errorMessage) {
-      errorMessage.textContent = message;
-    }
-    
-    if (errorToast) {
-      errorToast.classList.add('show');
-      
-      // 自动隐藏
-      setTimeout(() => {
-        this.hideError();
-      }, duration);
-    }
-  }
-
-  // 隐藏错误提示
-  hideError() {
-    const errorToast = document.getElementById('errorToast');
-    if (errorToast) {
-      errorToast.classList.remove('show');
-    }
-  }
-
-  // 创建心形爆炸效果
-  createHeartExplosion(element) {
-    const rect = element.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    // 创建多个心形粒子
-    for (let i = 0; i < 8; i++) {
-      const heart = document.createElement('div');
-      heart.innerHTML = '❤️';
-      heart.style.cssText = `
-        position: fixed;
-        left: ${centerX}px;
-        top: ${centerY}px;
-        font-size: 16px;
-        pointer-events: none;
-        z-index: 9999;
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 1;
-        transform: scale(1);
-      `;
-      
-      document.body.appendChild(heart);
-
-      // 随机方向和距离
-      const angle = (i / 8) * Math.PI * 2;
-      const distance = 80 + Math.random() * 40;
-      const deltaX = Math.cos(angle) * distance;
-      const deltaY = Math.sin(angle) * distance - 50; // 向上偏移
-
-      // 动画效果
-      setTimeout(() => {
-        heart.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.3)`;
-        heart.style.opacity = '0';
-      }, 50);
-
-      // 清理元素
-      setTimeout(() => {
-        if (heart.parentNode) {
-          heart.parentNode.removeChild(heart);
+    this.elements.searchInput.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown') {
+        const firstResult = this.elements.searchResults.querySelector('button');
+        if (firstResult) {
+          event.preventDefault();
+          firstResult.focus();
         }
-      }, 800);
-    }
+      }
+    });
+
+    this.elements.searchClear.addEventListener('click', () => {
+      this.clearSearch();
+      this.elements.searchInput.focus();
+    });
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest('#searchContainer')) this.closeSearchResults();
+    });
+
+    this.elements.drawerClose.addEventListener('click', () => this.closeDrawer());
+    this.elements.drawerBackdrop.addEventListener('click', () => this.closeDrawer());
+    this.elements.favoriteBtn.addEventListener('click', () => this.toggleFavorite());
+    this.elements.shareBtn.addEventListener('click', () => this.shareCurrentCity());
+    this.elements.favoritesBtn.addEventListener('click', () => this.openFavorites());
+    this.elements.favoritesClose.addEventListener('click', () => this.closeFavorites());
+    this.elements.favoritesBackdrop.addEventListener('click', () => this.closeFavorites());
+
+    this.elements.cityImage.addEventListener('load', () => {
+      this.elements.cityImage.hidden = false;
+      this.elements.cityVisual.classList.remove('image-fallback');
+    });
+
+    this.elements.cityImage.addEventListener('error', () => {
+      this.elements.cityImage.hidden = true;
+      this.elements.cityVisual.classList.add('image-fallback');
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+
+      if (this.elements.favoritesModal.classList.contains('is-open')) {
+        this.closeFavorites();
+      } else if (this.elements.searchResults.classList.contains('is-visible')) {
+        this.closeSearchResults();
+        this.elements.searchInput.focus();
+      } else if (this.currentCity) {
+        this.closeDrawer();
+      }
+    });
+
+    window.addEventListener('popstate', () => this.syncFromHash());
+    window.addEventListener('hashchange', () => this.syncFromHash());
   }
 }
 
-// 应用实例
-let app;
-
-// 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', () => {
-  // 如果已有实例，先清理
-  if (app && app.map) {
-    app.map.remove();
-    app = null;
-  }
-  
-  app = new TravelExplorationMap();
-  // 同时设置为全局变量供调试使用
-  window.app = app;
+  window.app = new FoodMapApp();
 });
