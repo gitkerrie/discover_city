@@ -241,3 +241,187 @@ const foodCitiesData = [
     tip: '早茶尽量预留两小时，先干丝与包点，再以面或炒饭收尾。'
   }
 ];
+
+// English copy is keyed by the stable city slug so favorites and deep links stay language-neutral.
+const foodCitiesEnglish = {
+  chengdu: {
+    name: 'Chengdu',
+    province: 'Sichuan',
+    tagline: 'Red chili oil, sweet heat, and a city that turns every meal into a daily ritual.',
+    description: 'Chengdu is about far more than heat. The numbing lift of Sichuan pepper, the aroma of chili oil, and sweet-savory sauces create layers of classic Sichuan flavor. Street snacks and neighborhood restaurants flow into one another, keeping the city delicious from breakfast to late night.',
+    flavorTags: ['Numbing heat', 'Street-snack culture', 'All-day dining'],
+    imageAlt: 'Chengdu-style Zhong Shui Jiao dumplings in red chili oil',
+    dishes: [
+      { name: 'Zhong Shui Jiao', description: 'Thin-skinned pork dumplings dressed with sweet soy sauce and red chili oil.' },
+      { name: 'Dan Dan Noodles', description: 'Fine noodles coated with preserved greens, minced pork, and fragrant chili oil.' },
+      { name: 'Long Chao Shou', description: 'Delicate wontons served either in a clear broth or a vivid red-oil sauce.' },
+      { name: 'Sweet Water Noodles', description: 'Chewy thick noodles with sweet soy, garlic, and a slow-building chili kick.' }
+    ],
+    tip: 'Begin with red-oil wontons in the morning, graze on snacks in the afternoon, and save dinner for a full Sichuan meal.'
+  },
+  xian: {
+    name: "Xi'an",
+    province: 'Shaanxi',
+    tagline: 'Wheat, slow-cooked meat, and warm spices build layer upon layer through the old city.',
+    description: "Xi'an is a food city built on wheat. Flatbreads, noodles, rich broths, and beef or lamb form its backbone. Substantial textures and bright northwestern spices make every meal feel generous and deeply satisfying.",
+    flavorTags: ['Wheat traditions', 'Beef and lamb', 'Bold and hearty'],
+    imageAlt: "Xi'an roujiamo filled with chopped braised pork",
+    dishes: [
+      { name: 'Roujiamo', description: 'A crisp, tender flatbread packed with juicy, long-braised pork.' },
+      { name: 'Lamb Paomo', description: 'Hand-torn bread soaked in lamb broth and served with pickled garlic and chili.' },
+      { name: 'Oil-Splashed Noodles', description: 'Hot oil blooms chili, scallion, and garlic over broad, springy noodles.' },
+      { name: 'Gourd Chicken', description: 'Chicken that is boiled, steamed, then fried for crisp skin and tender meat.' }
+    ],
+    tip: 'Portions are generous, so share with companions if you want to sample several wheat dishes in one day.'
+  },
+  guangzhou: {
+    name: 'Guangzhou',
+    province: 'Guangdong',
+    tagline: 'Dim sum taken slowly, where freshness and exacting technique define everyday Lingnan cooking.',
+    description: 'Guangzhou cooking prizes the natural character of ingredients and precise control of heat. Morning tea folds intricate dim sum into the city rhythm, while roast meats and slow soups reveal a different kind of patience. Freshness here is expressive, never plain.',
+    flavorTags: ['Clean freshness', 'Morning tea', 'Precise technique'],
+    imageAlt: 'A Guangzhou morning-tea table filled with steamed dim sum',
+    dishes: [
+      { name: 'Shrimp Dumplings', description: 'Translucent, supple wrappers hold springy shrimp and showcase a dim sum chef\'s skill.' },
+      { name: 'Char Siu Bao', description: 'Soft steamed buns filled with honeyed barbecue pork in a savory-sweet sauce.' },
+      { name: 'Roast Goose', description: 'Crisp skin, succulent meat, and plum sauce for a bright finish.' },
+      { name: 'Sampan Congee', description: 'Silky rice porridge layered with fish, peanuts, and crisp garnishes.' }
+    ],
+    tip: 'Arrive early for morning tea. Start with steamed baskets, then linger over congee, sweets, and a pot of tea.'
+  },
+  changsha: {
+    name: 'Changsha',
+    province: 'Hunan',
+    tagline: 'Fresh chilies, tangy ferments, and fierce wok heat grow livelier as the night deepens.',
+    description: 'Changsha heat is direct but layered. Fresh chilies bring a bright fragrance, while fermented ingredients and fast, high-heat cooking add depth. From rice noodles to late-night snacks, freshness and intensity shape the city\'s appetite.',
+    flavorTags: ['Fresh chili heat', 'Late-night feasts', 'Wok-fired flavor'],
+    imageAlt: 'Changsha-style black stinky tofu with chili and garlic',
+    dishes: [
+      { name: 'Stinky Tofu', description: 'A crisp black shell gives way to a tender center filled with garlic and chili sauce.' },
+      { name: 'Spicy Crayfish', description: 'Crayfish steeped in chilies, perilla, and spices, made for late-night eating.' },
+      { name: 'Chopped-Chili Fish Head', description: 'Tangy chopped chilies season tender fish and leave a sauce made for noodles.' },
+      { name: 'Sugar-Oil Rice Cakes', description: 'Glutinous rice cakes glazed in caramelized sugar, crisp outside and chewy within.' }
+    ],
+    tip: 'Plan one proper Hunan meal and one late-night feast, with rice noodles and small snacks between them.'
+  },
+  wuhan: {
+    name: 'Wuhan',
+    province: 'Hubei',
+    tagline: 'The city wakes over breakfast, then moves through sesame, river fish, and restorative soups.',
+    description: 'Wuhan begins the day with guozao, its celebrated breakfast ritual. Sesame paste, rice batter, sticky rice, and fish broth fill the morning; later meals turn toward river produce and slow soups. The flavors are honest, sustaining, and full of the city\'s brisk energy.',
+    flavorTags: ['Breakfast ritual', 'Toasted sesame', 'River-city comfort'],
+    imageAlt: 'Wuhan hot dry noodles tossed with sesame paste and scallions',
+    dishes: [
+      { name: 'Hot Dry Noodles', description: 'Springy alkaline noodles coated in sesame paste with crisp pickled beans.' },
+      { name: 'Three-Delicacy Doupi', description: 'A crisp egg-and-bean wrapper filled with sticky rice, pork, and mushrooms.' },
+      { name: 'Fish Broth Rice Noodles', description: 'Fine rice noodles in a peppery fish broth, often paired with a fried dough stick.' },
+      { name: 'Pork Rib and Lotus Root Soup', description: 'Powdery lotus root and tender ribs create a gentle Hubei classic.' }
+    ],
+    tip: 'Treat breakfast as a full itinerary: head out early and order small portions so you can visit several stalls.'
+  },
+  chongqing: {
+    name: 'Chongqing',
+    province: 'Chongqing',
+    tagline: 'Beef tallow bubbles and Sichuan pepper wakes the senses; this mountain city never whispers.',
+    description: 'Chongqing builds its food on numbing heat, but hot pot is only the beginning. Noodles, river dishes, and street snacks all lead with aroma. Sichuan pepper, chilies, and beef tallow keep flavors vivid across the city\'s steep streets.',
+    flavorTags: ['Numbing intensity', 'Rich beef tallow', 'Streetwise spirit'],
+    imageAlt: 'A nine-grid Chongqing hot pot filled with red broth',
+    dishes: [
+      { name: 'Chongqing Hot Pot', description: 'A rich beef-tallow broth for quick-cooking tripe, duck intestine, and vegetables.' },
+      { name: 'Chongqing Xiaomian', description: 'Noodles layered with chili oil, Sichuan pepper, preserved greens, and peanuts.' },
+      { name: 'Chili Chicken', description: 'Crisp morsels of chicken hidden among a fragrant heap of dried chilies.' },
+      { name: 'Hot and Sour Noodles', description: 'Chewy sweet-potato noodles with vinegar, chili, soybeans, and pickled mustard.' }
+    ],
+    tip: 'Start hot pot at a moderate heat level; garlic and sesame oil in the dipping bowl help soften the burn.'
+  },
+  chaozhou: {
+    name: 'Chaozhou',
+    province: 'Guangdong',
+    tagline: 'Pure flavors and aromatic braises meet rice-cake craft and glowing charcoal.',
+    description: 'Chaozhou cooking respects natural flavor while extending it through master stock, fish sauce, and rice-based specialties. Beef is sliced by cut, seafood is served at peak freshness, and humble rice batter becomes a remarkable range of snacks.',
+    flavorTags: ['Pure freshness', 'Rice-cake craft', 'Master-stock aroma'],
+    imageAlt: 'Chaoshan beef-ball rice noodle soup',
+    dishes: [
+      { name: 'Fresh Beef Hot Pot', description: 'Precisely cut beef is swished by the second and paired with nutty satay sauce.' },
+      { name: 'Oyster Omelet', description: 'Sweet oysters and starch batter form crisp edges, brightened with fish sauce.' },
+      { name: 'Master-Stock Goose', description: 'Aromatic soy braise permeates the goose, with liver and web prized separately.' },
+      { name: 'Red Peach Rice Cake', description: 'A peach-shaped rice wrapper encloses sticky rice and savory fillings.' }
+    ],
+    tip: 'Share beef hot pot with a group, explore rice cakes by day, then graze through old-town stalls after dark.'
+  },
+  liuzhou: {
+    name: 'Liuzhou',
+    province: 'Guangxi',
+    tagline: 'Sour, hot, savory, and steaming flavors converge in one audacious bowl of noodles.',
+    description: 'Liuzhou is famous for luosifen, but the deeper story is its culture of pickled flavor. Sour bamboo shoots, beans, wood ear, and chili oil build complexity, while rice noodles and braised snacks carry that bold profile through everyday meals.',
+    flavorTags: ['Sour and fiery', 'Rice-noodle city', 'Night-market energy'],
+    imageAlt: 'Liuzhou luosifen with sour bamboo shoots, tofu skin, and peanuts',
+    dishes: [
+      { name: 'Luosifen', description: 'A savory snail broth with sour bamboo shoots, crisp tofu skin, peanuts, and chili.' },
+      { name: 'Braised Duck Feet', description: 'Fried duck feet soften in a rich braise with snails and sour bamboo shoots.' },
+      { name: 'Liuzhou Filtered Rice Noodles', description: 'Fresh rice batter is filtered into tender noodles with pork and pickled beans.' },
+      { name: 'Savory Glutinous Rice Balls', description: 'Soft rice dumplings enclose a seasoned pork filling.' }
+    ],
+    tip: 'Taste the broth before adding chili, and add sour bamboo shoots gradually until the balance feels right.'
+  },
+  yanji: {
+    name: 'Yanji',
+    province: 'Jilin',
+    tagline: 'Icy noodles and glowing charcoal bring Korean-Chinese traditions together on the border.',
+    description: 'Yanji links northeastern produce with Korean-Chinese culinary traditions. Cold noodles are tangy and refreshing; barbecue and blood sausage are earthy and rich. Kimchi and fermented sauces run through the meal, creating a vivid rhythm between cold and hot.',
+    flavorTags: ['Tangy and cool', 'Charcoal barbecue', 'Fermented depth'],
+    imageAlt: 'Yanji-style cold noodles with beef, egg, and vegetables',
+    dishes: [
+      { name: 'Yanji Cold Noodles', description: 'Chewy buckwheat noodles in an icy sweet-sour broth with beef, egg, and kimchi.' },
+      { name: 'Rice Sausage', description: 'Glutinous rice and seasoned blood are steamed in casing and served with dip.' },
+      { name: 'Charcoal Skewers', description: 'Meat skewers release their fat over charcoal and finish with chili and cumin.' },
+      { name: 'Stone-Pot Bibimbap', description: 'Rice, vegetables, and chili paste are mixed over a crisp layer of scorched rice.' }
+    ],
+    tip: 'Pair icy noodles with hot barbecue; kimchi and small side dishes are commonly replenished.'
+  },
+  taizhou: {
+    name: 'Taizhou',
+    province: 'Zhejiang',
+    tagline: 'Between mountain and sea, chewy rice snacks share the table with vivid seafood.',
+    description: 'Taizhou faces the sea with mountains at its back, combining lively harbor seafood with a broad repertoire of rice and wheat snacks. The cooking is fresh and gently savory-sweet, shaped by ginger, fermented rice, and the daily catch.',
+    flavorTags: ['Mountain and sea', 'Rice-snack variety', 'Home-style seafood'],
+    imageAlt: 'Fanfenyuan, a distinctive rice dish from Taizhou, Zhejiang',
+    dishes: [
+      { name: 'Shibingtong', description: 'A thin pancake wrapped around pork, egg ribbons, noodles, and vegetables.' },
+      { name: 'Ginger Broth Noodles', description: 'A warming ginger broth brings focus to seafood and soft rice noodles.' },
+      { name: 'Mai Xia', description: 'Small pieces of batter are cut into soup, tender and pleasantly chewy.' },
+      { name: 'Home-Style Braised Seafood', description: 'Small local seafood is simply braised with soy and regional seasonings.' }
+    ],
+    tip: 'Each county has its own specialties; organize visits around Jiaojiang, Linhai, and Wenling for an easier pace.'
+  },
+  kashgar: {
+    name: 'Kashgar',
+    province: 'Xinjiang',
+    tagline: 'Tandoor smoke and warm spice meet the bright fruit of the western oases.',
+    description: 'Kashgar meals revolve around wheat, lamb, and seasonal fruit. The tandoor lends food a smoky crust, cumin and onion frame the meat, and carrots or raisins bring a gentle sweetness to rice pilaf.',
+    flavorTags: ['Tandoor smoke', 'Lamb and beef', 'Oasis fruit'],
+    imageAlt: 'Dried fruit and spice stalls in the lanes of Kashgar bazaar',
+    dishes: [
+      { name: 'Lamb Polu', description: 'Rice absorbs fragrant lamb fat while carrots and onions add natural sweetness.' },
+      { name: 'Tandoor Samsa', description: 'A crisp tandoor-baked shell holds juicy lamb and onion.' },
+      { name: 'Jar-Braised Lamb', description: 'Lamb and carrots simmer slowly in an enamel mug for a clear, fragrant broth.' },
+      { name: 'Lamb Skewers', description: 'Alternating lean and fatty lamb is grilled over charcoal with vivid cumin.' }
+    ],
+    tip: 'Browse the bazaar for naan and fruit by day, then save the evening for polu and grilled lamb.'
+  },
+  yangzhou: {
+    name: 'Yangzhou',
+    province: 'Jiangsu',
+    tagline: 'Knife work, clear broths, and gentle flavors unfold over an unhurried morning tea.',
+    description: 'Yangzhou is a landmark of Huaiyang cuisine, known for precise knife work, clear savory broths, and rounded textures. Its morning-tea tradition is especially complete, moving at an easy pace from fine tofu shreds to filled buns.',
+    flavorTags: ['Gentle freshness', 'Leisurely morning tea', 'Refined knife work'],
+    imageAlt: 'Yangzhou fried rice with distinct, evenly coated grains',
+    dishes: [
+      { name: 'Blanched Tofu Shreds', description: 'Pressed tofu is cut hair-thin and warmed with broth for a clean, delicate bite.' },
+      { name: 'Three-Dice Bao', description: 'Chicken, pork, and bamboo shoots form a savory filling with a hint of sweetness.' },
+      { name: 'Crab Roe Lion\'s Head', description: 'Soft, succulent pork meatballs in a clear broth, enriched with crab roe.' },
+      { name: 'Yangzhou Fried Rice', description: 'Distinct rice grains are evenly folded with egg, shrimp, and colorful garnishes.' }
+    ],
+    tip: 'Reserve two hours for morning tea: begin with tofu and buns, then finish with noodles or fried rice.'
+  }
+};

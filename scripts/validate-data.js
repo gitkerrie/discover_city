@@ -8,9 +8,13 @@ const source = fs.readFileSync(dataPath, 'utf8');
 const context = {};
 
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.__foodCitiesData = foodCitiesData;`, context);
+vm.runInContext(
+  `${source}\nglobalThis.__foodCitiesData = foodCitiesData; globalThis.__foodCitiesEnglish = foodCitiesEnglish;`,
+  context
+);
 
 const cities = context.__foodCitiesData;
+const englishCities = context.__foodCitiesEnglish;
 const expectedSlugs = [
   'chengdu',
   'xian',
@@ -62,8 +66,18 @@ cities.forEach(city => {
   const image = fs.readFileSync(imagePath);
   assert(image.length > 10000, `${city.name} 主图文件异常小`);
   assert(image.toString('ascii', 0, 4) === 'RIFF' && image.toString('ascii', 8, 12) === 'WEBP', `${city.name} 主图不是有效 WebP`);
+
+  const english = englishCities[city.slug];
+  assert(english, `${city.slug} 缺少英文内容`);
+  assert(english.name && english.province, `${city.slug} 缺少英文城市或省份名称`);
+  assert(english.tagline && english.description && english.tip, `${city.slug} 英文介绍内容不完整`);
+  assert(Array.isArray(english.flavorTags) && english.flavorTags.length === 3, `${city.slug} 应有 3 个英文风味标签`);
+  assert(Array.isArray(english.dishes) && english.dishes.length === city.dishes.length, `${city.slug} 中英文菜品数量不一致`);
+  assert(english.dishes.every(dish => dish.name && dish.description), `${city.slug} 存在不完整的英文菜品条目`);
+  assert(english.imageAlt, `${city.slug} 缺少英文图片替代文本`);
 });
 
 assert(expectedSlugs.every(slug => slugs.has(slug)), '首发城市名单与计划不一致');
+assert(Object.keys(englishCities).length === cities.length, '英文城市数据存在遗漏或多余条目');
 
 console.log(`数据校验通过：${cities.length} 座城市，${cities.reduce((total, city) => total + city.dishes.length, 0)} 道招牌美食。`);

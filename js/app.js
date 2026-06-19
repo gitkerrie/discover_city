@@ -1,9 +1,130 @@
 // 中国美食探索地图交互逻辑。
+const UI_TRANSLATIONS = {
+  en: {
+    pageTitle: "Taste China - A Map of China's Food Cities",
+    metaDescription: "Explore 12 of China's great food cities, discover signature dishes, and save the places you want to taste next.",
+    brandHome: 'Return to the Taste China map',
+    brandName: 'Taste China',
+    brandTagline: '12 cities. One delicious map.',
+    language: 'Language',
+    searchLabel: 'Search cities or signature dishes',
+    searchPlaceholder: 'Search cities or signature dishes',
+    clearSearch: 'Clear search',
+    searchResults: 'Search results',
+    openFavorites: 'Open my wish list',
+    favoritesLabel: 'Wish list',
+    favoritesCount: 'Saved cities',
+    mapLabel: "Map of China's food cities",
+    mapEyebrow: "A MAP OF CHINA'S FOOD CITIES",
+    mapTitle: 'Meet a city through its flavors',
+    mapIntro: 'Pick a city and begin with a bowl of noodles, a bamboo steamer, or a bubbling pot.',
+    mapStats: 'Map overview',
+    citiesUnit: 'cities',
+    dishesUnit: 'signature dishes',
+    cityIndexLabel: 'Featured food cities',
+    cityIndexTitle: 'CITY INDEX',
+    classicCities: 'Classics',
+    hiddenGemCities: 'Hidden gems',
+    closeDetails: 'Close city details',
+    close: 'Close',
+    imageCredit: 'Image license:',
+    sourceNotes: 'source notes',
+    flavorTags: 'Flavor tags',
+    signatureDishes: 'Signature dishes',
+    foodTip: 'How to eat like a local',
+    addFavorite: 'Add to wish list',
+    addedFavorite: 'Saved to wish list',
+    shareCity: 'Share city',
+    closeFavorites: 'Close wish list',
+    favoritesTitle: 'My wish list',
+    loading: 'Setting the table',
+    classicFlavor: 'Classic flavor',
+    hiddenGemFlavor: 'Hidden-gem flavor',
+    noResults: 'No matching city or dish found',
+    matchPrefix: 'Match: {dishes}',
+    emptyFavoritesTitle: 'Your wish list is empty',
+    emptyFavoritesBody: 'Open a city on the map and save the flavors you want to try.',
+    removeFavorite: 'Remove {city} from wish list',
+    remove: 'Remove',
+    favoriteAdded: '{city} added to your wish list',
+    favoriteRemoved: '{city} removed from your wish list',
+    linkCopied: 'City link copied',
+    copyLink: 'Copy this city link:',
+    shareTitle: 'Taste {city} - Taste China',
+    shareText: '{tagline} Signature dishes: {dishes}',
+    mapLoadError: 'The map could not load. Check your connection and refresh.',
+    tileLoadError: 'Some map tiles could not load. Check your connection.',
+    markerAlt: '{city} food-city marker',
+    imageFallback: 'Image unavailable. The flavors are still here.',
+    mapAttribution: 'AMap · Taste China'
+  },
+  zh: {
+    pageTitle: '寻味中国 - 中国美食探索地图',
+    metaDescription: '在中国地图上探索 12 座美食城市，收藏想去的地方，发现每座城市的招牌味道。',
+    brandHome: '返回寻味中国地图首页',
+    brandName: '寻味中国',
+    brandTagline: '12 座城市，一张好吃的地图',
+    language: '语言',
+    searchLabel: '搜索城市或招牌美食',
+    searchPlaceholder: '搜索城市或招牌美食',
+    clearSearch: '清空搜索',
+    searchResults: '搜索结果',
+    openFavorites: '打开我的想吃清单',
+    favoritesLabel: '想吃清单',
+    favoritesCount: '收藏数量',
+    mapLabel: '中国美食城市地图',
+    mapEyebrow: '中国美食探索地图',
+    mapTitle: '顺着味道，认识一座城',
+    mapIntro: '点击地图上的城市，从一碗面、一笼点心或一锅热汤开始。',
+    mapStats: '地图数据概览',
+    citiesUnit: '座城市',
+    dishesUnit: '道招牌味道',
+    cityIndexLabel: '首发美食城市',
+    cityIndexTitle: '城市索引',
+    classicCities: '经典城市',
+    hiddenGemCities: '宝藏城市',
+    closeDetails: '关闭城市详情',
+    close: '关闭',
+    imageCredit: '图片许可见',
+    sourceNotes: '来源说明',
+    flavorTags: '风味标签',
+    signatureDishes: '招牌味道',
+    foodTip: '怎么吃更对味',
+    addFavorite: '加入想吃清单',
+    addedFavorite: '已加入想吃清单',
+    shareCity: '分享城市',
+    closeFavorites: '关闭想吃清单',
+    favoritesTitle: '我的想吃清单',
+    loading: '正在铺开美食地图',
+    classicFlavor: '经典风味',
+    hiddenGemFlavor: '宝藏风味',
+    noResults: '没有找到相关城市或美食',
+    matchPrefix: '匹配：{dishes}',
+    emptyFavoritesTitle: '清单还是空的',
+    emptyFavoritesBody: '在地图上打开一座城市，把想吃的味道留在这里。',
+    removeFavorite: '从想吃清单移除{city}',
+    remove: '移除',
+    favoriteAdded: '已把{city}加入想吃清单',
+    favoriteRemoved: '已从想吃清单移除{city}',
+    linkCopied: '城市链接已复制',
+    copyLink: '复制这个城市链接：',
+    shareTitle: '寻味{city} - 寻味中国',
+    shareText: '{tagline} 招牌味道：{dishes}',
+    mapLoadError: '地图资源加载失败，请检查网络后刷新',
+    tileLoadError: '部分地图瓦片未能加载，请检查网络',
+    markerAlt: '{city}美食城市标记',
+    imageFallback: '图片暂时缺席，味道仍在',
+    mapAttribution: '高德地图 · 寻味中国'
+  }
+};
+
 class FoodMapApp {
   constructor() {
     this.cities = foodCitiesData;
+    this.language = this.loadLanguage();
     this.map = null;
     this.markers = new Map();
+    this.attributionControl = null;
     this.currentCity = null;
     this.lastTrigger = null;
     this.toastTimer = null;
@@ -11,6 +132,7 @@ class FoodMapApp {
     this.favoriteSlugs = this.loadFavorites();
 
     this.cacheElements();
+    this.applyStaticTranslations();
     this.renderCityIndex();
     this.bindEvents();
     this.updateFavoritesCount();
@@ -20,6 +142,8 @@ class FoodMapApp {
   cacheElements() {
     this.elements = {
       loading: document.getElementById('loading'),
+      metaDescription: document.querySelector('meta[name="description"]'),
+      languageOptions: document.querySelectorAll('.language-option'),
       searchContainer: document.getElementById('searchContainer'),
       searchInput: document.getElementById('searchInput'),
       searchClear: document.getElementById('searchClear'),
@@ -50,10 +174,70 @@ class FoodMapApp {
     };
   }
 
+  loadLanguage() {
+    const saved = localStorage.getItem('foodMapLanguage');
+    return saved === 'zh' || saved === 'en' ? saved : 'en';
+  }
+
+  t(key, replacements = {}) {
+    const value = UI_TRANSLATIONS[this.language][key] || UI_TRANSLATIONS.en[key] || key;
+    return value.replace(/\{(\w+)\}/g, (_, name) => replacements[name] ?? '');
+  }
+
+  getCityContent(city, language = this.language) {
+    if (language === 'zh') return city;
+    return { ...city, ...foodCitiesEnglish[city.slug] };
+  }
+
+  getGroupLabel(city) {
+    return city.group === '经典' ? this.t('classicFlavor') : this.t('hiddenGemFlavor');
+  }
+
+  applyStaticTranslations() {
+    document.documentElement.lang = this.language === 'zh' ? 'zh-CN' : 'en';
+    document.title = this.t('pageTitle');
+    this.elements.metaDescription.content = this.t('metaDescription');
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      element.textContent = this.t(element.dataset.i18n);
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+      element.setAttribute('aria-label', this.t(element.dataset.i18nAria));
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(element => {
+      element.title = this.t(element.dataset.i18nTitle);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+      element.placeholder = this.t(element.dataset.i18nPlaceholder);
+    });
+
+    this.elements.languageOptions.forEach(button => {
+      const selected = button.dataset.language === this.language;
+      button.classList.toggle('is-active', selected);
+      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+    this.elements.cityVisual.dataset.fallback = this.t('imageFallback');
+  }
+
+  setLanguage(language) {
+    if (!UI_TRANSLATIONS[language] || language === this.language) return;
+
+    this.language = language;
+    localStorage.setItem('foodMapLanguage', language);
+    this.applyStaticTranslations();
+    this.renderCityIndex();
+    this.updateSelectedCity(this.currentCity?.slug || null);
+    this.refreshAttribution();
+
+    if (this.currentCity) this.populateDrawer(this.currentCity);
+    if (this.elements.favoritesModal.classList.contains('is-open')) this.renderFavorites();
+    if (this.elements.searchInput.value.trim()) this.renderSearchResults(this.elements.searchInput.value);
+  }
+
   initMap() {
     if (typeof L === 'undefined') {
       this.hideLoading();
-      this.showToast('地图资源加载失败，请检查网络后刷新');
+      this.showToast(this.t('mapLoadError'));
       return;
     }
 
@@ -84,14 +268,12 @@ class FoodMapApp {
     tileLayer.on('tileerror', () => {
       if (!this.tileErrorShown) {
         this.tileErrorShown = true;
-        this.showToast('部分地图瓦片未能加载，请检查网络');
+        this.showToast(this.t('tileLoadError'));
       }
     });
 
     tileLayer.addTo(this.map);
-    L.control.attribution({ position: 'bottomright', prefix: false })
-      .addAttribution('高德地图 · 寻味中国')
-      .addTo(this.map);
+    this.refreshAttribution();
 
     this.addMarkers();
     this.map.fitBounds(chinaBounds, { padding: [24, 24] });
@@ -104,10 +286,11 @@ class FoodMapApp {
 
   addMarkers() {
     this.cities.forEach(city => {
+      const content = this.getCityContent(city);
       const marker = L.marker([city.coordinates[1], city.coordinates[0]], {
         icon: this.createMarkerIcon(city, false),
-        title: `${city.name} · ${city.tagline}`,
-        alt: `${city.name}美食城市标记`,
+        title: `${content.name} · ${content.tagline}`,
+        alt: this.t('markerAlt', { city: content.name }),
         riseOnHover: true
       });
 
@@ -116,7 +299,7 @@ class FoodMapApp {
         this.selectCity(city, { updateHash: true });
       });
 
-      marker.bindTooltip(`${city.name} · ${city.dishes[0].name}`, {
+      marker.bindTooltip(`${content.name} · ${content.dishes[0].name}`, {
         direction: 'top',
         offset: [0, -18],
         className: 'city-tooltip'
@@ -130,6 +313,7 @@ class FoodMapApp {
   createMarkerIcon(city, selected) {
     const groupClass = city.group === '经典' ? 'classic' : 'hidden-gem';
     const selectedClass = selected ? ' is-selected' : '';
+    const content = this.getCityContent(city);
 
     return L.divIcon({
       className: 'city-marker-shell',
@@ -137,7 +321,7 @@ class FoodMapApp {
         <span class="city-marker ${groupClass}${selectedClass}">
           <i class="marker-pulse"></i>
           <i class="marker-core"></i>
-          <span class="marker-label">${city.name}</span>
+          <span class="marker-label">${content.name}</span>
         </span>
       `,
       iconSize: [40, 40],
@@ -149,11 +333,12 @@ class FoodMapApp {
     const fragment = document.createDocumentFragment();
 
     this.cities.forEach((city, index) => {
+      const content = this.getCityContent(city);
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'city-index-btn';
       button.dataset.slug = city.slug;
-      button.innerHTML = `<span>${String(index + 1).padStart(2, '0')}</span>${city.name}`;
+      button.innerHTML = `<span>${String(index + 1).padStart(2, '0')}</span>${content.name}`;
       button.addEventListener('click', event => {
         this.lastTrigger = event.currentTarget;
         this.selectCity(city, { updateHash: true });
@@ -192,21 +377,22 @@ class FoodMapApp {
 
   populateDrawer(city) {
     const { elements } = this;
+    const content = this.getCityContent(city);
 
     elements.cityVisual.classList.remove('image-fallback');
     elements.cityImage.hidden = false;
     elements.cityImage.src = city.heroImage;
-    elements.cityImage.alt = city.imageAlt;
-    elements.cityGroup.textContent = city.group === '经典' ? '经典风味' : '宝藏风味';
+    elements.cityImage.alt = content.imageAlt;
+    elements.cityGroup.textContent = this.getGroupLabel(city);
     elements.cityGroup.dataset.group = city.group;
-    elements.cityProvince.textContent = city.province;
-    elements.cityName.textContent = city.name;
-    elements.cityTagline.textContent = city.tagline;
-    elements.cityDescription.textContent = city.description;
-    elements.cityTip.textContent = city.tip;
+    elements.cityProvince.textContent = content.province;
+    elements.cityName.textContent = content.name;
+    elements.cityTagline.textContent = content.tagline;
+    elements.cityDescription.textContent = content.description;
+    elements.cityTip.textContent = content.tip;
 
     const tagFragment = document.createDocumentFragment();
-    city.flavorTags.forEach(tag => {
+    content.flavorTags.forEach(tag => {
       const span = document.createElement('span');
       span.textContent = tag;
       tagFragment.appendChild(span);
@@ -214,7 +400,7 @@ class FoodMapApp {
     elements.flavorTags.replaceChildren(tagFragment);
 
     const dishFragment = document.createDocumentFragment();
-    city.dishes.forEach((dish, index) => {
+    content.dishes.forEach((dish, index) => {
       const item = document.createElement('li');
       const number = document.createElement('span');
       const content = document.createElement('div');
@@ -253,10 +439,27 @@ class FoodMapApp {
     }
   }
 
+  refreshAttribution() {
+    if (!this.map || typeof L === 'undefined') return;
+    if (this.attributionControl) this.map.removeControl(this.attributionControl);
+
+    this.attributionControl = L.control.attribution({ position: 'bottomright', prefix: false })
+      .addAttribution(this.t('mapAttribution'))
+      .addTo(this.map);
+  }
+
   updateSelectedCity(slug) {
     this.markers.forEach((marker, markerSlug) => {
       const city = this.findCity(markerSlug);
+      const content = this.getCityContent(city);
       marker.setIcon(this.createMarkerIcon(city, markerSlug === slug));
+      marker.setTooltipContent(`${content.name} · ${content.dishes[0].name}`);
+
+      const markerElement = marker.getElement();
+      if (markerElement) {
+        markerElement.setAttribute('title', `${content.name} · ${content.tagline}`);
+        markerElement.setAttribute('aria-label', this.t('markerAlt', { city: content.name }));
+      }
     });
 
     document.querySelectorAll('.city-index-btn').forEach(button => {
@@ -267,10 +470,11 @@ class FoodMapApp {
   }
 
   searchCities(query) {
-    const term = query.trim().toLocaleLowerCase('zh-CN');
+    const term = query.trim().toLocaleLowerCase();
     if (!term) return [];
 
     return this.cities.filter(city => {
+      const english = this.getCityContent(city, 'en');
       const haystack = [
         city.name,
         city.province,
@@ -278,8 +482,15 @@ class FoodMapApp {
         city.tagline,
         city.description,
         ...city.flavorTags,
-        ...city.dishes.flatMap(dish => [dish.name, dish.description])
-      ].join(' ').toLocaleLowerCase('zh-CN');
+        ...city.dishes.flatMap(dish => [dish.name, dish.description]),
+        english.name,
+        english.province,
+        english.tagline,
+        english.description,
+        ...english.flavorTags,
+        ...english.dishes.flatMap(dish => [dish.name, dish.description]),
+        city.group === '经典' ? 'classic classics 经典' : 'hidden gem hidden gems 宝藏'
+      ].join(' ').toLocaleLowerCase();
 
       return haystack.includes(term);
     });
@@ -292,13 +503,22 @@ class FoodMapApp {
     if (results.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'search-empty';
-      empty.textContent = '没有找到相关城市或美食';
+      empty.textContent = this.t('noResults');
       fragment.appendChild(empty);
     } else {
       results.forEach(city => {
+        const content = this.getCityContent(city);
+        const alternateContent = this.getCityContent(city, this.language === 'en' ? 'zh' : 'en');
         const button = document.createElement('button');
-        const matchedDishes = city.dishes
-          .filter(dish => dish.name.includes(query.trim()))
+        const term = query.trim().toLocaleLowerCase();
+        const matchedDishes = content.dishes
+          .filter((dish, index) => {
+            const alternateDish = alternateContent.dishes[index];
+            return [dish.name, dish.description, alternateDish.name, alternateDish.description]
+              .join(' ')
+              .toLocaleLowerCase()
+              .includes(term);
+          })
           .map(dish => dish.name);
 
         button.type = 'button';
@@ -307,8 +527,8 @@ class FoodMapApp {
         button.innerHTML = `
           <img src="${city.heroImage}" alt="">
           <span class="search-result-copy">
-            <strong>${city.name}<small>${city.province}</small></strong>
-            <span>${matchedDishes.length ? `匹配：${matchedDishes.join('、')}` : city.tagline}</span>
+            <strong>${content.name}<small>${content.province}</small></strong>
+            <span>${matchedDishes.length ? this.t('matchPrefix', { dishes: matchedDishes.join(this.language === 'zh' ? '、' : ', ') }) : content.tagline}</span>
           </span>
           <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         `;
@@ -363,7 +583,9 @@ class FoodMapApp {
       const migrated = legacyFavorites
         .map(favorite => {
           if (favorite.slug && validSlugs.has(favorite.slug)) return favorite.slug;
-          const cityByName = this.cities.find(city => city.name === favorite.name);
+          const cityByName = this.cities.find(city => (
+            city.name === favorite.name || this.getCityContent(city, 'en').name === favorite.name
+          ));
           return cityByName?.slug || legacyIdMap[favorite.id] || null;
         })
         .filter(slug => slug && validSlugs.has(slug));
@@ -386,14 +608,15 @@ class FoodMapApp {
     if (!this.currentCity) return;
 
     const slug = this.currentCity.slug;
+    const content = this.getCityContent(this.currentCity);
     const existingIndex = this.favoriteSlugs.indexOf(slug);
 
     if (existingIndex >= 0) {
       this.favoriteSlugs.splice(existingIndex, 1);
-      this.showToast(`已从想吃清单移除${this.currentCity.name}`);
+      this.showToast(this.t('favoriteRemoved', { city: content.name }));
     } else {
       this.favoriteSlugs.push(slug);
-      this.showToast(`已把${this.currentCity.name}加入想吃清单`);
+      this.showToast(this.t('favoriteAdded', { city: content.name }));
     }
 
     this.saveFavorites();
@@ -411,7 +634,7 @@ class FoodMapApp {
     this.elements.favoriteBtn.classList.toggle('is-favorited', favorited);
     this.elements.favoriteBtn.setAttribute('aria-pressed', favorited ? 'true' : 'false');
     icon.className = favorited ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
-    label.textContent = favorited ? '已加入想吃清单' : '加入想吃清单';
+    label.textContent = favorited ? this.t('addedFavorite') : this.t('addFavorite');
   }
 
   updateFavoritesCount() {
@@ -444,12 +667,13 @@ class FoodMapApp {
       empty.className = 'favorites-empty';
       empty.innerHTML = `
         <i class="fa-regular fa-heart" aria-hidden="true"></i>
-        <h3>清单还是空的</h3>
-        <p>在地图上打开一座城市，把想吃的味道留在这里。</p>
+        <h3>${this.t('emptyFavoritesTitle')}</h3>
+        <p>${this.t('emptyFavoritesBody')}</p>
       `;
       fragment.appendChild(empty);
     } else {
       favoriteCities.forEach(city => {
+        const content = this.getCityContent(city);
         const item = document.createElement('article');
         const openButton = document.createElement('button');
         const removeButton = document.createElement('button');
@@ -460,9 +684,9 @@ class FoodMapApp {
         openButton.innerHTML = `
           <img src="${city.heroImage}" alt="">
           <span>
-            <small>${city.province} · ${city.group}</small>
-            <strong>${city.name}</strong>
-            <em>${city.dishes.map(dish => dish.name).slice(0, 3).join(' · ')}</em>
+            <small>${content.province} · ${this.getGroupLabel(city)}</small>
+            <strong>${content.name}</strong>
+            <em>${content.dishes.map(dish => dish.name).slice(0, 3).join(' · ')}</em>
           </span>
         `;
         openButton.addEventListener('click', event => {
@@ -473,8 +697,8 @@ class FoodMapApp {
 
         removeButton.type = 'button';
         removeButton.className = 'icon-btn favorite-remove';
-        removeButton.setAttribute('aria-label', `从想吃清单移除${city.name}`);
-        removeButton.title = '移除';
+        removeButton.setAttribute('aria-label', this.t('removeFavorite', { city: content.name }));
+        removeButton.title = this.t('remove');
         removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
         removeButton.addEventListener('click', () => {
           this.favoriteSlugs = this.favoriteSlugs.filter(slug => slug !== city.slug);
@@ -495,11 +719,15 @@ class FoodMapApp {
     if (!this.currentCity) return;
 
     const city = this.currentCity;
+    const content = this.getCityContent(city);
     const shareUrl = new URL(window.location.href);
     shareUrl.hash = `city=${city.slug}`;
     const shareData = {
-      title: `寻味${city.name} - 寻味中国`,
-      text: `${city.tagline} 招牌味道：${city.dishes.map(dish => dish.name).join('、')}`,
+      title: this.t('shareTitle', { city: content.name }),
+      text: this.t('shareText', {
+        tagline: content.tagline,
+        dishes: content.dishes.map(dish => dish.name).join(this.language === 'zh' ? '、' : ', ')
+      }),
       url: shareUrl.toString()
     };
 
@@ -514,9 +742,9 @@ class FoodMapApp {
 
     try {
       await navigator.clipboard.writeText(shareData.url);
-      this.showToast('城市链接已复制');
+      this.showToast(this.t('linkCopied'));
     } catch (error) {
-      window.prompt('复制这个城市链接：', shareData.url);
+      window.prompt(this.t('copyLink'), shareData.url);
     }
   }
 
@@ -551,6 +779,10 @@ class FoodMapApp {
   }
 
   bindEvents() {
+    this.elements.languageOptions.forEach(button => {
+      button.addEventListener('click', () => this.setLanguage(button.dataset.language));
+    });
+
     this.elements.searchInput.addEventListener('input', event => {
       const query = event.target.value;
       this.elements.searchClear.classList.toggle('is-visible', Boolean(query));

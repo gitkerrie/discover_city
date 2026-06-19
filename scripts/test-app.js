@@ -36,12 +36,14 @@ function createApp(storage) {
 
   vm.createContext(context);
   vm.runInContext(
-    `${dataSource}\n${appSource}\nglobalThis.__FoodMapApp = FoodMapApp; globalThis.__foodCitiesData = foodCitiesData;`,
+    `${dataSource}\n${appSource}\nglobalThis.__FoodMapApp = FoodMapApp; globalThis.__foodCitiesData = foodCitiesData; globalThis.__translations = UI_TRANSLATIONS;`,
     context
   );
 
   const app = Object.create(context.__FoodMapApp.prototype);
   app.cities = context.__foodCitiesData;
+  app.language = app.loadLanguage();
+  app.translations = context.__translations;
   return app;
 }
 
@@ -78,5 +80,18 @@ const searchApp = createApp(searchStorage);
 assert(searchApp.searchCities('热干面').map(city => city.slug).join(',') === 'wuhan', '菜名搜索未命中武汉');
 assert(searchApp.searchCities('广西').map(city => city.slug).join(',') === 'liuzhou', '省份搜索未命中柳州');
 assert(searchApp.searchCities('宝藏').length === 6, '分组搜索结果数量不正确');
+assert(searchApp.searchCities('hot dry noodles').map(city => city.slug).join(',') === 'wuhan', '英文菜名搜索未命中武汉');
+assert(searchApp.searchCities('Guangxi').map(city => city.slug).join(',') === 'liuzhou', '英文省份搜索未命中柳州');
+assert(searchApp.searchCities('hidden gems').length === 6, '英文分组搜索结果数量不正确');
+assert(searchApp.language === 'en', '首次访问未默认使用英文');
 
-console.log('应用逻辑测试通过：收藏迁移、去重和城市美食搜索正常。');
+const zhApp = createApp(createStorage([['foodMapLanguage', 'zh']]));
+assert(zhApp.language === 'zh', '未恢复已保存的中文偏好');
+assert(zhApp.getCityContent(zhApp.cities[0]).name === '成都', '中文城市内容读取失败');
+assert(searchApp.getCityContent(searchApp.cities[0]).name === 'Chengdu', '英文城市内容读取失败');
+
+const englishKeys = Object.keys(searchApp.translations.en).sort();
+const chineseKeys = Object.keys(searchApp.translations.zh).sort();
+assert(JSON.stringify(englishKeys) === JSON.stringify(chineseKeys), '中英文界面文案键不一致');
+
+console.log('应用逻辑测试通过：双语切换、收藏迁移和城市美食搜索正常。');

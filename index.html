@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="在中国地图上探索 12 座美食城市，收藏想去的地方，发现每座城市的招牌味道。">
+  <meta name="description" content="Explore 12 of China's great food cities, discover signature dishes, and save the places you want to taste next.">
   <meta name="theme-color" content="#171713">
-  <title>寻味中国 - 中国美食探索地图</title>
+  <title>Taste China - A Map of China's Food Cities</title>
 
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -16,59 +16,65 @@
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="./" aria-label="返回寻味中国地图首页">
+      <a class="brand" href="./" aria-label="Return to the Taste China map" data-i18n-aria="brandHome">
         <span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-bowl-food"></i></span>
         <span class="brand-copy">
-          <strong>寻味中国</strong>
-          <small>12 座城市，一张好吃的地图</small>
+          <strong data-i18n="brandName">Taste China</strong>
+          <small data-i18n="brandTagline">12 cities. One delicious map.</small>
         </span>
       </a>
 
       <div class="search" id="searchContainer">
         <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-        <label class="sr-only" for="searchInput">搜索城市或招牌美食</label>
-        <input id="searchInput" type="search" autocomplete="off" placeholder="搜索城市或招牌美食" aria-controls="searchResults" aria-expanded="false">
-        <button class="icon-btn search-clear" id="searchClear" type="button" aria-label="清空搜索" title="清空搜索">
+        <label class="sr-only" for="searchInput" data-i18n="searchLabel">Search cities or signature dishes</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="Search cities or signature dishes" data-i18n-placeholder="searchPlaceholder" aria-controls="searchResults" aria-expanded="false">
+        <button class="icon-btn search-clear" id="searchClear" type="button" aria-label="Clear search" title="Clear search" data-i18n-aria="clearSearch" data-i18n-title="clearSearch">
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
-        <div class="search-results" id="searchResults" role="listbox" aria-label="搜索结果"></div>
+        <div class="search-results" id="searchResults" role="listbox" aria-label="Search results" data-i18n-aria="searchResults"></div>
       </div>
 
-      <button class="favorites-trigger" id="favoritesBtn" type="button" aria-label="打开我的想吃清单">
-        <i class="fa-solid fa-heart" aria-hidden="true"></i>
-        <span class="favorites-label">想吃清单</span>
-        <span class="favorites-count" aria-label="收藏数量">0</span>
-      </button>
+      <div class="topbar-actions">
+        <div class="language-switch" role="group" aria-label="Language" data-i18n-aria="language">
+          <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">EN</button>
+          <button class="language-option" type="button" data-language="zh" aria-pressed="false">中</button>
+        </div>
+        <button class="favorites-trigger" id="favoritesBtn" type="button" aria-label="Open my wish list" data-i18n-aria="openFavorites">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          <span class="favorites-label" data-i18n="favoritesLabel">Wish list</span>
+          <span class="favorites-count" aria-label="Saved cities" data-i18n-aria="favoritesCount">0</span>
+        </button>
+      </div>
     </header>
 
     <main class="map-stage">
-      <div id="map" class="map" aria-label="中国美食城市地图"></div>
+      <div id="map" class="map" aria-label="Map of China's food cities" data-i18n-aria="mapLabel"></div>
 
       <section class="map-intro" aria-labelledby="mapIntroTitle">
-        <span class="eyebrow">中国美食探索地图</span>
-        <h1 id="mapIntroTitle">顺着味道，认识一座城</h1>
-        <p>点击地图上的城市，从一碗面、一笼点心或一锅热汤开始。</p>
-        <div class="map-stats" aria-label="地图数据概览">
-          <span><strong>12</strong> 座城市</span>
-          <span><strong>48</strong> 道招牌味道</span>
+        <span class="eyebrow" data-i18n="mapEyebrow">A MAP OF CHINA'S FOOD CITIES</span>
+        <h1 id="mapIntroTitle" data-i18n="mapTitle">Meet a city through its flavors</h1>
+        <p data-i18n="mapIntro">Pick a city and begin with a bowl of noodles, a bamboo steamer, or a bubbling pot.</p>
+        <div class="map-stats" aria-label="Map overview" data-i18n-aria="mapStats">
+          <span><strong>12</strong> <span data-i18n="citiesUnit">cities</span></span>
+          <span><strong>48</strong> <span data-i18n="dishesUnit">signature dishes</span></span>
         </div>
       </section>
 
-      <nav class="city-index" aria-label="首发美食城市">
-        <span class="city-index-title">城市索引</span>
+      <nav class="city-index" aria-label="Featured food cities" data-i18n-aria="cityIndexLabel">
+        <span class="city-index-title" data-i18n="cityIndexTitle">CITY INDEX</span>
         <div class="city-index-list" id="cityIndex"></div>
       </nav>
 
       <div class="map-key" aria-hidden="true">
-        <span><i class="key-dot classic"></i>经典城市</span>
-        <span><i class="key-dot hidden-gem"></i>宝藏城市</span>
+        <span><i class="key-dot classic"></i><span data-i18n="classicCities">Classics</span></span>
+        <span><i class="key-dot hidden-gem"></i><span data-i18n="hiddenGemCities">Hidden gems</span></span>
       </div>
     </main>
 
-    <button class="drawer-backdrop" id="drawerBackdrop" type="button" aria-label="关闭城市详情"></button>
+    <button class="drawer-backdrop" id="drawerBackdrop" type="button" aria-label="Close city details" data-i18n-aria="closeDetails"></button>
 
     <aside class="city-drawer" id="cityDrawer" role="dialog" aria-modal="false" aria-labelledby="cityName" aria-hidden="true">
-      <button class="icon-btn drawer-close" id="drawerClose" type="button" aria-label="关闭城市详情" title="关闭">
+      <button class="icon-btn drawer-close" id="drawerClose" type="button" aria-label="Close city details" title="Close" data-i18n-aria="closeDetails" data-i18n-title="close">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
 
@@ -76,7 +82,7 @@
         <figure class="city-visual" id="cityVisual">
           <img id="cityImage" src="" alt="">
           <figcaption class="image-credit">
-            图片许可见 <a href="assets/cities/SOURCES.md" target="_blank" rel="noopener">来源说明</a>
+            <span data-i18n="imageCredit">Image license:</span> <a href="assets/cities/SOURCES.md" target="_blank" rel="noopener" data-i18n="sourceNotes">source notes</a>
           </figcaption>
         </figure>
 
@@ -88,13 +94,13 @@
             <p class="city-tagline" id="cityTagline"></p>
           </div>
 
-          <div class="flavor-tags" id="flavorTags" aria-label="风味标签"></div>
+          <div class="flavor-tags" id="flavorTags" aria-label="Flavor tags" data-i18n-aria="flavorTags"></div>
           <p class="city-description" id="cityDescription"></p>
 
           <section class="dish-section" aria-labelledby="dishTitle">
             <div class="section-heading">
               <span>01</span>
-              <h3 id="dishTitle">招牌味道</h3>
+              <h3 id="dishTitle" data-i18n="signatureDishes">Signature dishes</h3>
             </div>
             <ol class="dish-list" id="dishList"></ol>
           </section>
@@ -102,7 +108,7 @@
           <section class="food-tip" aria-labelledby="tipTitle">
             <div class="section-heading">
               <span>02</span>
-              <h3 id="tipTitle">怎么吃更对味</h3>
+              <h3 id="tipTitle" data-i18n="foodTip">How to eat like a local</h3>
             </div>
             <p id="cityTip"></p>
           </section>
@@ -112,24 +118,24 @@
       <div class="drawer-actions">
         <button class="command-btn favorite-action" id="favoriteBtn" type="button">
           <i class="fa-regular fa-heart" aria-hidden="true"></i>
-          <span>加入想吃清单</span>
+          <span data-i18n="addFavorite">Add to wish list</span>
         </button>
         <button class="command-btn share-action" id="shareBtn" type="button">
           <i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i>
-          <span>分享城市</span>
+          <span data-i18n="shareCity">Share city</span>
         </button>
       </div>
     </aside>
 
     <div class="modal" id="favoritesModal" role="dialog" aria-modal="true" aria-labelledby="favoritesTitle" aria-hidden="true">
-      <button class="modal-backdrop" id="favoritesBackdrop" type="button" aria-label="关闭想吃清单"></button>
+      <button class="modal-backdrop" id="favoritesBackdrop" type="button" aria-label="Close wish list" data-i18n-aria="closeFavorites"></button>
       <section class="favorites-panel">
         <header class="favorites-header">
           <div>
             <span class="eyebrow">MY FOOD MAP</span>
-            <h2 id="favoritesTitle">我的想吃清单</h2>
+            <h2 id="favoritesTitle" data-i18n="favoritesTitle">My wish list</h2>
           </div>
-          <button class="icon-btn" id="favoritesClose" type="button" aria-label="关闭想吃清单" title="关闭">
+          <button class="icon-btn" id="favoritesClose" type="button" aria-label="Close wish list" title="Close" data-i18n-aria="closeFavorites" data-i18n-title="close">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </header>
@@ -141,7 +147,7 @@
 
     <div class="loading" id="loading" role="status" aria-live="polite">
       <span class="loading-mark"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i></span>
-      <span>正在铺开美食地图</span>
+      <span data-i18n="loading">Setting the table</span>
     </div>
   </div>
 
