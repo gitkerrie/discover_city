@@ -78,3 +78,4 @@ __pycache__/
 # local-config.js
 
 .vercel
+public/

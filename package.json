@@ -4,12 +4,14 @@
   "description": "寻味中国 - 中国美食探索地图",
   "main": "index.html",
   "scripts": {
+    "prestart": "node scripts/prepare-map-assets.js",
     "start": "node scripts/server.js",
+    "predev": "node scripts/prepare-map-assets.js",
     "dev": "node scripts/server.js",
-    "build": "node scripts/generate-site.js",
-    "generate": "node scripts/generate-site.js",
+    "build": "node scripts/prepare-map-assets.js && node scripts/generate-site.js && node scripts/build-output.js",
+    "generate": "node scripts/prepare-map-assets.js && node scripts/generate-site.js",
     "export:cards": "node scripts/export-marketing-cards.js",
-    "check": "node --check js/data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/generate-site.js && node --check scripts/export-marketing-cards.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js"
+    "check": "node --check js/data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/prepare-map-assets.js && node --check scripts/generate-site.js && node --check scripts/build-output.js && node --check scripts/export-marketing-cards.js && node scripts/prepare-map-assets.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js && node scripts/build-output.js"
   },
   "keywords": [
     "food",
@@ -21,6 +23,10 @@
   "author": "Discover China Food",
   "license": "MIT",
   "devDependencies": {
-    "playwright": "^1.61.0"
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "leaflet": "^1.9.4",
+    "playwright": "^1.61.0",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   }
 }

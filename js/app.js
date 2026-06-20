@@ -56,7 +56,7 @@ const UI_TRANSLATIONS = {
     tileLoadError: 'Some map tiles could not load. Check your connection.',
     markerAlt: '{city} food-city marker',
     imageFallback: 'Image unavailable. The flavors are still here.',
-    mapAttribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Taste China'
+    mapAttribution: 'Land data: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · Taste China'
   },
   zh: {
     pageTitle: '寻味中国 - 中国美食探索地图',
@@ -114,7 +114,7 @@ const UI_TRANSLATIONS = {
     tileLoadError: '部分地图瓦片未能加载，请检查网络',
     markerAlt: '{city}美食城市标记',
     imageFallback: '图片暂时缺席，味道仍在',
-    mapAttribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 贡献者 · 寻味中国'
+    mapAttribution: '陆地数据：<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · 寻味中国'
   }
 };
 
@@ -252,7 +252,7 @@ class FoodMapApp {
     this.trackEvent('Language Changed', { language });
   }
 
-  initMap() {
+  async initMap() {
     if (typeof L === 'undefined') {
       this.hideLoading();
       this.showToast(this.t('mapLoadError'));
@@ -274,21 +274,29 @@ class FoodMapApp {
 
     L.control.zoom({ position: 'bottomleft' }).addTo(this.map);
 
-    const tileLayer = L.tileLayer(
-      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 19
-      }
-    );
+    this.map.createPane('landPane');
+    this.map.getPane('landPane').style.zIndex = 200;
+    this.map.getPane('landPane').style.pointerEvents = 'none';
 
-    tileLayer.on('tileerror', () => {
-      if (!this.tileErrorShown) {
-        this.tileErrorShown = true;
-        this.showToast(this.t('tileLoadError'));
-      }
-    });
+    try {
+      const response = await fetch('/assets/maps/land-110m.geojson');
+      if (!response.ok) throw new Error(`Land data request failed with ${response.status}`);
 
-    tileLayer.addTo(this.map);
+      const land = await response.json();
+      L.geoJSON(land, {
+        pane: 'landPane',
+        interactive: false,
+        style: {
+          color: '#aeb4aa',
+          fillColor: '#d8dbd3',
+          fillOpacity: 1,
+          weight: 1
+        }
+      }).addTo(this.map);
+    } catch (error) {
+      console.warn('Local land data could not load.', error);
+    }
+
     this.refreshAttribution();
 
     this.addMarkers();

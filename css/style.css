@@ -370,6 +370,10 @@ a:focus-visible {
   inset: 0;
 }
 
+.map.leaflet-container {
+  background: #eef0eb;
+}
+
 .map-intro {
   position: absolute;
   z-index: 600;

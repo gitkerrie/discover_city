@@ -111,7 +111,16 @@ assert(
 );
 
 const app = read('js', 'app.js');
-assert(app.includes('tile.openstreetmap.org'), '地图未切换到海外可访问的瓦片服务');
+assert(app.includes('/assets/maps/land-110m.geojson'), '地图未使用本地陆地底图');
+assert(!app.includes('tile.openstreetmap.org'), '地图仍依赖外部 OSM 瓦片');
+assert(fs.existsSync(path.join(root, 'assets', 'maps', 'land-110m.geojson')), '缺少本地陆地底图');
+
+const indexPage = read('index.html');
+assert(indexPage.includes('/assets/vendor/leaflet/leaflet.js'), 'Leaflet JavaScript 未本地化');
+assert(indexPage.includes('/assets/vendor/leaflet/leaflet.css'), 'Leaflet CSS 未本地化');
+assert(!indexPage.includes('unpkg.com/leaflet'), '首页仍依赖外部 Leaflet CDN');
+assert(indexPage.includes('/assets/vendor/fontawesome/css/fontawesome.min.css'), 'Font Awesome 未本地化');
+assert(!indexPage.includes('cdnjs.cloudflare.com'), '首页仍依赖外部 Font Awesome CDN');
 assert(!app.includes('autonavi.com'), '地图仍引用高德瓦片');
 assert(app.includes('/zh/city/${city.slug}/'), '中文分享链接未指向静态城市页');
 
