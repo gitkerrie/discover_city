@@ -374,6 +374,15 @@ a:focus-visible {
   background: #eef0eb;
 }
 
+.leaflet-gl-layer {
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.map-detailed-ready .leaflet-gl-layer {
+  opacity: 1;
+}
+
 .map-intro {
   position: absolute;
   z-index: 600;

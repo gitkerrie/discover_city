@@ -53,10 +53,11 @@ const UI_TRANSLATIONS = {
     shareTitle: 'Taste {city} - Taste China',
     shareText: '{tagline} Signature dishes: {dishes}',
     mapLoadError: 'The map could not load. Check your connection and refresh.',
-    tileLoadError: 'Some map tiles could not load. Check your connection.',
+    detailedMapFallback: 'Detailed map unavailable. Showing the simplified offline map.',
     markerAlt: '{city} food-city marker',
     imageFallback: 'Image unavailable. The flavors are still here.',
-    mapAttribution: 'Land data: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · Taste China'
+    mapAttributionDetailed: '<a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · Taste China',
+    mapAttributionFallback: 'Land data: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · Taste China'
   },
   zh: {
     pageTitle: '寻味中国 - 中国美食探索地图',
@@ -111,10 +112,11 @@ const UI_TRANSLATIONS = {
     shareTitle: '寻味{city} - 寻味中国',
     shareText: '{tagline} 招牌味道：{dishes}',
     mapLoadError: '地图资源加载失败，请检查网络后刷新',
-    tileLoadError: '部分地图瓦片未能加载，请检查网络',
+    detailedMapFallback: '详细地图暂不可用，已切换到简化离线地图',
     markerAlt: '{city}美食城市标记',
     imageFallback: '图片暂时缺席，味道仍在',
-    mapAttribution: '陆地数据：<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · 寻味中国'
+    mapAttributionDetailed: '<a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · 数据来自 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · 寻味中国',
+    mapAttributionFallback: '陆地数据：<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> · 寻味中国'
   }
 };
 
@@ -125,6 +127,10 @@ class FoodMapApp {
     this.map = null;
     this.markers = new Map();
     this.attributionControl = null;
+    this.detailedMapLayer = null;
+    this.detailedMapReady = false;
+    this.detailedMapTimer = null;
+    this.detailedMapFallbackShown = false;
     this.currentCity = null;
     this.lastTrigger = null;
     this.toastTimer = null;
@@ -275,7 +281,7 @@ class FoodMapApp {
     L.control.zoom({ position: 'bottomleft' }).addTo(this.map);
 
     this.map.createPane('landPane');
-    this.map.getPane('landPane').style.zIndex = 200;
+    this.map.getPane('landPane').style.zIndex = 190;
     this.map.getPane('landPane').style.pointerEvents = 'none';
 
     try {
@@ -297,6 +303,7 @@ class FoodMapApp {
       console.warn('Local land data could not load.', error);
     }
 
+    this.addDetailedMap();
     this.refreshAttribution();
 
     this.addMarkers();
@@ -306,6 +313,57 @@ class FoodMapApp {
       this.hideLoading();
       this.syncFromHash();
     });
+  }
+
+  addDetailedMap() {
+    const mapElement = document.getElementById('map');
+    const canRenderDetailedMap = typeof maplibregl !== 'undefined'
+      && typeof L.maplibreGL === 'function';
+
+    if (!canRenderDetailedMap) {
+      this.useFallbackMap();
+      return;
+    }
+
+    this.detailedMapLayer = L.maplibreGL({
+      style: 'https://tiles.openfreemap.org/styles/liberty',
+      attributionControl: false,
+      pane: 'tilePane',
+      interactive: false,
+      renderWorldCopies: false
+    }).addTo(this.map);
+
+    const detailedMap = this.detailedMapLayer.getMaplibreMap();
+    detailedMap.on('error', () => {});
+    detailedMap.once('load', () => {
+      if (!this.detailedMapLayer) return;
+
+      window.clearTimeout(this.detailedMapTimer);
+      this.detailedMapReady = true;
+      mapElement.classList.add('map-detailed-ready');
+      this.refreshAttribution();
+    });
+
+    this.detailedMapTimer = window.setTimeout(() => {
+      if (!this.detailedMapReady) this.useFallbackMap();
+    }, 8000);
+  }
+
+  useFallbackMap() {
+    window.clearTimeout(this.detailedMapTimer);
+    document.getElementById('map').classList.remove('map-detailed-ready');
+    this.detailedMapReady = false;
+
+    if (this.detailedMapLayer && this.map.hasLayer(this.detailedMapLayer)) {
+      this.map.removeLayer(this.detailedMapLayer);
+    }
+    this.detailedMapLayer = null;
+    this.refreshAttribution();
+
+    if (!this.detailedMapFallbackShown) {
+      this.detailedMapFallbackShown = true;
+      this.showToast(this.t('detailedMapFallback'));
+    }
   }
 
   addMarkers() {
@@ -469,8 +527,11 @@ class FoodMapApp {
     if (!this.map || typeof L === 'undefined') return;
     if (this.attributionControl) this.map.removeControl(this.attributionControl);
 
+    const attributionKey = this.detailedMapReady
+      ? 'mapAttributionDetailed'
+      : 'mapAttributionFallback';
     this.attributionControl = L.control.attribution({ position: 'bottomright', prefix: false })
-      .addAttribution(this.t('mapAttribution'))
+      .addAttribution(this.t(attributionKey))
       .addTo(this.map);
   }
 

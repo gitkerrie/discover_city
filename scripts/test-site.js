@@ -119,8 +119,28 @@ const indexPage = read('index.html');
 assert(indexPage.includes('/assets/vendor/leaflet/leaflet.js'), 'Leaflet JavaScript 未本地化');
 assert(indexPage.includes('/assets/vendor/leaflet/leaflet.css'), 'Leaflet CSS 未本地化');
 assert(!indexPage.includes('unpkg.com/leaflet'), '首页仍依赖外部 Leaflet CDN');
+assert(indexPage.includes('/assets/vendor/maplibre/maplibre-gl.js'), 'MapLibre JavaScript 未本地化');
+assert(indexPage.includes('/assets/vendor/maplibre/maplibre-gl.css'), 'MapLibre CSS 未本地化');
+assert(indexPage.includes('/assets/vendor/maplibre-leaflet/leaflet-maplibre-gl.js'), 'MapLibre Leaflet 绑定未本地化');
+assert(indexPage.includes('https://tiles.openfreemap.org'), '首页未预连接 OpenFreeMap');
+assert(!indexPage.includes('https://unpkg.com'), '首页仍保留 unpkg 预连接');
+assert(!indexPage.includes('https://tile.openstreetmap.org'), '首页仍保留旧 OSM 瓦片预连接');
 assert(indexPage.includes('/assets/vendor/fontawesome/css/fontawesome.min.css'), 'Font Awesome 未本地化');
 assert(!indexPage.includes('cdnjs.cloudflare.com'), '首页仍依赖外部 Font Awesome CDN');
+
+assert(app.includes('https://tiles.openfreemap.org/styles/liberty'), '详细地图未使用 OpenFreeMap Liberty');
+assert(app.includes('L.maplibreGL'), '详细地图未绑定到 Leaflet');
+assert(app.includes('}, 8000);'), '详细地图降级超时不是 8 秒');
+assert(app.includes("style.zIndex = 190"), '本地陆地层未放在详细地图下方');
+[
+  ['assets', 'vendor', 'maplibre', 'maplibre-gl.js'],
+  ['assets', 'vendor', 'maplibre', 'maplibre-gl.css'],
+  ['assets', 'vendor', 'maplibre', 'LICENSE.txt'],
+  ['assets', 'vendor', 'maplibre-leaflet', 'leaflet-maplibre-gl.js'],
+  ['assets', 'vendor', 'maplibre-leaflet', 'LICENSE']
+].forEach(segments => {
+  assert(fs.existsSync(path.join(root, ...segments)), `缺少本地地图资源 ${segments.at(-1)}`);
+});
 assert(!app.includes('autonavi.com'), '地图仍引用高德瓦片');
 assert(app.includes('/zh/city/${city.slug}/'), '中文分享链接未指向静态城市页');
 
