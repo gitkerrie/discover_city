@@ -77,6 +77,55 @@ async function colorStats(page, locator) {
   }, screenshot.toString('base64'));
 }
 
+async function initialMarkerOffsets(page) {
+  return page.evaluate(() => {
+    const detailedLayer = window.app.detailedMapLayer;
+    const detailedMap = detailedLayer.getMaplibreMap();
+    const layerRect = detailedLayer.getContainer().getBoundingClientRect();
+
+    return window.app.cities.map(city => {
+      const markerRect = window.app.markers.get(city.slug).getElement().getBoundingClientRect();
+      const projected = detailedMap.project(city.coordinates);
+      return {
+        dx: markerRect.left + markerRect.width / 2 - (layerRect.left + projected.x),
+        dy: markerRect.top + markerRect.height / 2 - (layerRect.top + projected.y),
+        slug: city.slug
+      };
+    });
+  });
+}
+
+async function verifyInitialAlignment(browser, viewport) {
+  const context = await browser.newContext({ viewport });
+  const page = await context.newPage();
+  await stubAnalytics(page);
+  await page.route('https://tiles.openfreemap.org/styles/liberty', route => route.fulfill({
+    body: JSON.stringify({
+      version: 8,
+      sources: {},
+      layers: [{
+        id: 'background',
+        type: 'background',
+        paint: { 'background-color': '#dce8ea' }
+      }]
+    }),
+    contentType: 'application/json',
+    status: 200
+  }));
+
+  await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('#map.map-detailed-ready', { timeout: 10000 });
+  await page.waitForFunction(() => document.querySelectorAll('.leaflet-marker-icon').length === 12);
+
+  const offsets = await initialMarkerOffsets(page);
+  const misaligned = offsets.filter(({ dx, dy }) => Math.abs(dx) > 4 || Math.abs(dy) > 4);
+  assert(
+    misaligned.length === 0,
+    `Initial markers are misaligned with the detailed map: ${JSON.stringify(misaligned)}`
+  );
+  await context.close();
+}
+
 async function verifyDetailedMap(browser) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
@@ -106,6 +155,13 @@ async function verifyDetailedMap(browser) {
   }));
   assert(detailed.landPaths === 1, 'Detailed mode lost the local fallback layer');
   assert(detailed.markers === 12, `Detailed mode rendered ${detailed.markers} markers`);
+
+  const offsets = await initialMarkerOffsets(page);
+  const misaligned = offsets.filter(({ dx, dy }) => Math.abs(dx) > 4 || Math.abs(dy) > 4);
+  assert(
+    misaligned.length === 0,
+    `Initial markers are misaligned with the detailed map: ${JSON.stringify(misaligned)}`
+  );
 
   const colors = await colorStats(page, page.locator('.leaflet-gl-layer canvas'));
   assert(colors.width > 0 && colors.height > 0, 'Detailed map canvas is blank');
@@ -212,6 +268,13 @@ async function main() {
     }
 
     browser = await chromium.launch({ channel: browserChannel, headless: true });
+    await verifyInitialAlignment(browser, { width: 1440, height: 900 });
+    await verifyInitialAlignment(browser, { width: 390, height: 844 });
+    if (process.env.MAP_VERIFY_ALIGNMENT_ONLY === '1') {
+      console.log('Initial map alignment verification passed for all 12 city markers.');
+      return;
+    }
+
     const colors = await verifyDetailedMap(browser);
     await verifyMobileMap(browser);
     await verifyFallbackMap(browser);

@@ -303,11 +303,12 @@ class FoodMapApp {
       console.warn('Local land data could not load.', error);
     }
 
+    this.map.invalidateSize({ animate: false, pan: false });
+    this.map.fitBounds(chinaBounds, { padding: [24, 24], animate: false });
+
     this.addDetailedMap();
     this.refreshAttribution();
-
     this.addMarkers();
-    this.map.fitBounds(chinaBounds, { padding: [24, 24] });
 
     this.map.whenReady(() => {
       this.hideLoading();
@@ -338,15 +339,33 @@ class FoodMapApp {
     detailedMap.once('load', () => {
       if (!this.detailedMapLayer) return;
 
-      window.clearTimeout(this.detailedMapTimer);
-      this.detailedMapReady = true;
-      mapElement.classList.add('map-detailed-ready');
-      this.refreshAttribution();
+      this.syncDetailedMap();
+      window.requestAnimationFrame(() => {
+        if (!this.detailedMapLayer) return;
+
+        this.syncDetailedMap();
+        window.clearTimeout(this.detailedMapTimer);
+        this.detailedMapReady = true;
+        mapElement.classList.add('map-detailed-ready');
+        this.refreshAttribution();
+      });
     });
 
     this.detailedMapTimer = window.setTimeout(() => {
       if (!this.detailedMapReady) this.useFallbackMap();
     }, 8000);
+  }
+
+  syncDetailedMap() {
+    if (!this.map || !this.detailedMapLayer) return;
+
+    const detailedMap = this.detailedMapLayer.getMaplibreMap();
+    const center = this.map.getCenter();
+    detailedMap.resize();
+    detailedMap.jumpTo({
+      center: [center.lng, center.lat],
+      zoom: this.map.getZoom() - 1
+    });
   }
 
   useFallbackMap() {
