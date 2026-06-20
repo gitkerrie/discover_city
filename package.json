@@ -8,7 +8,8 @@
     "dev": "node scripts/server.js",
     "build": "node scripts/generate-site.js",
     "generate": "node scripts/generate-site.js",
-    "check": "node --check js/data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/generate-site.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js"
+    "export:cards": "node scripts/export-marketing-cards.js",
+    "check": "node --check js/data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/generate-site.js && node --check scripts/export-marketing-cards.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js"
   },
   "keywords": [
     "food",
@@ -18,5 +19,8 @@
     "cuisine"
   ],
   "author": "Discover China Food",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "^1.61.0"
+  }
 }

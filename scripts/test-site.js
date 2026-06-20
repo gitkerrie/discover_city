@@ -23,6 +23,31 @@ function read(...segments) {
   return fs.readFileSync(path.join(root, ...segments), 'utf8');
 }
 
+function jpegDimensions(...segments) {
+  const buffer = fs.readFileSync(path.join(root, ...segments));
+  assert(buffer.readUInt16BE(0) === 0xffd8, `${segments.at(-1)} is not a JPEG file`);
+  let offset = 2;
+
+  while (offset < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) {
+      return {
+        height: buffer.readUInt16BE(offset + 5),
+        width: buffer.readUInt16BE(offset + 7)
+      };
+    }
+    offset += length + 2;
+  }
+
+  throw new Error(`${segments.at(-1)} has no JPEG dimensions`);
+}
+
 cities.forEach(city => {
   const englishPage = read('city', city.slug, 'index.html');
   const chinesePage = read('zh', 'city', city.slug, 'index.html');
@@ -62,10 +87,28 @@ const cards = read('marketing', 'cards', 'index.html');
 assert(cards.includes(`${new URL(siteUrl).host}/city/chengdu/`), 'Social cards do not use the canonical host');
 assert((cards.match(/class="social-card"/g) || []).length === 12, '城市社交卡片数量不是 12');
 assert((cards.match(/class="comparison-card/g) || []).length === 3, '比较轮播封面数量不是 3');
+assert(cards.includes('/guides/china-food-travel-map/'), '比较轮播封面缺少指南链接');
+
+const exportedCards = [
+  ...cities.map(city => `city-${city.slug}.jpg`),
+  'comparison-classics.jpg',
+  'comparison-hidden-gems.jpg',
+  'comparison-flavors.jpg'
+];
+assert(exportedCards.length === 15, 'Expected 15 exported social cards');
+exportedCards.forEach(filename => {
+  const dimensions = jpegDimensions('marketing', 'exports', filename);
+  assert(dimensions.width === 1080 && dimensions.height === 1350, `${filename} must be 1080x1350`);
+});
 
 const utmRows = read('marketing', 'utm-links.csv').trim().split('\n');
-assert(utmRows.length === 49, `UTM 链接应有 48 条，实际为 ${utmRows.length - 1}`);
+assert(utmRows.length === 61, `UTM 链接应有 60 条，实际为 ${utmRows.length - 1}`);
 assert(utmRows.slice(1).every(row => row.includes('utm_campaign=overseas_launch_2026')), 'UTM campaign 不一致');
+assert(
+  ['best-food-cities-in-china', 'hidden-gem-food-cities-in-china', 'china-food-travel-map']
+    .every(slug => utmRows.some(row => row.startsWith(`${slug},guide,`))),
+  'UTM 链接缺少比较指南'
+);
 
 const app = read('js', 'app.js');
 assert(app.includes('tile.openstreetmap.org'), '地图未切换到海外可访问的瓦片服务');

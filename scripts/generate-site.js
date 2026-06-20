@@ -385,7 +385,12 @@ function marketingCards(cities, english) {
     </article>`;
   };
 
-  const comparison = (title, subtitle, selected, index) => `<article class="comparison-card comparison-${index}" style="--card-image: url('/${selected[0].heroImage}')"><div class="card-top"><span>SWIPE GUIDE ${String(index).padStart(2, '0')}</span><b>${siteName}</b></div><div class="card-copy"><small>CHINA FOOD TRAVEL</small><h2>${escapeHtml(title)}</h2><p>${escapeHtml(subtitle)}</p><ol>${selected.map(city => `<li>${escapeHtml(english[city.slug].name)} <em>${escapeHtml(english[city.slug].dishes[0].name)}</em></li>`).join('')}</ol><strong>${positioning}</strong></div></article>`;
+  const comparisonGuides = {
+    1: 'best-food-cities-in-china',
+    2: 'hidden-gem-food-cities-in-china',
+    3: 'china-food-travel-map'
+  };
+  const comparison = (title, subtitle, selected, index) => `<article class="comparison-card comparison-${index}" style="--card-image: url('/${selected[0].heroImage}')"><div class="card-top"><span>SWIPE GUIDE ${String(index).padStart(2, '0')}</span><b>${siteName}</b></div><div class="card-copy"><small>CHINA FOOD TRAVEL</small><h2>${escapeHtml(title)}</h2><p>${escapeHtml(subtitle)}</p><ol>${selected.map(city => `<li>${escapeHtml(english[city.slug].name)} <em>${escapeHtml(english[city.slug].dishes[0].name)}</em></li>`).join('')}</ol><strong>${new URL(siteUrl).host}/guides/${comparisonGuides[index]}/</strong></div></article>`;
 
   const flavorCities = flavorRoutes.flatMap(([, slugs]) => (
     slugs.slice(0, 2).map(slug => cities.find(city => city.slug === slug))
@@ -423,14 +428,35 @@ function socialCopy(cities, english) {
   lines.push(
     '## Comparison Posts',
     '',
-    '**12 Chinese food cities beyond Beijing and Shanghai**',
+    '### Start with the classics',
     '',
-    'A useful first route through regional Chinese food: begin with Chengdu, Guangzhou, Xi’an, Changsha, Wuhan, and Chongqing, then look one stop further to Chaozhou, Liuzhou, Yanji, Taizhou, Kashgar, and Yangzhou.',
+    'Six essential food stops for a first trip across China: Chengdu, Xi\'an, Guangzhou, Changsha, Wuhan, and Chongqing.',
     '',
-    '**Choose your China food trip by flavor**',
+    `Start here: ${siteUrl}/guides/best-food-cities-in-china/`,
     '',
-    'For spice: Chengdu, Chongqing, Changsha. For slow breakfasts: Guangzhou, Wuhan, Yangzhou. For unforgettable noodles: Xi’an, Liuzhou, Yanji.',
-    ''
+    'Asset: `exports/comparison-classics.jpg`',
+    '',
+    'Hashtags: #ChinaTravel #FoodTravel #TasteChina',
+    '',
+    '### Go beyond the obvious',
+    '',
+    'Look one stop beyond the usual itinerary to Chaozhou, Liuzhou, Yanji, Taizhou, Kashgar, and Yangzhou.',
+    '',
+    `Start here: ${siteUrl}/guides/hidden-gem-food-cities-in-china/`,
+    '',
+    'Asset: `exports/comparison-hidden-gems.jpg`',
+    '',
+    'Hashtags: #ChinaTravel #HiddenGems #FoodTravel #TasteChina',
+    '',
+    '### Choose your China food trip by flavor',
+    '',
+    'For spice: Chengdu, Chongqing, Changsha. For slow breakfasts: Guangzhou, Wuhan, Yangzhou. For unforgettable noodles: Xi\'an, Liuzhou, Yanji.',
+    '',
+    `Start here: ${siteUrl}/guides/china-food-travel-map/`,
+    '',
+    'Asset: `exports/comparison-flavors.jpg`',
+    '',
+    'Hashtags: #ChinaTravel #FoodTravel #ChinaFood #TasteChina'
   );
   return `${lines.join('\n')}\n`;
 }
@@ -442,15 +468,19 @@ function utmCsv(cities) {
     ['reddit', 'community'],
     ['creator', 'referral']
   ];
-  const rows = ['city,channel,url'];
-  cities.forEach(city => {
+  const destinations = [
+    ...cities.map(city => ({ content: city.slug, type: 'city', path: `/city/${city.slug}/`, asset: `${city.slug}_city_card` })),
+    ...guideDefinitions.map(guide => ({ content: guide.slug, type: 'guide', path: `/guides/${guide.slug}/`, asset: `${guide.slug}_comparison_card` }))
+  ];
+  const rows = ['content,type,channel,url'];
+  destinations.forEach(destination => {
     channels.forEach(([source, medium]) => {
-      const url = new URL(`${siteUrl}/city/${city.slug}/`);
+      const url = new URL(`${siteUrl}${destination.path}`);
       url.searchParams.set('utm_source', source);
       url.searchParams.set('utm_medium', medium);
       url.searchParams.set('utm_campaign', campaign);
-      url.searchParams.set('utm_content', `${city.slug}_city_card`);
-      rows.push(`${city.slug},${source},${url.toString()}`);
+      url.searchParams.set('utm_content', destination.asset);
+      rows.push(`${destination.content},${destination.type},${source},${url.toString()}`);
     });
   });
   return `${rows.join('\n')}\n`;

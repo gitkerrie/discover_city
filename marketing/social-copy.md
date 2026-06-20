@@ -126,10 +126,32 @@ Hashtags: #ChinaTravel #FoodTravel #Yangzhou #TasteChina
 
 ## Comparison Posts
 
-**12 Chinese food cities beyond Beijing and Shanghai**
+### Start with the classics
 
-A useful first route through regional Chinese food: begin with Chengdu, Guangzhou, Xi’an, Changsha, Wuhan, and Chongqing, then look one stop further to Chaozhou, Liuzhou, Yanji, Taizhou, Kashgar, and Yangzhou.
+Six essential food stops for a first trip across China: Chengdu, Xi'an, Guangzhou, Changsha, Wuhan, and Chongqing.
 
-**Choose your China food trip by flavor**
+Start here: https://mitaste.com/guides/best-food-cities-in-china/
 
-For spice: Chengdu, Chongqing, Changsha. For slow breakfasts: Guangzhou, Wuhan, Yangzhou. For unforgettable noodles: Xi’an, Liuzhou, Yanji.
+Asset: `exports/comparison-classics.jpg`
+
+Hashtags: #ChinaTravel #FoodTravel #TasteChina
+
+### Go beyond the obvious
+
+Look one stop beyond the usual itinerary to Chaozhou, Liuzhou, Yanji, Taizhou, Kashgar, and Yangzhou.
+
+Start here: https://mitaste.com/guides/hidden-gem-food-cities-in-china/
+
+Asset: `exports/comparison-hidden-gems.jpg`
+
+Hashtags: #ChinaTravel #HiddenGems #FoodTravel #TasteChina
+
+### Choose your China food trip by flavor
+
+For spice: Chengdu, Chongqing, Changsha. For slow breakfasts: Guangzhou, Wuhan, Yangzhou. For unforgettable noodles: Xi'an, Liuzhou, Yanji.
+
+Start here: https://mitaste.com/guides/china-food-travel-map/
+
+Asset: `exports/comparison-flavors.jpg`
+
+Hashtags: #ChinaTravel #FoodTravel #ChinaFood #TasteChina
