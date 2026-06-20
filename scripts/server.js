@@ -10,6 +10,8 @@ const mimeTypes = {
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.md': 'text/markdown; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
   '.webp': 'image/webp'
 };
 
@@ -24,7 +26,9 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  const relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
+  const relativePath = pathname === '/'
+    ? 'index.html'
+    : `${pathname.replace(/^\/+/, '')}${pathname.endsWith('/') ? 'index.html' : ''}`;
   const filePath = path.resolve(root, relativePath);
   const outsideRoot = path.relative(root, filePath).startsWith('..');
 

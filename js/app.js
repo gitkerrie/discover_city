@@ -56,7 +56,7 @@ const UI_TRANSLATIONS = {
     tileLoadError: 'Some map tiles could not load. Check your connection.',
     markerAlt: '{city} food-city marker',
     imageFallback: 'Image unavailable. The flavors are still here.',
-    mapAttribution: 'AMap · Taste China'
+    mapAttribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Taste China'
   },
   zh: {
     pageTitle: '寻味中国 - 中国美食探索地图',
@@ -114,7 +114,7 @@ const UI_TRANSLATIONS = {
     tileLoadError: '部分地图瓦片未能加载，请检查网络',
     markerAlt: '{city}美食城市标记',
     imageFallback: '图片暂时缺席，味道仍在',
-    mapAttribution: '高德地图 · 寻味中国'
+    mapAttribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 贡献者 · 寻味中国'
   }
 };
 
@@ -175,8 +175,19 @@ class FoodMapApp {
   }
 
   loadLanguage() {
+    const requested = typeof window !== 'undefined' && window.location?.search
+      ? new URLSearchParams(window.location.search).get('lang')
+      : null;
+    if (requested === 'zh' || requested === 'en') return requested;
+
     const saved = localStorage.getItem('foodMapLanguage');
     return saved === 'zh' || saved === 'en' ? saved : 'en';
+  }
+
+  trackEvent(name, data = {}) {
+    if (typeof window.va === 'function') {
+      window.va('event', { name, data });
+    }
   }
 
   t(key, replacements = {}) {
@@ -224,6 +235,12 @@ class FoodMapApp {
 
     this.language = language;
     localStorage.setItem('foodMapLanguage', language);
+    if (window.location?.href && typeof history !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (language === 'zh') url.searchParams.set('lang', 'zh');
+      else url.searchParams.delete('lang');
+      history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+    }
     this.applyStaticTranslations();
     this.renderCityIndex();
     this.updateSelectedCity(this.currentCity?.slug || null);
@@ -232,6 +249,7 @@ class FoodMapApp {
     if (this.currentCity) this.populateDrawer(this.currentCity);
     if (this.elements.favoritesModal.classList.contains('is-open')) this.renderFavorites();
     if (this.elements.searchInput.value.trim()) this.renderSearchResults(this.elements.searchInput.value);
+    this.trackEvent('Language Changed', { language });
   }
 
   initMap() {
@@ -257,11 +275,9 @@ class FoodMapApp {
     L.control.zoom({ position: 'bottomleft' }).addTo(this.map);
 
     const tileLayer = L.tileLayer(
-      'https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
-        subdomains: '1234',
-        maxZoom: 18,
-        attribution: '高德地图'
+        maxZoom: 19
       }
     );
 
@@ -373,6 +389,8 @@ class FoodMapApp {
         history.pushState(null, '', nextHash);
       }
     }
+
+    this.trackEvent('City Viewed', { city: city.slug, language: this.language });
   }
 
   populateDrawer(city) {
@@ -614,9 +632,11 @@ class FoodMapApp {
     if (existingIndex >= 0) {
       this.favoriteSlugs.splice(existingIndex, 1);
       this.showToast(this.t('favoriteRemoved', { city: content.name }));
+      this.trackEvent('Favorite Changed', { city: slug, action: 'removed' });
     } else {
       this.favoriteSlugs.push(slug);
       this.showToast(this.t('favoriteAdded', { city: content.name }));
+      this.trackEvent('Favorite Changed', { city: slug, action: 'added' });
     }
 
     this.saveFavorites();
@@ -702,6 +722,7 @@ class FoodMapApp {
         removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
         removeButton.addEventListener('click', () => {
           this.favoriteSlugs = this.favoriteSlugs.filter(slug => slug !== city.slug);
+          this.trackEvent('Favorite Changed', { city: city.slug, action: 'removed' });
           this.saveFavorites();
           this.updateFavoritesCount();
           this.renderFavorites();
@@ -720,8 +741,8 @@ class FoodMapApp {
 
     const city = this.currentCity;
     const content = this.getCityContent(city);
-    const shareUrl = new URL(window.location.href);
-    shareUrl.hash = `city=${city.slug}`;
+    const sharePath = this.language === 'zh' ? `/zh/city/${city.slug}/` : `/city/${city.slug}/`;
+    const shareUrl = new URL(sharePath, window.location.origin);
     const shareData = {
       title: this.t('shareTitle', { city: content.name }),
       text: this.t('shareText', {
@@ -734,6 +755,7 @@ class FoodMapApp {
     if (navigator.share) {
       try {
         await navigator.share(shareData);
+        this.trackEvent('City Shared', { city: city.slug, method: 'native', language: this.language });
         return;
       } catch (error) {
         if (error.name === 'AbortError') return;
@@ -743,6 +765,7 @@ class FoodMapApp {
     try {
       await navigator.clipboard.writeText(shareData.url);
       this.showToast(this.t('linkCopied'));
+      this.trackEvent('City Shared', { city: city.slug, method: 'clipboard', language: this.language });
     } catch (error) {
       window.prompt(this.t('copyLink'), shareData.url);
     }

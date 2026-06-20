@@ -9,6 +9,8 @@
 - `js/app.js` 管理 Leaflet 地图、搜索、深链接、收藏和分享。
 - `js/data.js` 存放 12 座美食城市的结构化数据。
 - `assets/cities/` 存放本地 WebP 主图和 `SOURCES.md` 来源说明。
+- `city/`、`zh/city/` 与 `guides/` 是由脚本生成的 SEO 落地页。
+- `marketing/` 存放海外推广卡片、文案、UTM 链接和首月日历。
 - `scripts/validate-data.js` 校验数据及图片完整性。
 
 ## 构建、测试与本地开发命令
@@ -18,10 +20,11 @@
 ```bash
 npm run dev
 npm start
+npm run generate
 npm run check
 ```
 
-前两个命令通过 `node scripts/server.js` 启动静态服务器，访问 `http://localhost:8000`。`npm run check` 检查 JavaScript 语法、城市字段、坐标、菜品数量和图片路径。
+前两个命令通过 `node scripts/server.js` 启动静态服务器，访问 `http://localhost:8000`。`npm run generate` 根据城市数据更新落地页、站点地图和营销素材。`npm run check` 检查语法、数据及生成文件是否同步。
 
 ## 编码风格与命名约定
 

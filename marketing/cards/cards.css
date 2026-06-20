@@ -1,0 +1,158 @@
+:root {
+  --ink: #171713;
+  --paper: #f4f2ec;
+  --red: #b62f25;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 48px;
+  color: var(--ink);
+  background: #dedbd3;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+.kit-header,
+main {
+  width: min(100%, 1480px);
+  margin: 0 auto;
+}
+
+.kit-header p,
+.kit-header h1,
+.kit-header span {
+  margin: 0;
+}
+
+.kit-header h1 {
+  margin: 8px 0 10px;
+  font-family: Georgia, serif;
+  font-size: 54px;
+  font-weight: 500;
+}
+
+main section {
+  margin-top: 64px;
+}
+
+main section > h2 {
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.social-card,
+.comparison-card {
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.86)),
+    var(--card-image) center / cover no-repeat;
+  overflow: hidden;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.card-copy small,
+.card-copy strong {
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.card-copy h2 {
+  margin: 5px 0 12px;
+  font-family: Georgia, serif;
+  font-size: clamp(46px, 5vw, 72px);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.card-copy p {
+  margin: 0 0 16px;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.card-copy ol {
+  margin: 0 0 18px;
+  padding: 12px 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.card-copy li {
+  padding: 3px 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.card-copy li em {
+  display: block;
+  font-weight: 400;
+}
+
+.comparison-card {
+  background:
+    linear-gradient(180deg, rgba(182, 47, 37, 0.15), rgba(23, 23, 19, 0.95)),
+    var(--card-image) center / cover no-repeat;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  .kit-header h1 {
+    font-size: 38px;
+  }
+}
+
+@media print {
+  body {
+    padding: 0;
+    background: white;
+  }
+
+  .kit-header,
+  main section > h2 {
+    display: none;
+  }
+
+  main section {
+    margin: 0;
+  }
+
+  .card-grid {
+    display: block;
+  }
+
+  .social-card,
+  .comparison-card {
+    width: 1080px;
+    height: 1350px;
+    break-after: page;
+  }
+}
