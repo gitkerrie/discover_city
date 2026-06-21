@@ -17,6 +17,17 @@
     });
   });
 
+  const imageFallback = document.documentElement.lang.startsWith('zh') ? '图片暂时无法显示' : 'Image unavailable';
+  document.querySelectorAll('.hero-media img, .dish-photo img').forEach(image => {
+    image.addEventListener('error', () => {
+      const figure = image.closest('figure');
+      if (!figure) return;
+      image.hidden = true;
+      figure.dataset.fallback = imageFallback;
+      figure.classList.add('image-fallback');
+    });
+  });
+
   const mapLink = document.querySelector('.map-link[data-map-slug]');
   if (mapLink) {
     const query = new URLSearchParams(window.location.search);

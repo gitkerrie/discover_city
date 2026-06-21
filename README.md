@@ -30,10 +30,10 @@ npm run check
 ├── zh/                     # 生成的中文目录与城市页
 ├── guides/                 # 生成的英文主题指南
 ├── marketing/              # 海外推广素材与首月日历
-├── assets/cities/          # 城市主图与来源说明
+├── assets/dishes/          # 48 张菜品图与来源说明
 └── scripts/                # 静态服务器、生成器与校验脚本
 ```
 
 城市内容以 `js/data.js` 为唯一数据源。修改后运行 `npm run generate`，不要直接编辑生成页面。收藏与语言偏好保存在浏览器 `localStorage` 中，无需注册。
 
-生产地址为 [mitaste.com](https://mitaste.com)。图片许可与来源见 `assets/cities/SOURCES.md`。
+生产地址为 [mitaste.com](https://mitaste.com)。图片许可与来源见 `assets/dishes/SOURCES.md`。

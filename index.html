@@ -18,12 +18,12 @@
   <meta property="og:title" content="Taste China - A Map of China's Food Cities">
   <meta property="og:description" content="Explore China city by city, one signature dish at a time.">
   <meta property="og:url" content="https://mitaste.com/">
-  <meta property="og:image" content="https://mitaste.com/assets/cities/chengdu.webp">
+  <meta property="og:image" content="https://mitaste.com/assets/dishes/chengdu/zhong-shui-jiao.webp">
   <meta property="og:image:alt" content="Chengdu-style dumplings in fragrant red chili oil">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Taste China - A Map of China's Food Cities">
   <meta name="twitter:description" content="Explore China city by city, one signature dish at a time.">
-  <meta name="twitter:image" content="https://mitaste.com/assets/cities/chengdu.webp">
+  <meta name="twitter:image" content="https://mitaste.com/assets/dishes/chengdu/zhong-shui-jiao.webp">
 
   <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
   <link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css">
@@ -131,10 +131,19 @@
 
       <div class="drawer-scroll">
         <figure class="city-visual" id="cityVisual">
-          <img id="cityImage" src="" alt="">
-          <figcaption class="image-credit">
-            <span data-i18n="imageCredit">Image license:</span> <a href="assets/cities/SOURCES.md" target="_blank" rel="noopener" data-i18n="sourceNotes">source notes</a>
-          </figcaption>
+          <div class="drawer-gallery" id="drawerGallery" tabindex="0" role="region" aria-label="Signature dish gallery" data-i18n-aria="galleryLabel">
+            <div class="gallery-track" id="galleryTrack"></div>
+            <button class="gallery-control gallery-previous" id="galleryPrevious" type="button" aria-label="Previous dish image" title="Previous dish image" data-i18n-aria="previousImage" data-i18n-title="previousImage">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <button class="gallery-control gallery-next" id="galleryNext" type="button" aria-label="Next dish image" title="Next dish image" data-i18n-aria="nextImage" data-i18n-title="nextImage">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+            <figcaption class="gallery-caption">
+              <span class="gallery-copy"><strong id="galleryDishName"></strong><span id="galleryCounter"></span></span>
+              <span class="gallery-credit"><a id="gallerySource" href="" target="_blank" rel="noopener"></a> · <a id="galleryLicense" href="" target="_blank" rel="noopener"></a></span>
+            </figcaption>
+          </div>
         </figure>
 
         <div class="city-content">

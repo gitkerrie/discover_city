@@ -22,6 +22,6 @@ Open `http://localhost:8000/marketing/cards/` at desktop width to review the car
 - Use the matching channel URL from `utm-links.csv`.
 - Make each post useful before the link; do not publish identical copy across communities.
 - Record the publish date, destination, and result in the content calendar.
-- Use only images listed in `assets/cities/SOURCES.md` and retain the supplied alt text.
+- Use only images listed in `assets/dishes/SOURCES.md` and retain the supplied alt text.
 
 Before changing the production domain, update `scripts/site-config.js`, run `npm run generate`, and verify every canonical and sitemap URL with `npm run check`.

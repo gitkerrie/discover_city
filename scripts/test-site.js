@@ -61,10 +61,20 @@ cities.forEach(city => {
   assert(englishPage.includes('name="twitter:card"'), `${city.slug} Twitter Card 缺失`);
   assert(englishPage.includes(english[city.slug].name), `${city.slug} 英文内容缺失`);
   assert(englishPage.includes('application/ld+json'), `${city.slug} 结构化数据缺失`);
+  assert((englishPage.match(/class="hero-media hero-media-/g) || []).length === 4, `${city.slug} 英文页主视觉不是四图拼贴`);
+  assert((englishPage.match(/class="dish-photo"/g) || []).length === 4, `${city.slug} 英文页菜品图片数量不是 4`);
+  assert(city.dishes.every(dish => englishPage.includes(`/${dish.image}`)), `${city.slug} 英文页缺少菜品图片`);
   assert(chinesePage.includes(`<html lang="zh-CN">`), `${city.slug} 中文页语言不正确`);
   assert(chinesePage.includes(`<link rel="canonical" href="${chineseUrl}">`), `${city.slug} 中文 canonical 缺失`);
   assert(chinesePage.includes(city.name), `${city.slug} 中文内容缺失`);
+  assert((chinesePage.match(/class="hero-media hero-media-/g) || []).length === 4, `${city.slug} 中文页主视觉不是四图拼贴`);
 });
+
+const dishSources = read('assets', 'dishes', 'SOURCES.md');
+assert((dishSources.match(/^\| .* \| .* \| .* \| .* \| \[.*\]\(.*\) \| \[查看来源\]/gm) || []).length === 48, '菜品来源文档不是 48 条');
+const imageReview = read('marketing', 'image-review.html');
+assert((imageReview.match(/<figure><img/g) || []).length === 48, '图片审核表不是 48 张');
+assert(imageReview.includes('noindex, nofollow'), '图片审核表必须禁止收录');
 
 const sitemap = read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
@@ -82,6 +92,7 @@ assert(index.includes(`<link rel="canonical" href="${siteUrl}/">`), 'Homepage ca
 assert(index.includes('rel="canonical"'), '地图首页缺少 canonical');
 assert(index.includes('application/ld+json'), '地图首页缺少结构化数据');
 assert(index.includes('/_vercel/insights/script.js'), '地图首页缺少 Vercel Analytics');
+assert(index.includes('assets/dishes/chengdu/zhong-shui-jiao.webp'), '地图首页社交图片未切换到菜品图');
 
 const cards = read('marketing', 'cards', 'index.html');
 assert(cards.includes(`${new URL(siteUrl).host}/city/chengdu/`), 'Social cards do not use the canonical host');

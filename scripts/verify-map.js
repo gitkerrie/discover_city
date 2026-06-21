@@ -181,6 +181,19 @@ async function verifyDetailedMap(browser) {
   await page.locator('.search-result').first().click();
   assert(await page.locator('#cityName').textContent() === 'Wuhan', 'Dish search did not open Wuhan');
   assert(await page.locator('#cityDrawer').getAttribute('aria-hidden') === 'false', 'Search did not open the city drawer');
+  assert(await page.locator('#galleryTrack .gallery-slide').count() === 4, 'Drawer gallery did not render four dish images');
+  assert(await page.locator('#dishList .dish-row').count() === 4, 'Drawer did not render four dish thumbnails');
+  assert(await page.locator('#galleryDishName').textContent() === 'Hot Dry Noodles', 'Drawer gallery did not reset to the first dish');
+  await page.locator('#galleryNext').click();
+  assert(await page.locator('#galleryDishName').textContent() === 'Three-Delicacy Doupi', 'Gallery next control did not change the dish');
+  await page.locator('#drawerGallery').focus();
+  await page.keyboard.press('ArrowRight');
+  assert(await page.locator('#galleryDishName').textContent() === 'Fish Broth Rice Noodles', 'Gallery keyboard navigation failed');
+  await page.locator('#galleryTrack .gallery-slide').nth(2).locator('img').evaluate(image => {
+    image.src = 'data:image/webp;base64,AAAA';
+  });
+  await page.waitForSelector('#galleryTrack .gallery-slide.image-fallback');
+  assert(await page.locator('#galleryTrack .gallery-slide.image-fallback').count() === 1, 'A failed image affected more than its own gallery slide');
   await page.keyboard.press('Escape');
   assert(await page.locator('#cityDrawer').getAttribute('aria-hidden') === 'true', 'Escape did not close the city drawer');
 
@@ -202,6 +215,9 @@ async function verifyMobileMap(browser) {
   await page.waitForSelector('#map.map-detailed-ready', { timeout: 20000 });
   await page.locator('.city-index-btn[data-slug="chengdu"]').click();
   await page.waitForSelector('#cityDrawer.is-open');
+  assert(await page.locator('#galleryTrack .gallery-slide').count() === 4, 'Mobile drawer gallery did not render four images');
+  await page.locator('#galleryNext').click();
+  assert(await page.locator('#galleryCounter').textContent() === '2 of 4', 'Mobile gallery control did not advance');
 
   const layout = await page.evaluate(() => {
     const drawer = document.querySelector('#cityDrawer').getBoundingClientRect();
@@ -218,6 +234,27 @@ async function verifyMobileMap(browser) {
   assert(layout.drawerWidth === layout.viewportWidth, 'Mobile drawer does not fill the viewport width');
   assert(layout.drawerBottom === layout.viewportHeight, 'Mobile drawer is not anchored to the viewport bottom');
   await page.screenshot({ path: path.join(screenshotDirectory, 'detailed-mobile.png') });
+  await context.close();
+}
+
+async function verifyCityLanding(browser, viewport, screenshotName) {
+  const context = await browser.newContext({ viewport });
+  const page = await context.newPage();
+  await stubAnalytics(page);
+  await page.goto(`${baseUrl}/city/chengdu/`, { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => [...document.querySelectorAll('.content-hero-media img')].every(image => image.complete));
+
+  const layout = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    dishImages: document.querySelectorAll('.dish-photo img').length,
+    heroImages: document.querySelectorAll('.hero-media img').length,
+    loadedHeroImages: [...document.querySelectorAll('.hero-media img')].filter(image => image.naturalWidth > 0).length,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  assert(layout.heroImages === 4 && layout.loadedHeroImages === 4, 'City landing hero did not load four images');
+  assert(layout.dishImages === 4, 'City landing page did not render four dish rows');
+  assert(layout.scrollWidth === layout.clientWidth, 'City landing page has horizontal overflow');
+  await page.screenshot({ path: path.join(screenshotDirectory, screenshotName), fullPage: true });
   await context.close();
 }
 
@@ -278,6 +315,8 @@ async function main() {
     const colors = await verifyDetailedMap(browser);
     await verifyMobileMap(browser);
     await verifyFallbackMap(browser);
+    await verifyCityLanding(browser, { width: 1440, height: 900 }, 'city-desktop.png');
+    await verifyCityLanding(browser, { width: 390, height: 844 }, 'city-mobile.png');
     console.log(`Map verification passed. Detailed canvas: ${colors.uniqueBuckets} color buckets; screenshots: ${screenshotDirectory}`);
   } finally {
     if (browser) await browser.close();

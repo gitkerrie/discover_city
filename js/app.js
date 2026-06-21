@@ -29,6 +29,11 @@ const UI_TRANSLATIONS = {
     close: 'Close',
     imageCredit: 'Image license:',
     sourceNotes: 'source notes',
+    galleryLabel: 'Signature dish gallery',
+    previousImage: 'Previous dish image',
+    nextImage: 'Next dish image',
+    viewDishImage: 'View the photo of {dish}',
+    imageCount: '{current} of {total}',
     flavorTags: 'Flavor tags',
     signatureDishes: 'Signature dishes',
     foodTip: 'How to eat like a local',
@@ -88,6 +93,11 @@ const UI_TRANSLATIONS = {
     close: '关闭',
     imageCredit: '图片许可见',
     sourceNotes: '来源说明',
+    galleryLabel: '招牌菜图片画廊',
+    previousImage: '上一张菜品图片',
+    nextImage: '下一张菜品图片',
+    viewDishImage: '查看{dish}图片',
+    imageCount: '第 {current} / {total} 张',
     flavorTags: '风味标签',
     signatureDishes: '招牌味道',
     foodTip: '怎么吃更对味',
@@ -135,6 +145,9 @@ class FoodMapApp {
     this.lastTrigger = null;
     this.toastTimer = null;
     this.tileErrorShown = false;
+    this.galleryIndex = 0;
+    this.galleryDishes = [];
+    this.galleryTouchStartX = null;
     this.favoriteSlugs = this.loadFavorites();
 
     this.cacheElements();
@@ -159,7 +172,14 @@ class FoodMapApp {
       drawerBackdrop: document.getElementById('drawerBackdrop'),
       drawerClose: document.getElementById('drawerClose'),
       cityVisual: document.getElementById('cityVisual'),
-      cityImage: document.getElementById('cityImage'),
+      drawerGallery: document.getElementById('drawerGallery'),
+      galleryTrack: document.getElementById('galleryTrack'),
+      galleryPrevious: document.getElementById('galleryPrevious'),
+      galleryNext: document.getElementById('galleryNext'),
+      galleryDishName: document.getElementById('galleryDishName'),
+      galleryCounter: document.getElementById('galleryCounter'),
+      gallerySource: document.getElementById('gallerySource'),
+      galleryLicense: document.getElementById('galleryLicense'),
       cityGroup: document.getElementById('cityGroup'),
       cityProvince: document.getElementById('cityProvince'),
       cityName: document.getElementById('cityName'),
@@ -482,10 +502,7 @@ class FoodMapApp {
     const { elements } = this;
     const content = this.getCityContent(city);
 
-    elements.cityVisual.classList.remove('image-fallback');
-    elements.cityImage.hidden = false;
-    elements.cityImage.src = city.heroImage;
-    elements.cityImage.alt = content.imageAlt;
+    this.renderDishGallery(content);
     elements.cityGroup.textContent = this.getGroupLabel(city);
     elements.cityGroup.dataset.group = city.group;
     elements.cityProvince.textContent = content.province;
@@ -505,22 +522,90 @@ class FoodMapApp {
     const dishFragment = document.createDocumentFragment();
     content.dishes.forEach((dish, index) => {
       const item = document.createElement('li');
+      const button = document.createElement('button');
+      const thumbnail = document.createElement('img');
       const number = document.createElement('span');
-      const content = document.createElement('div');
+      const dishCopy = document.createElement('div');
       const name = document.createElement('h4');
       const description = document.createElement('p');
 
+      button.type = 'button';
+      button.className = 'dish-row';
+      button.dataset.galleryIndex = String(index);
+      button.setAttribute('aria-label', this.t('viewDishImage', { dish: dish.name }));
+      thumbnail.src = dish.image;
+      thumbnail.alt = '';
+      thumbnail.loading = 'lazy';
+      thumbnail.decoding = 'async';
       number.textContent = String(index + 1).padStart(2, '0');
       name.textContent = dish.name;
       description.textContent = dish.description;
-      content.append(name, description);
-      item.append(number, content);
+      dishCopy.append(name, description);
+      button.append(thumbnail, number, dishCopy);
+      item.appendChild(button);
       dishFragment.appendChild(item);
     });
     elements.dishList.replaceChildren(dishFragment);
+    elements.dishList.querySelector('li')?.classList.add('is-active');
 
     this.updateFavoriteButton();
     document.querySelector('.drawer-scroll').scrollTop = 0;
+  }
+
+  renderDishGallery(content) {
+    this.galleryDishes = content.dishes;
+    this.galleryIndex = 0;
+    const fragment = document.createDocumentFragment();
+
+    content.dishes.forEach((dish, index) => {
+      const slide = document.createElement('div');
+      const image = document.createElement('img');
+      slide.className = 'gallery-slide';
+      slide.dataset.fallback = this.t('imageFallback');
+      slide.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
+      image.src = dish.image;
+      image.alt = dish.imageAlt;
+      image.loading = index === 0 ? 'eager' : 'lazy';
+      image.decoding = 'async';
+      if (index === 0) image.id = 'cityImage';
+      slide.appendChild(image);
+      fragment.appendChild(slide);
+    });
+
+    this.elements.galleryTrack.replaceChildren(fragment);
+    this.setGalleryIndex(0);
+  }
+
+  setGalleryIndex(index, { focusThumbnail = false } = {}) {
+    if (!this.galleryDishes.length) return;
+    const total = this.galleryDishes.length;
+    this.galleryIndex = (index + total) % total;
+    const dish = this.galleryDishes[this.galleryIndex];
+
+    this.elements.galleryTrack.style.transform = `translateX(-${this.galleryIndex * 100}%)`;
+    this.elements.galleryDishName.textContent = dish.name;
+    this.elements.galleryCounter.textContent = this.t('imageCount', {
+      current: this.galleryIndex + 1,
+      total
+    });
+    this.elements.gallerySource.textContent = dish.credit.author;
+    this.elements.gallerySource.href = dish.credit.sourceUrl;
+    this.elements.galleryLicense.textContent = dish.credit.license;
+    this.elements.galleryLicense.href = dish.credit.licenseUrl;
+    this.elements.galleryTrack.querySelectorAll('.gallery-slide').forEach((slide, slideIndex) => {
+      slide.setAttribute('aria-hidden', slideIndex === this.galleryIndex ? 'false' : 'true');
+    });
+    this.elements.dishList.querySelectorAll('li').forEach((item, itemIndex) => {
+      item.classList.toggle('is-active', itemIndex === this.galleryIndex);
+    });
+
+    if (focusThumbnail) {
+      this.elements.dishList.querySelector(`[data-gallery-index="${this.galleryIndex}"]`)?.focus();
+    }
+  }
+
+  moveGallery(direction) {
+    this.setGalleryIndex(this.galleryIndex + direction);
   }
 
   closeDrawer({ updateHash = true, restoreFocus = true } = {}) {
@@ -932,14 +1017,45 @@ class FoodMapApp {
     this.elements.favoritesClose.addEventListener('click', () => this.closeFavorites());
     this.elements.favoritesBackdrop.addEventListener('click', () => this.closeFavorites());
 
-    this.elements.cityImage.addEventListener('load', () => {
-      this.elements.cityImage.hidden = false;
-      this.elements.cityVisual.classList.remove('image-fallback');
+    this.elements.galleryPrevious.addEventListener('click', () => this.moveGallery(-1));
+    this.elements.galleryNext.addEventListener('click', () => this.moveGallery(1));
+    this.elements.drawerGallery.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        this.moveGallery(event.key === 'ArrowLeft' ? -1 : 1);
+      }
     });
-
-    this.elements.cityImage.addEventListener('error', () => {
-      this.elements.cityImage.hidden = true;
-      this.elements.cityVisual.classList.add('image-fallback');
+    this.elements.drawerGallery.addEventListener('touchstart', event => {
+      this.galleryTouchStartX = event.changedTouches[0]?.clientX ?? null;
+    }, { passive: true });
+    this.elements.drawerGallery.addEventListener('touchend', event => {
+      if (this.galleryTouchStartX === null) return;
+      const delta = (event.changedTouches[0]?.clientX ?? this.galleryTouchStartX) - this.galleryTouchStartX;
+      this.galleryTouchStartX = null;
+      if (Math.abs(delta) > 40) this.moveGallery(delta > 0 ? -1 : 1);
+    }, { passive: true });
+    this.elements.galleryTrack.addEventListener('error', event => {
+      if (!(event.target instanceof HTMLImageElement)) return;
+      event.target.hidden = true;
+      event.target.closest('.gallery-slide')?.classList.add('image-fallback');
+    }, true);
+    this.elements.dishList.addEventListener('click', event => {
+      const button = event.target.closest('[data-gallery-index]');
+      if (button) this.setGalleryIndex(Number(button.dataset.galleryIndex));
+    });
+    this.elements.dishList.addEventListener('error', event => {
+      if (!(event.target instanceof HTMLImageElement)) return;
+      event.target.hidden = true;
+      event.target.closest('.dish-row')?.classList.add('image-fallback');
+    }, true);
+    this.elements.dishList.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      const button = event.target.closest('[data-gallery-index]');
+      if (!button) return;
+      event.preventDefault();
+      this.setGalleryIndex(Number(button.dataset.galleryIndex) + (event.key === 'ArrowLeft' ? -1 : 1), {
+        focusThumbnail: true
+      });
     });
 
     document.addEventListener('keydown', event => {

@@ -6,21 +6,21 @@ Use one city per post. Keep the first paragraph useful without requiring a click
 
 ## 01. Chengdu
 
-Chengdu is a city to taste through Zhong Shui Jiao, Dan Dan Noodles, Long Chao Shou, and Sweet Water Noodles. Red chili oil, sweet heat, and a city that turns every meal into a daily ritual.
+Chengdu is a city to taste through Zhong Shui Jiao, Dan Dan Noodles, Long Chao Shou, and Mapo Tofu. Red chili oil, sweet heat, and a city that turns every meal into a daily ritual.
 
 Start here: https://mitaste.com/city/chengdu/
 
-Alt text: Chengdu-style Zhong Shui Jiao dumplings in red chili oil.
+Alt text: Chengdu Zhong Shui Jiao dumplings in red chili oil.
 
 Hashtags: #ChinaTravel #FoodTravel #Chengdu #TasteChina
 
 ## 02. Xi'an
 
-Xi'an is a city to taste through Roujiamo, Lamb Paomo, Oil-Splashed Noodles, and Gourd Chicken. Wheat, slow-cooked meat, and warm spices build layer upon layer through the old city.
+Xi'an is a city to taste through Roujiamo, Lamb Paomo, Oil-Splashed Noodles, and Liangpi. Wheat, slow-cooked meat, and warm spices build layer upon layer through the old city.
 
 Start here: https://mitaste.com/city/xian/
 
-Alt text: Xi'an roujiamo filled with chopped braised pork.
+Alt text: Xi'an roujiamo filled with braised pork.
 
 Hashtags: #ChinaTravel #FoodTravel #Xi'an #TasteChina
 
@@ -30,7 +30,7 @@ Guangzhou is a city to taste through Shrimp Dumplings, Char Siu Bao, Roast Goose
 
 Start here: https://mitaste.com/city/guangzhou/
 
-Alt text: A Guangzhou morning-tea table filled with steamed dim sum.
+Alt text: Translucent shrimp dumplings in a bamboo steamer.
 
 Hashtags: #ChinaTravel #FoodTravel #Guangzhou #TasteChina
 
@@ -40,7 +40,7 @@ Changsha is a city to taste through Stinky Tofu, Spicy Crayfish, Chopped-Chili F
 
 Start here: https://mitaste.com/city/changsha/
 
-Alt text: Changsha-style black stinky tofu with chili and garlic.
+Alt text: Black Changsha stinky tofu dressed with chili sauce.
 
 Hashtags: #ChinaTravel #FoodTravel #Changsha #TasteChina
 
@@ -50,7 +50,7 @@ Wuhan is a city to taste through Hot Dry Noodles, Three-Delicacy Doupi, Fish Bro
 
 Start here: https://mitaste.com/city/wuhan/
 
-Alt text: Wuhan hot dry noodles tossed with sesame paste and scallions.
+Alt text: Wuhan hot dry noodles coated in sesame paste.
 
 Hashtags: #ChinaTravel #FoodTravel #Wuhan #TasteChina
 
@@ -60,7 +60,7 @@ Chongqing is a city to taste through Chongqing Hot Pot, Chongqing Xiaomian, Chil
 
 Start here: https://mitaste.com/city/chongqing/
 
-Alt text: A nine-grid Chongqing hot pot filled with red broth.
+Alt text: Ingredients cooking in a bubbling red Chongqing hot pot.
 
 Hashtags: #ChinaTravel #FoodTravel #Chongqing #TasteChina
 
@@ -70,13 +70,13 @@ Chaozhou is a city to taste through Fresh Beef Hot Pot, Oyster Omelet, Master-St
 
 Start here: https://mitaste.com/city/chaozhou/
 
-Alt text: Chaoshan beef-ball rice noodle soup.
+Alt text: Chaoshan beef hot pot surrounded by plates of fresh sliced beef.
 
 Hashtags: #ChinaTravel #FoodTravel #Chaozhou #TasteChina
 
 ## 08. Liuzhou
 
-Liuzhou is a city to taste through Luosifen, Braised Duck Feet, Liuzhou Filtered Rice Noodles, and Savory Glutinous Rice Balls. Sour, hot, savory, and steaming flavors converge in one audacious bowl of noodles.
+Liuzhou is a city to taste through Luosifen, Sanjiang Oil Tea, Stuffed Tofu, and Bamboo Rice. Sour, hot, savory, and steaming flavors converge in one audacious bowl of noodles.
 
 Start here: https://mitaste.com/city/liuzhou/
 
@@ -90,37 +90,37 @@ Yanji is a city to taste through Yanji Cold Noodles, Rice Sausage, Charcoal Skew
 
 Start here: https://mitaste.com/city/yanji/
 
-Alt text: Yanji-style cold noodles with beef, egg, and vegetables.
+Alt text: Yanji cold noodles with beef, egg, and vegetables.
 
 Hashtags: #ChinaTravel #FoodTravel #Yanji #TasteChina
 
 ## 10. Taizhou
 
-Taizhou is a city to taste through Shibingtong, Ginger Broth Noodles, Mai Xia, and Home-Style Braised Seafood. Between mountain and sea, chewy rice snacks share the table with vivid seafood.
+Taizhou is a city to taste through Fanfenyuan, Braised Hairtail, Pan-Fried Yellow Croaker, and Steamed Blue Crab. Between mountain and sea, chewy rice snacks share the table with vivid seafood.
 
 Start here: https://mitaste.com/city/taizhou/
 
-Alt text: Fanfenyuan, a distinctive rice dish from Taizhou, Zhejiang.
+Alt text: Taizhou fanfenyuan rice dumplings with savory filling.
 
 Hashtags: #ChinaTravel #FoodTravel #Taizhou #TasteChina
 
 ## 11. Kashgar
 
-Kashgar is a city to taste through Lamb Polu, Tandoor Samsa, Jar-Braised Lamb, and Lamb Skewers. Tandoor smoke and warm spice meet the bright fruit of the western oases.
+Kashgar is a city to taste through Lamb Polu, Tandoor Samsa, Xinjiang Naan, and Lamb Skewers. Tandoor smoke and warm spice meet the bright fruit of the western oases.
 
 Start here: https://mitaste.com/city/kashgar/
 
-Alt text: Dried fruit and spice stalls in the lanes of Kashgar bazaar.
+Alt text: Kashgar lamb polu rice with carrots and tender meat.
 
 Hashtags: #ChinaTravel #FoodTravel #Kashgar #TasteChina
 
 ## 12. Yangzhou
 
-Yangzhou is a city to taste through Blanched Tofu Shreds, Three-Dice Bao, Crab Roe Lion's Head, and Yangzhou Fried Rice. Knife work, clear broths, and gentle flavors unfold over an unhurried morning tea.
+Yangzhou is a city to taste through Braised Shredded Tofu, Three-Dice Bao, Red-Braised Lion's Head, and Yangzhou Fried Rice. Knife work, clear broths, and gentle flavors unfold over an unhurried morning tea.
 
 Start here: https://mitaste.com/city/yangzhou/
 
-Alt text: Yangzhou fried rice with distinct, evenly coated grains.
+Alt text: Yangzhou braised shredded tofu in a clear savory broth.
 
 Hashtags: #ChinaTravel #FoodTravel #Yangzhou #TasteChina
 

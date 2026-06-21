@@ -31,6 +31,10 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+function imageCredit(dish) {
+  return `<figcaption><a href="${escapeHtml(dish.credit.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(dish.credit.author)}</a> · <a href="${escapeHtml(dish.credit.licenseUrl)}" target="_blank" rel="noopener">${escapeHtml(dish.credit.license)}</a></figcaption>`;
+}
+
 function absolute(relativePath) {
   return `${siteUrl}/${relativePath.replace(/^\/+/, '')}`;
 }
@@ -61,7 +65,8 @@ function cityStructuredData(city, content, language) {
       '@type': 'ListItem',
       position: index + 1,
       name: dish.name,
-      description: dish.description
+      description: dish.description,
+      image: absolute(dish.image)
     }))
   };
 
@@ -156,7 +161,10 @@ function cityPage(city, english, allCities, language) {
   </header>
 
   <main>
-    <section class="content-hero" style="--hero-image: url('/${city.heroImage}')">
+    <section class="content-hero">
+      <div class="content-hero-media">
+        ${content.dishes.map((dish, index) => `<figure class="hero-media hero-media-${index + 1}"><img src="/${dish.image}" alt="${escapeHtml(dish.imageAlt)}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"${index === 0 ? ' fetchpriority="high"' : ''}>${imageCredit(dish)}</figure>`).join('\n        ')}
+      </div>
       <div class="content-hero-copy">
         <p>${escapeHtml(groupLabel)} · ${escapeHtml(content.province)}</p>
         <h1>${escapeHtml(content.name)}</h1>
@@ -174,7 +182,7 @@ function cityPage(city, english, allCities, language) {
         <section aria-labelledby="dishes-title">
           <div class="numbered-heading"><span>01</span><h2 id="dishes-title">${isZh ? '从这些味道开始' : `What to eat in ${escapeHtml(content.name)}`}</h2></div>
           <ol class="landing-dishes">
-            ${content.dishes.map((dish, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span><div><h3>${escapeHtml(dish.name)}</h3><p>${escapeHtml(dish.description)}</p></div></li>`).join('\n            ')}
+            ${content.dishes.map((dish, index) => `<li><figure class="dish-photo"><img src="/${dish.image}" alt="${escapeHtml(dish.imageAlt)}" loading="lazy" decoding="async">${imageCredit(dish)}</figure><div class="dish-copy"><span>${String(index + 1).padStart(2, '0')}</span><h3>${escapeHtml(dish.name)}</h3><p>${escapeHtml(dish.description)}</p></div></li>`).join('\n            ')}
           </ol>
         </section>
 
@@ -486,6 +494,44 @@ function utmCsv(cities) {
   return `${rows.join('\n')}\n`;
 }
 
+function dishSources(cities, english) {
+  const lines = [
+    '# 菜品图片来源',
+    '',
+    '本目录图片均裁切为 1200×900 WebP。除 CC0 作品外，改编图片沿用原作品许可；作者名和许可链接同时显示在使用图片的页面旁。',
+    '',
+    '| 城市 | 菜品 | 英文名 | 作者 | 许可 | 原作品 |',
+    '| --- | --- | --- | --- | --- | --- |'
+  ];
+
+  cities.forEach(city => {
+    city.dishes.forEach((dish, index) => {
+      const englishDish = english[city.slug].dishes[index];
+      lines.push(`| ${city.name} | ${dish.name} | ${englishDish.name} | ${dish.credit.author} | [${dish.credit.license}](${dish.credit.licenseUrl}) | [查看来源](${dish.credit.sourceUrl}) |`);
+    });
+  });
+
+  return `${lines.join('\n')}\n`;
+}
+
+function imageReview(cities, english) {
+  const citySections = cities.map(city => `<section><header><p>${escapeHtml(city.province)} · ${escapeHtml(english[city.slug].name)}</p><h2>${escapeHtml(city.name)}</h2></header><div class="review-grid">${city.dishes.map((dish, index) => `<figure><img src="/${dish.image}" alt="${escapeHtml(dish.imageAlt)}" loading="lazy"><figcaption><strong>${escapeHtml(dish.name)}</strong><span>${escapeHtml(english[city.slug].dishes[index].name)}</span><small>${escapeHtml(dish.credit.author)} · ${escapeHtml(dish.credit.license)}</small></figcaption></figure>`).join('')}</div></section>`).join('\n');
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>48 张菜品图片审核表</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;color:#171713;background:#f7f6f2;font-family:Arial,"Microsoft YaHei",sans-serif;letter-spacing:0}main{width:min(1440px,calc(100% - 40px));margin:auto;padding:48px 0 100px}h1{margin:0;font:700 48px Georgia,serif}.intro{max-width:760px;line-height:1.7}.checklist{display:flex;flex-wrap:wrap;gap:8px 24px;padding:16px 0 28px;border-bottom:2px solid #171713;list-style:none}.checklist li{font-size:13px;font-weight:700}section{padding:42px 0;border-bottom:1px solid #bbb}section header{display:flex;align-items:end;gap:18px;margin-bottom:18px}section h2,section p{margin:0}section h2{font:500 36px Georgia,serif}section p{color:#666;font-size:12px;font-weight:700}.review-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}figure{margin:0;background:#fff}img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}figcaption{display:grid;gap:4px;padding:12px}figcaption strong{font-size:16px}figcaption span,figcaption small{color:#666;font-size:12px}@media(max-width:800px){main{width:calc(100% - 28px);padding-top:28px}h1{font-size:34px}.review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:460px){.review-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body><main><h1>48 张菜品图片审核表</h1><p class="intro">此页面仅用于发布前人工审核，不进入生产构建。逐张检查菜品准确性、构图、色调、清晰度及是否含水印或商家宣传。</p><ul class="checklist"><li>□ 菜品与名称相符</li><li>□ 主体清晰</li><li>□ 裁切自然</li><li>□ 无水印或广告</li><li>□ 许可已记录</li></ul>${citySections}</main></body>
+</html>
+`;
+}
+
 function sitemap(cities) {
   const urls = [
     ['/', '1.0'],
@@ -513,6 +559,8 @@ function buildFiles() {
   files.set(path.join('marketing', 'cards', 'index.html'), marketingCards(cities, english));
   files.set(path.join('marketing', 'social-copy.md'), socialCopy(cities, english));
   files.set(path.join('marketing', 'utm-links.csv'), utmCsv(cities));
+  files.set(path.join('marketing', 'image-review.html'), imageReview(cities, english));
+  files.set(path.join('assets', 'dishes', 'SOURCES.md'), dishSources(cities, english));
   files.set('sitemap.xml', sitemap(cities));
   files.set('robots.txt', `User-agent: *\nAllow: /\nDisallow: /marketing/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
   return files;
