@@ -368,6 +368,12 @@ class FoodMapApp {
         this.detailedMapReady = true;
         mapElement.classList.add('map-detailed-ready');
         this.refreshAttribution();
+
+        // After the MapLibre GL layer loads and syncs, the map container
+        // layout may have shifted. Invalidate size so Leaflet recalculates
+        // marker positions — otherwise markers appear offset until the
+        // user zooms, which internally triggers the same recalculation.
+        this.map.invalidateSize({ animate: false, pan: false });
       });
     });
 
