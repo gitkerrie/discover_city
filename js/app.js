@@ -351,7 +351,8 @@ class FoodMapApp {
       attributionControl: false,
       pane: 'tilePane',
       interactive: false,
-      renderWorldCopies: false
+      // Keep low-zoom wide viewports centered on China instead of clamping at the world edge.
+      renderWorldCopies: true
     }).addTo(this.map);
 
     const detailedMap = this.detailedMapLayer.getMaplibreMap();

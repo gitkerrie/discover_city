@@ -306,6 +306,7 @@ async function main() {
 
     browser = await chromium.launch({ channel: browserChannel, headless: true });
     await verifyInitialAlignment(browser, { width: 1440, height: 900 });
+    await verifyInitialAlignment(browser, { width: 1457, height: 477 });
     await verifyInitialAlignment(browser, { width: 390, height: 844 });
     if (process.env.MAP_VERIFY_ALIGNMENT_ONLY === '1') {
       console.log('Initial map alignment verification passed for all 12 city markers.');
