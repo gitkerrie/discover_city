@@ -31,4 +31,24 @@
   <url><loc>https://mitaste.com/zh/city/kashgar/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mitaste.com/city/yangzhou/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://mitaste.com/zh/city/yangzhou/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/beijing/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/beijing/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/shanghai/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/shanghai/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/hangzhou/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/hangzhou/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/nanjing/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/nanjing/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/tianjin/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/tianjin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/harbin/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/harbin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/xiamen/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/xiamen/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/kunming/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/kunming/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/guiyang/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/guiyang/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/lanzhou/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/lanzhou/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

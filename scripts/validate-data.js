@@ -29,7 +29,17 @@ const expectedSlugs = [
   'yanji',
   'taizhou',
   'kashgar',
-  'yangzhou'
+  'yangzhou',
+  'beijing',
+  'shanghai',
+  'hangzhou',
+  'nanjing',
+  'tianjin',
+  'harbin',
+  'xiamen',
+  'kunming',
+  'guiyang',
+  'lanzhou'
 ];
 const allowedLicenses = new Set([
   'CC0 1.0',
@@ -46,7 +56,7 @@ function assert(condition, message) {
 
 async function main() {
   assert(Array.isArray(cities), 'foodCitiesData 必须是数组');
-  assert(cities.length === 12, `应有 12 座城市，实际为 ${cities.length}`);
+  assert(cities.length === 22, `应有 22 座城市，实际为 ${cities.length}`);
 
   const ids = new Set();
   const slugs = new Set();
@@ -119,7 +129,8 @@ async function main() {
   assert(Object.keys(englishCities).length === cities.length, '英文城市数据存在遗漏或多余条目');
   assert(Object.keys(dishMedia).length === cities.length, '菜品图片元数据存在遗漏或多余城市');
 
-  console.log(`数据校验通过：${cities.length} 座城市，${cities.reduce((total, city) => total + city.dishes.length, 0)} 道菜品，48 张本地图片。`);
+  const dishCount = cities.reduce((total, city) => total + city.dishes.length, 0);
+  console.log(`数据校验通过：${cities.length} 座城市，${dishCount} 道菜品，${dishCount} 张本地图片。`);
 }
 
 main().catch(error => {

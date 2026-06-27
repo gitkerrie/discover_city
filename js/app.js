@@ -2,10 +2,10 @@
 const UI_TRANSLATIONS = {
   en: {
     pageTitle: "Taste China - A Map of China's Food Cities",
-    metaDescription: "Explore 12 of China's great food cities, discover signature dishes, and save the places you want to taste next.",
+    metaDescription: "Explore 22 of China's great food cities, discover signature dishes, and save the places you want to taste next.",
     brandHome: 'Return to the Taste China map',
     brandName: 'Taste China',
-    brandTagline: '12 cities. One delicious map.',
+    brandTagline: '22 cities. One delicious map.',
     language: 'Language',
     searchLabel: 'Search cities or Chinese foods',
     searchPlaceholder: 'Search cities or Chinese foods',
@@ -69,10 +69,10 @@ const UI_TRANSLATIONS = {
   },
   zh: {
     pageTitle: '寻味中国 - 中国美食探索地图',
-    metaDescription: '在中国地图上探索 12 座美食城市，收藏想去的地方，发现每座城市的招牌味道。',
+    metaDescription: '在中国地图上探索 22 座美食城市，收藏想去的地方，发现每座城市的招牌味道。',
     brandHome: '返回寻味中国地图首页',
     brandName: '寻味中国',
-    brandTagline: '12 座城市，一张好吃的地图',
+    brandTagline: '22 座城市，一张好吃的地图',
     language: '语言',
     searchLabel: '搜索城市或中国美食',
     searchPlaceholder: '搜索城市或中国美食',

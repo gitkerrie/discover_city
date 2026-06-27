@@ -8,7 +8,7 @@ const sharp = require('sharp');
 
 const root = path.resolve(__dirname, '..');
 const targetBytes = 180 * 1024;
-const concurrency = 3;
+const concurrency = 1;
 const execFileAsync = promisify(execFile);
 
 function loadMedia() {
@@ -47,7 +47,7 @@ async function downloadWithFetch(url, attempt = 1) {
   return Buffer.from(await response.arrayBuffer());
 }
 
-async function downloadWithPowerShell(url) {
+async function downloadWithPowerShell(url, attempt = 1) {
   const temporaryPath = path.join(
     os.tmpdir(),
     `taste-china-${process.pid}-${Date.now()}-${Math.random().toString(16).slice(2)}.img`
@@ -62,6 +62,12 @@ async function downloadWithPowerShell(url) {
   try {
     await execFileAsync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', command]);
     return fs.readFileSync(temporaryPath);
+  } catch (error) {
+    if (attempt < 5) {
+      await new Promise(resolve => setTimeout(resolve, attempt * 5000));
+      return downloadWithPowerShell(url, attempt + 1);
+    }
+    throw error;
   } finally {
     if (fs.existsSync(temporaryPath)) fs.unlinkSync(temporaryPath);
   }

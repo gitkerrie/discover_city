@@ -7,8 +7,8 @@
 - `index.html` 定义顶栏、地图、城市详情抽屉和收藏弹窗。
 - `css/style.css` 包含桌面端与移动端响应式样式。
 - `js/app.js` 管理 Leaflet 地图、搜索、深链接、收藏和分享。
-- `js/data.js` 存放 12 座美食城市的结构化数据。
-- `assets/dishes/` 按城市存放 48 张本地 WebP 菜品图及 `SOURCES.md`。
+- `js/data.js` 存放 22 座美食城市的结构化数据。
+- `assets/dishes/` 按城市存放 88 张本地 WebP 菜品图及 `SOURCES.md`。
 - `city/`、`zh/city/` 与 `guides/` 是由脚本生成的 SEO 落地页。
 - `marketing/` 存放海外推广卡片、文案、UTM 链接和首月日历。
 - `scripts/validate-data.js` 校验数据及图片完整性。

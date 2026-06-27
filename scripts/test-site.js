@@ -16,6 +16,7 @@ vm.runInContext(
 const cities = context.__cities;
 const english = context.__english;
 const foods = context.__foods;
+const dishCount = cities.reduce((total, city) => total + city.dishes.length, 0);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -86,14 +87,14 @@ assert(foods.every(food => englishFoodGuide.includes(`id="food-${food.slug}"`)),
 assert(foods.every(food => chineseFoodGuide.includes(food.zhName)), '中文美食图鉴缺少菜名');
 
 const dishSources = read('assets', 'dishes', 'SOURCES.md');
-assert((dishSources.match(/^\| .* \| .* \| .* \| .* \| \[.*\]\(.*\) \| \[查看来源\]/gm) || []).length === 48, '菜品来源文档不是 48 条');
+assert((dishSources.match(/^\| .* \| .* \| .* \| .* \| \[.*\]\(.*\) \| \[查看来源\]/gm) || []).length === dishCount, `菜品来源文档不是 ${dishCount} 条`);
 const imageReview = read('marketing', 'image-review.html');
-assert((imageReview.match(/<figure><img/g) || []).length === 48, '图片审核表不是 48 张');
+assert((imageReview.match(/<figure><img/g) || []).length === dishCount, `图片审核表不是 ${dishCount} 张`);
 assert(imageReview.includes('noindex, nofollow'), '图片审核表必须禁止收录');
 
 const sitemap = read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert(sitemapUrls.length === 31, `站点地图应有 31 个 URL，实际为 ${sitemapUrls.length}`);
+assert(sitemapUrls.length === 7 + (cities.length * 2), `站点地图 URL 数量不正确，实际为 ${sitemapUrls.length}`);
 assert(new Set(sitemapUrls).size === sitemapUrls.length, '站点地图存在重复 URL');
 assert(cities.every(city => sitemap.includes(`${siteUrl}/city/${city.slug}/`)), '站点地图缺少英文城市页');
 assert(cities.every(city => sitemap.includes(`${siteUrl}/zh/city/${city.slug}/`)), '站点地图缺少中文城市页');
@@ -115,7 +116,7 @@ assert(index.includes('/guides/chinese-foods/'), '地图首页缺少美食图鉴
 
 const cards = read('marketing', 'cards', 'index.html');
 assert(cards.includes(`${new URL(siteUrl).host}/city/chengdu/`), 'Social cards do not use the canonical host');
-assert((cards.match(/class="social-card"/g) || []).length === 12, '城市社交卡片数量不是 12');
+assert((cards.match(/class="social-card"/g) || []).length === cities.length, `城市社交卡片数量不是 ${cities.length}`);
 assert((cards.match(/class="comparison-card/g) || []).length === 3, '比较轮播封面数量不是 3');
 assert(cards.includes('/guides/china-food-travel-map/'), '比较轮播封面缺少指南链接');
 
@@ -125,14 +126,14 @@ const exportedCards = [
   'comparison-hidden-gems.jpg',
   'comparison-flavors.jpg'
 ];
-assert(exportedCards.length === 15, 'Expected 15 exported social cards');
+assert(exportedCards.length === cities.length + 3, `Expected ${cities.length + 3} exported social cards`);
 exportedCards.forEach(filename => {
   const dimensions = jpegDimensions('marketing', 'exports', filename);
   assert(dimensions.width === 1080 && dimensions.height === 1350, `${filename} must be 1080x1350`);
 });
 
 const utmRows = read('marketing', 'utm-links.csv').trim().split('\n');
-assert(utmRows.length === 65, `UTM 链接应有 64 条，实际为 ${utmRows.length - 1}`);
+assert(utmRows.length === ((cities.length + 4) * 4) + 1, `UTM 链接数量不正确，实际为 ${utmRows.length - 1}`);
 assert(utmRows.slice(1).every(row => row.includes('utm_campaign=overseas_launch_2026')), 'UTM campaign 不一致');
 assert(
   ['best-food-cities-in-china', 'hidden-gem-food-cities-in-china', 'china-food-travel-map', 'chinese-foods']

@@ -124,6 +124,106 @@ Alt text: Yangzhou braised shredded tofu in a clear savory broth.
 
 Hashtags: #ChinaTravel #FoodTravel #Yangzhou #TasteChina
 
+## 13. Beijing
+
+Beijing is a city to taste through Peking Duck, Beijing Zhajiangmian, Douzhir, and Copper-Pot Mutton. Crisp duck skin, deep bean-paste savor, and an entire old-city repertoire hidden in the hutongs.
+
+Start here: https://mitaste.com/city/beijing/
+
+Alt text: Sliced Peking duck served with thin pancakes.
+
+Hashtags: #ChinaTravel #FoodTravel #Beijing #TasteChina
+
+## 14. Shanghai
+
+Shanghai is a city to taste through Xiaolongbao, Shengjian Mantou, Red-Braised Pork, and Scallion-Oil Noodles. Glossy soy braises meet intricate dumplings, gathering sweet, savory, and fresh flavors in every bite.
+
+Start here: https://mitaste.com/city/shanghai/
+
+Alt text: Shanghai xiaolongbao in a bamboo steamer.
+
+Hashtags: #ChinaTravel #FoodTravel #Shanghai #TasteChina
+
+## 15. Hangzhou
+
+Hangzhou is a city to taste through West Lake Fish in Vinegar Gravy, Dongpo Pork, Longjing Prawns, and Shrimp and Eel Noodles. Tea fragrance, lake fish, and gentle sweet-sour flavors turn Jiangnan scenery into a meal.
+
+Start here: https://mitaste.com/city/hangzhou/
+
+Alt text: West Lake fish covered with sweet-sour vinegar gravy.
+
+Hashtags: #ChinaTravel #FoodTravel #Hangzhou #TasteChina
+
+## 16. Nanjing
+
+Nanjing is a city to taste through Nanjing Salted Duck, Duck Blood Vermicelli Soup, Chicken-Broth Soup Dumplings, and Red Bean Jiuniang Rice Balls. Duck runs through every meal, while soup dumplings and sweet rice desserts soften the ancient capital.
+
+Start here: https://mitaste.com/city/nanjing/
+
+Alt text: Pale tender slices of Nanjing salted duck.
+
+Hashtags: #ChinaTravel #FoodTravel #Nanjing #TasteChina
+
+## 17. Tianjin
+
+Tianjin is a city to taste through Goubuli Baozi, Jianbing Guozi, Gabacai, and Three-Delicacy Dalumian. Breakfast griddles ring out as jianbing, gabacai, and gravy noodles feed this candid port city.
+
+Start here: https://mitaste.com/city/tianjin/
+
+Alt text: Tianjin Goubuli baozi in a bamboo steamer.
+
+Hashtags: #ChinaTravel #FoodTravel #Tianjin #TasteChina
+
+## 18. Harbin
+
+Harbin is a city to taste through Guobaorou, Harbin Red Sausage, Dalieba Bread, and Soy-Braised Pork Bones. Sweet-sour pork, smoked sausage, and giant rye loaves supply serious warmth in the northern cold.
+
+Start here: https://mitaste.com/city/harbin/
+
+Alt text: Golden guobaorou coated in sweet-sour sauce.
+
+Hashtags: #ChinaTravel #FoodTravel #Harbin #TasteChina
+
+## 19. Xiamen
+
+Xiamen is a city to taste through Shacha Noodles, Tusundong, Oyster Omelet, and Xiamen Fried Rice Vermicelli. Satay-peanut richness and sweet shellfish give Minnan snacks the scent of the sea.
+
+Start here: https://mitaste.com/city/xiamen/
+
+Alt text: Xiamen shacha noodles topped with seafood and tofu.
+
+Hashtags: #ChinaTravel #FoodTravel #Xiamen #TasteChina
+
+## 20. Kunming
+
+Kunming is a city to taste through Crossing-the-Bridge Rice Noodles, Steam-Pot Chicken, Grilled Erkuai, and Yunnan Flower Cake. Flowers, rice noodles, and a steam pot make the Spring City taste fresh and wonderfully untamed.
+
+Start here: https://mitaste.com/city/kunming/
+
+Alt text: Crossing-the-bridge rice noodles with broth and ingredients served separately.
+
+Hashtags: #ChinaTravel #FoodTravel #Kunming #TasteChina
+
+## 21. Guiyang
+
+Guiyang is a city to taste through Siwawa, Sour-Broth Beef, Douhua Noodles, and Red-Braised Beef Rice Noodles. Fermented sour broth wakes the palate while toasted chilies build a deeper, fragrant heat.
+
+Start here: https://mitaste.com/city/guiyang/
+
+Alt text: Guiyang siwawa with wrappers and colorful shredded vegetables.
+
+Hashtags: #ChinaTravel #FoodTravel #Guiyang #TasteChina
+
+## 22. Lanzhou
+
+Lanzhou is a city to taste through Lanzhou Beef Noodles, Niangpi, Hand-Grabbed Lamb, and Lamb Vermicelli Soup. Clear broth, white radish, red chili, green herbs: one noodle bowl wakes the northwest.
+
+Start here: https://mitaste.com/city/lanzhou/
+
+Alt text: Lanzhou beef noodles with beef, radish, and chili oil.
+
+Hashtags: #ChinaTravel #FoodTravel #Lanzhou #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

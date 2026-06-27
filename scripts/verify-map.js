@@ -115,7 +115,7 @@ async function verifyInitialAlignment(browser, viewport) {
 
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('#map.map-detailed-ready', { timeout: 10000 });
-  await page.waitForFunction(() => document.querySelectorAll('.leaflet-marker-icon').length === 12);
+  await page.waitForFunction(() => document.querySelectorAll('.leaflet-marker-icon').length === 22);
 
   const offsets = await initialMarkerOffsets(page);
   const misaligned = offsets.filter(({ dx, dy }) => Math.abs(dx) > 4 || Math.abs(dy) > 4);
@@ -147,14 +147,14 @@ async function verifyDetailedMap(browser) {
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('#map.map-detailed-ready', { timeout: 20000 });
   await page.waitForSelector('.leaflet-gl-layer canvas', { state: 'visible' });
-  await page.waitForFunction(() => document.querySelectorAll('.leaflet-marker-icon').length === 12);
+  await page.waitForFunction(() => document.querySelectorAll('.leaflet-marker-icon').length === 22);
 
   const detailed = await page.evaluate(() => ({
     landPaths: document.querySelectorAll('.leaflet-land-pane path').length,
     markers: document.querySelectorAll('.leaflet-marker-icon').length
   }));
   assert(detailed.landPaths === 1, 'Detailed mode lost the local fallback layer');
-  assert(detailed.markers === 12, `Detailed mode rendered ${detailed.markers} markers`);
+  assert(detailed.markers === 22, `Detailed mode rendered ${detailed.markers} markers`);
 
   const offsets = await initialMarkerOffsets(page);
   const misaligned = offsets.filter(({ dx, dy }) => Math.abs(dx) > 4 || Math.abs(dy) > 4);
@@ -280,7 +280,7 @@ async function verifyFallbackMap(browser) {
   }));
   assert(!fallback.detailedReady, 'Fallback mode still reports the detailed map as ready');
   assert(fallback.landPaths === 1, 'Fallback mode did not render local land data');
-  assert(fallback.markers === 12, `Fallback mode rendered ${fallback.markers} markers`);
+  assert(fallback.markers === 22, `Fallback mode rendered ${fallback.markers} markers`);
   assert(fallback.toast.includes('simplified offline map'), 'Fallback mode did not explain the degraded map');
   await page.screenshot({ path: path.join(screenshotDirectory, 'fallback-desktop.png') });
   assert(pageErrors.length === 0, `Fallback mode page errors: ${pageErrors.join('; ')}`);
@@ -309,7 +309,7 @@ async function main() {
     await verifyInitialAlignment(browser, { width: 1457, height: 477 });
     await verifyInitialAlignment(browser, { width: 390, height: 844 });
     if (process.env.MAP_VERIFY_ALIGNMENT_ONLY === '1') {
-      console.log('Initial map alignment verification passed for all 12 city markers.');
+      console.log('Initial map alignment verification passed for all 22 city markers.');
       return;
     }
 

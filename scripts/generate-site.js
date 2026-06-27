@@ -234,19 +234,19 @@ function cityPage(city, english, allCities, language) {
 const guideDefinitions = [
   {
     slug: 'best-food-cities-in-china',
-    title: '12 Best Food Cities in China for Your Next Trip',
-    description: 'A practical introduction to 12 Chinese food cities, from Chengdu and Guangzhou to Chaozhou, Yanji, and Kashgar.',
+    title: '22 Best Food Cities in China for Your Next Trip',
+    description: 'A practical introduction to 22 Chinese food cities, from Chengdu and Guangzhou to Beijing, Kunming, and Lanzhou.',
     eyebrow: 'THE ESSENTIAL LIST',
-    heading: '12 Chinese cities worth traveling for food',
-    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 12 cities are a focused place to begin.',
+    heading: '22 Chinese cities worth traveling for food',
+    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 22 cities are a focused place to begin.',
     filter: () => true
   },
   {
     slug: 'hidden-gem-food-cities-in-china',
-    title: '6 Underrated Food Cities in China',
-    description: 'Go beyond the usual stops with six hidden-gem food cities: Chaozhou, Liuzhou, Yanji, Taizhou, Kashgar, and Yangzhou.',
+    title: '11 Underrated Food Cities in China',
+    description: 'Go beyond the usual stops with 11 hidden-gem food cities, from Chaozhou and Yanji to Harbin, Xiamen, Kunming, and Guiyang.',
     eyebrow: 'BEYOND THE CLASSICS',
-    heading: 'Six hidden-gem food cities',
+    heading: 'Eleven hidden-gem food cities',
     intro: 'The most memorable food trip is often one stop beyond the obvious itinerary. These cities reward travelers with distinctive local ingredients, techniques, and everyday eating rituals.',
     filter: city => city.group === '宝藏'
   },
@@ -353,8 +353,8 @@ function featuredFoodPage(foods, cities, english, language) {
   const eyebrow = isZh ? '地图之外 · 19 种味道' : 'BEYOND THE MAP · 19 FLAVORS';
   const heading = isZh ? '从一口点心，到一桌早茶' : 'Nineteen foods, one wider table';
   const intro = isZh
-    ? '城市地图以 48 道招牌菜为起点，这份图鉴继续补上街头早餐、面点、汤粉、围炉和饮茶传统。每张卡片都给出名称、地域线索与最值得先知道的吃法。'
-    : 'The city map begins with 48 signature dishes. This companion guide adds breakfast staples, dumplings, noodles, communal pots, and tea-table traditions—with names, regional context, and a useful first bite for each.';
+    ? '城市地图以 88 道招牌菜为起点，这份图鉴继续补上街头早餐、面点、汤粉、围炉和饮茶传统。每张卡片都给出名称、地域线索与最值得先知道的吃法。'
+    : 'The city map begins with 88 signature dishes. This companion guide adds breakfast staples, dumplings, noodles, communal pots, and tea-table traditions—with names, regional context, and a useful first bite for each.';
   const coverImage = 'assets/dishes/chengdu/zhong-shui-jiao.webp';
   const coverAlt = isZh ? '红油酱汁中的成都钟水饺' : 'Chengdu dumplings dressed in fragrant red chili oil';
   const categories = [...new Set(foods.map(food => isZh ? food.zhCategory : food.enCategory))];
@@ -459,10 +459,10 @@ function chineseHub(cities) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="探索 12 座中国美食城市，从成都、广州到潮州、延吉和喀什。">
+  <meta name="description" content="探索 22 座中国美食城市，从成都、广州到北京、昆明和兰州。">
   <meta name="theme-color" content="#171713">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <title>寻味中国：12 座美食城市地图</title>
+  <title>寻味中国：22 座美食城市地图</title>
   <link rel="canonical" href="${pageUrl}">
   <link rel="alternate" hreflang="en" href="${siteUrl}/">
   <link rel="alternate" hreflang="zh-CN" href="${pageUrl}">
@@ -470,7 +470,7 @@ function chineseHub(cities) {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${siteName}">
   <meta property="og:locale" content="zh_CN">
-  <meta property="og:title" content="寻味中国：12 座美食城市地图">
+  <meta property="og:title" content="寻味中国：22 座美食城市地图">
   <meta property="og:description" content="沿着味道认识中国城市，从一碗面、一笼点心或一锅热汤开始。">
   <meta property="og:url" content="${pageUrl}">
   <meta property="og:image" content="${absolute(cities[0].heroImage)}">
@@ -493,7 +493,7 @@ function chineseHub(cities) {
 <body class="content-page hub-page">
   <header class="content-nav"><a class="content-brand" href="/zh/"><span aria-hidden="true">味</span>寻味中国</a><nav aria-label="页面导航"><a href="/?lang=zh">互动地图</a><a href="${foodGuidePath('zh')}">美食图鉴</a><a href="/" lang="en">EN</a></nav></header>
   <main>
-    <section class="guide-hero" style="--guide-image: url('/${cities[0].heroImage}')"><p>中国美食探索地图</p><h1>沿着味道，认识一座城</h1><strong>从一碗面、一笼点心或一锅热汤开始，探索 12 座各有性格的美食城市。</strong><a class="primary-action" href="/?lang=zh">打开互动地图</a></section>
+    <section class="guide-hero" style="--guide-image: url('/${cities[0].heroImage}')"><p>中国美食探索地图</p><h1>沿着味道，认识一座城</h1><strong>从一碗面、一笼点心或一锅热汤开始，探索 22 座各有性格的美食城市。</strong><a class="primary-action" href="/?lang=zh">打开互动地图</a></section>
     <section class="guide-grid" aria-label="美食城市目录">
       ${cities.map((city, index) => `<article class="guide-city"><a href="${cityPath(city.slug, 'zh')}"><img src="/${city.heroImage}" alt="${escapeHtml(city.imageAlt)}" loading="${index < 2 ? 'eager' : 'lazy'}"><div><span>${String(index + 1).padStart(2, '0')} · ${escapeHtml(city.province)}</span><h2>${escapeHtml(city.name)}</h2><p>${escapeHtml(city.tagline)}</p><small>${city.dishes.map(dish => escapeHtml(dish.name)).join(' · ')}</small></div></a></article>`).join('\n      ')}
     </section>
@@ -533,7 +533,7 @@ function marketingCards(cities, english) {
     slugs.slice(0, 2).map(slug => cities.find(city => city.slug === slug))
   ));
 
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>${siteName} Social Card Kit</title><link rel="stylesheet" href="/marketing/cards/cards.css"></head><body><header class="kit-header"><p>ORGANIC LAUNCH KIT</p><h1>${siteName} social cards</h1><span>12 city spotlights and 3 comparison carousel covers · 4:5 format</span></header><main><section><h2>City spotlights</h2><div class="card-grid">${cities.map(cityCard).join('\n')}</div></section><section><h2>Comparison carousel covers</h2><div class="card-grid">${comparison('Start with the classics', 'Six essential stops for a first food trip across China.', classic, 1)}${comparison('Go beyond the obvious', 'Six hidden-gem cities with local flavors worth the detour.', hidden, 2)}${comparison('Choose your flavor', 'Build a route around spice, breakfast culture, or noodles.', flavorCities, 3)}</div></section></main></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>${siteName} Social Card Kit</title><link rel="stylesheet" href="/marketing/cards/cards.css"></head><body><header class="kit-header"><p>ORGANIC LAUNCH KIT</p><h1>${siteName} social cards</h1><span>${cities.length} city spotlights and 3 comparison carousel covers · 4:5 format</span></header><main><section><h2>City spotlights</h2><div class="card-grid">${cities.map(cityCard).join('\n')}</div></section><section><h2>Comparison carousel covers</h2><div class="card-grid">${comparison('Start with the classics', 'Six essential stops for a first food trip across China.', classic.slice(0, 6), 1)}${comparison('Go beyond the obvious', 'Six hidden-gem cities with local flavors worth the detour.', hidden.slice(0, 6), 2)}${comparison('Choose your flavor', 'Build a route around spice, breakfast culture, or noodles.', flavorCities, 3)}</div></section></main></body></html>`;
 }
 
 function socialCopy(cities, english) {
@@ -645,6 +645,7 @@ function dishSources(cities, english) {
 }
 
 function imageReview(cities, english) {
+  const dishCount = cities.reduce((total, city) => total + city.dishes.length, 0);
   const citySections = cities.map(city => `<section><header><p>${escapeHtml(city.province)} · ${escapeHtml(english[city.slug].name)}</p><h2>${escapeHtml(city.name)}</h2></header><div class="review-grid">${city.dishes.map((dish, index) => `<figure><img src="/${dish.image}" alt="${escapeHtml(dish.imageAlt)}" loading="lazy"><figcaption><strong>${escapeHtml(dish.name)}</strong><span>${escapeHtml(english[city.slug].dishes[index].name)}</span><small>${escapeHtml(dish.credit.author)} · ${escapeHtml(dish.credit.license)}</small></figcaption></figure>`).join('')}</div></section>`).join('\n');
   return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -652,12 +653,12 @@ function imageReview(cities, english) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>48 张菜品图片审核表</title>
+  <title>${dishCount} 张菜品图片审核表</title>
   <style>
     *{box-sizing:border-box}body{margin:0;color:#171713;background:#f7f6f2;font-family:Arial,"Microsoft YaHei",sans-serif;letter-spacing:0}main{width:min(1440px,calc(100% - 40px));margin:auto;padding:48px 0 100px}h1{margin:0;font:700 48px Georgia,serif}.intro{max-width:760px;line-height:1.7}.checklist{display:flex;flex-wrap:wrap;gap:8px 24px;padding:16px 0 28px;border-bottom:2px solid #171713;list-style:none}.checklist li{font-size:13px;font-weight:700}section{padding:42px 0;border-bottom:1px solid #bbb}section header{display:flex;align-items:end;gap:18px;margin-bottom:18px}section h2,section p{margin:0}section h2{font:500 36px Georgia,serif}section p{color:#666;font-size:12px;font-weight:700}.review-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}figure{margin:0;background:#fff}img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}figcaption{display:grid;gap:4px;padding:12px}figcaption strong{font-size:16px}figcaption span,figcaption small{color:#666;font-size:12px}@media(max-width:800px){main{width:calc(100% - 28px);padding-top:28px}h1{font-size:34px}.review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:460px){.review-grid{grid-template-columns:1fr}}
   </style>
 </head>
-<body><main><h1>48 张菜品图片审核表</h1><p class="intro">此页面仅用于发布前人工审核，不进入生产构建。逐张检查菜品准确性、构图、色调、清晰度及是否含水印或商家宣传。</p><ul class="checklist"><li>□ 菜品与名称相符</li><li>□ 主体清晰</li><li>□ 裁切自然</li><li>□ 无水印或广告</li><li>□ 许可已记录</li></ul>${citySections}</main></body>
+<body><main><h1>${dishCount} 张菜品图片审核表</h1><p class="intro">此页面仅用于发布前人工审核，不进入生产构建。逐张检查菜品准确性、构图、色调、清晰度及是否含水印或商家宣传。</p><ul class="checklist"><li>□ 菜品与名称相符</li><li>□ 主体清晰</li><li>□ 裁切自然</li><li>□ 无水印或广告</li><li>□ 许可已记录</li></ul>${citySections}</main></body>
 </html>
 `;
 }
