@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mitaste.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://mitaste.com/zh/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mitaste.com/guides/chinese-foods/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mitaste.com/zh/guides/chinese-foods/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://mitaste.com/guides/best-food-cities-in-china/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://mitaste.com/guides/hidden-gem-food-cities-in-china/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://mitaste.com/guides/china-food-travel-map/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

@@ -22,6 +22,14 @@ function loadCities() {
   return { cities: context.__cities, english: context.__english };
 }
 
+function loadFeaturedFoods() {
+  const source = fs.readFileSync(path.join(root, 'js', 'food-guide-data.js'), 'utf8');
+  const context = {};
+  vm.createContext(context);
+  vm.runInContext(`${source}\nglobalThis.__featuredFoods = featuredFoodsData;`, context);
+  return context.__featuredFoods;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -49,6 +57,10 @@ function analyticsEventAttributes(name, data = {}) {
 
 function cityPath(slug, language) {
   return language === 'zh' ? `/zh/city/${slug}/` : `/city/${slug}/`;
+}
+
+function foodGuidePath(language) {
+  return language === 'zh' ? '/zh/guides/chinese-foods/' : '/guides/chinese-foods/';
 }
 
 function getContent(city, english, language) {
@@ -155,6 +167,7 @@ function cityPage(city, english, allCities, language) {
   <header class="content-nav">
     <a class="content-brand" href="${isZh ? '/zh/' : '/'}"><span aria-hidden="true">味</span>${isZh ? '寻味中国' : siteName}</a>
     <nav aria-label="${isZh ? '页面导航' : 'Page navigation'}">
+      <a href="${foodGuidePath(language)}">${isZh ? '美食图鉴' : '19 foods'}</a>
       <a href="${isZh ? '/zh/' : '/guides/best-food-cities-in-china/'}">${isZh ? '城市目录' : 'Food guides'}</a>
       <a href="${languageLink}" lang="${isZh ? 'en' : 'zh-CN'}">${isZh ? 'EN' : '中文'}</a>
     </nav>
@@ -248,6 +261,11 @@ const guideDefinitions = [
   }
 ];
 
+const foodGuideDefinition = {
+  slug: 'chinese-foods',
+  title: '19 Chinese Foods and Dining Traditions to Know'
+};
+
 function guidePage(guide, cities, english) {
   const selected = cities.filter(guide.filter);
   const pageUrl = `${siteUrl}/guides/${guide.slug}/`;
@@ -296,7 +314,7 @@ function guidePage(guide, cities, english) {
 <body class="content-page guide-page">
   <header class="content-nav">
     <a class="content-brand" href="/"><span aria-hidden="true">味</span>${siteName}</a>
-    <nav aria-label="Page navigation"><a href="/">Interactive map</a><a href="/zh/" lang="zh-CN">中文</a></nav>
+    <nav aria-label="Page navigation"><a href="/">Interactive map</a><a href="${foodGuidePath('en')}">19 foods</a><a href="/zh/" lang="zh-CN">中文</a></nav>
   </header>
   <main>
     <section class="guide-hero" style="--guide-image: url('/${cover.heroImage}')">
@@ -317,6 +335,117 @@ function guidePage(guide, cities, english) {
     </section>
   </main>
   <footer class="content-footer"><p>${positioning}</p><a href="/">Explore the map</a></footer>
+  <script src="/js/content-page.js"></script>${analyticsSnippet}
+</body>
+</html>
+`;
+}
+
+function featuredFoodPage(foods, cities, english, language) {
+  const isZh = language === 'zh';
+  const pagePath = foodGuidePath(language);
+  const alternatePath = foodGuidePath(isZh ? 'en' : 'zh');
+  const pageUrl = `${siteUrl}${pagePath}`;
+  const title = isZh ? '19 种中国美食图鉴' : foodGuideDefinition.title;
+  const description = isZh
+    ? '从饺子、烤鸭、兰州牛肉面到九宫格火锅与早茶，认识 19 种中国美食及其地域风味。'
+    : 'A bilingual field guide to 19 Chinese foods and dining traditions, from Beijing roast duck and Lanzhou beef noodles to Chongqing hot pot and morning tea.';
+  const eyebrow = isZh ? '地图之外 · 19 种味道' : 'BEYOND THE MAP · 19 FLAVORS';
+  const heading = isZh ? '从一口点心，到一桌早茶' : 'Nineteen foods, one wider table';
+  const intro = isZh
+    ? '城市地图以 48 道招牌菜为起点，这份图鉴继续补上街头早餐、面点、汤粉、围炉和饮茶传统。每张卡片都给出名称、地域线索与最值得先知道的吃法。'
+    : 'The city map begins with 48 signature dishes. This companion guide adds breakfast staples, dumplings, noodles, communal pots, and tea-table traditions—with names, regional context, and a useful first bite for each.';
+  const coverImage = 'assets/dishes/chengdu/zhong-shui-jiao.webp';
+  const coverAlt = isZh ? '红油酱汁中的成都钟水饺' : 'Chengdu dumplings dressed in fragrant red chili oil';
+  const categories = [...new Set(foods.map(food => isZh ? food.zhCategory : food.enCategory))];
+  const listItems = foods.map((food, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `${pageUrl}#food-${food.slug}`,
+    name: isZh ? food.zhName : food.enName,
+    description: isZh ? food.zhDescription : food.enDescription
+  }));
+
+  const foodCards = foods.map((food, index) => {
+    const name = isZh ? food.zhName : food.enName;
+    const alternateName = isZh ? food.enName : food.zhName;
+    const region = isZh ? food.zhRegion : food.enRegion;
+    const category = isZh ? food.zhCategory : food.enCategory;
+    const cardDescription = isZh ? food.zhDescription : food.enDescription;
+    const related = food.relatedCities.map(item => {
+      const label = isZh ? item.zhLabel : item.enLabel;
+      return `<a href="${cityPath(item.slug, language)}">${escapeHtml(label)}</a>`;
+    }).join('');
+
+    return `<article class="food-card" id="food-${food.slug}">
+      <header><span>${String(index + 1).padStart(2, '0')}</span><small>${escapeHtml(region)}</small></header>
+      <div class="food-card-title"><h2>${escapeHtml(name)}</h2><em lang="${isZh ? 'en' : 'zh-CN'}">${escapeHtml(alternateName)}</em></div>
+      <p>${escapeHtml(cardDescription)}</p>
+      <footer><span>${escapeHtml(category)}</span>${related ? `<nav aria-label="${isZh ? '相关城市指南' : 'Related city guides'}">${related}</nav>` : ''}</footer>
+    </article>`;
+  }).join('\n      ');
+
+  return `<!DOCTYPE html>
+<html lang="${isZh ? 'zh-CN' : 'en'}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${escapeHtml(description)}">
+  <meta name="theme-color" content="#171713">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <title>${escapeHtml(title)} | ${siteName}</title>
+  <link rel="canonical" href="${pageUrl}">
+  <link rel="alternate" hreflang="en" href="${siteUrl}${foodGuidePath('en')}">
+  <link rel="alternate" hreflang="zh-CN" href="${siteUrl}${foodGuidePath('zh')}">
+  <link rel="alternate" hreflang="x-default" href="${siteUrl}${foodGuidePath('en')}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="${siteName}">
+  <meta property="og:locale" content="${isZh ? 'zh_CN' : 'en_US'}">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${absolute(coverImage)}">
+  <meta property="og:image:alt" content="${escapeHtml(coverAlt)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
+  <meta name="twitter:image" content="${absolute(coverImage)}">
+  <link rel="stylesheet" href="/css/content.css">
+  <script type="application/ld+json">${jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url: pageUrl,
+    inLanguage: isZh ? 'zh-CN' : 'en',
+    mainEntity: { '@type': 'ItemList', numberOfItems: foods.length, itemListElement: listItems }
+  })}</script>
+</head>
+<body class="content-page food-guide-page">
+  <header class="content-nav">
+    <a class="content-brand" href="${isZh ? '/zh/' : '/'}"><span aria-hidden="true">味</span>${isZh ? '寻味中国' : siteName}</a>
+    <nav aria-label="${isZh ? '页面导航' : 'Page navigation'}">
+      <a href="${isZh ? '/?lang=zh' : '/'}">${isZh ? '互动地图' : 'Interactive map'}</a>
+      <a href="${isZh ? '/zh/' : '/guides/best-food-cities-in-china/'}">${isZh ? '城市目录' : 'City guides'}</a>
+      <a href="${alternatePath}" lang="${isZh ? 'en' : 'zh-CN'}">${isZh ? 'EN' : '中文'}</a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero food-guide-hero" style="--guide-image: url('/${coverImage}')">
+      <p>${escapeHtml(eyebrow)}</p>
+      <h1>${escapeHtml(heading)}</h1>
+      <strong>${escapeHtml(intro)}</strong>
+    </section>
+    <section class="food-guide-intro" aria-labelledby="food-index-title">
+      <div><p class="section-kicker">${isZh ? '快速索引' : 'QUICK INDEX'}</p><h2 id="food-index-title">${isZh ? '按名字找一道味道' : 'Find a flavor by name'}</h2></div>
+      <nav aria-label="${isZh ? '美食索引' : 'Food index'}">${foods.map((food, index) => `<a href="#food-${food.slug}"><span>${String(index + 1).padStart(2, '0')}</span>${escapeHtml(isZh ? food.zhName : food.enName)}</a>`).join('')}</nav>
+      <div class="food-category-strip" aria-label="${isZh ? '内容类别' : 'Content categories'}">${categories.map(category => `<span>${escapeHtml(category)}</span>`).join('')}</div>
+    </section>
+    <section class="food-card-grid" aria-label="${isZh ? '19 种中国美食' : '19 Chinese foods'}">
+      ${foodCards}
+    </section>
+  </main>
+  <footer class="content-footer"><p>${isZh ? '一道菜是一条线索，下一站仍在地图上。' : 'Every dish is a clue to another city.'}</p><a href="${isZh ? '/?lang=zh' : '/'}">${isZh ? '返回互动地图' : 'Explore the map'}</a></footer>
   <script src="/js/content-page.js"></script>${analyticsSnippet}
 </body>
 </html>
@@ -362,7 +491,7 @@ function chineseHub(cities) {
   })}</script>
 </head>
 <body class="content-page hub-page">
-  <header class="content-nav"><a class="content-brand" href="/zh/"><span aria-hidden="true">味</span>寻味中国</a><nav aria-label="页面导航"><a href="/?lang=zh">互动地图</a><a href="/" lang="en">EN</a></nav></header>
+  <header class="content-nav"><a class="content-brand" href="/zh/"><span aria-hidden="true">味</span>寻味中国</a><nav aria-label="页面导航"><a href="/?lang=zh">互动地图</a><a href="${foodGuidePath('zh')}">美食图鉴</a><a href="/" lang="en">EN</a></nav></header>
   <main>
     <section class="guide-hero" style="--guide-image: url('/${cities[0].heroImage}')"><p>中国美食探索地图</p><h1>沿着味道，认识一座城</h1><strong>从一碗面、一笼点心或一锅热汤开始，探索 12 座各有性格的美食城市。</strong><a class="primary-action" href="/?lang=zh">打开互动地图</a></section>
     <section class="guide-grid" aria-label="美食城市目录">
@@ -478,7 +607,8 @@ function utmCsv(cities) {
   ];
   const destinations = [
     ...cities.map(city => ({ content: city.slug, type: 'city', path: `/city/${city.slug}/`, asset: `${city.slug}_city_card` })),
-    ...guideDefinitions.map(guide => ({ content: guide.slug, type: 'guide', path: `/guides/${guide.slug}/`, asset: `${guide.slug}_comparison_card` }))
+    ...guideDefinitions.map(guide => ({ content: guide.slug, type: 'guide', path: `/guides/${guide.slug}/`, asset: `${guide.slug}_comparison_card` })),
+    { content: foodGuideDefinition.slug, type: 'guide', path: foodGuidePath('en'), asset: `${foodGuideDefinition.slug}_guide` }
   ];
   const rows = ['content,type,channel,url'];
   destinations.forEach(destination => {
@@ -536,6 +666,8 @@ function sitemap(cities) {
   const urls = [
     ['/', '1.0'],
     ['/zh/', '0.8'],
+    [foodGuidePath('en'), '0.8'],
+    [foodGuidePath('zh'), '0.8'],
     ...guideDefinitions.map(guide => [`/guides/${guide.slug}/`, '0.8']),
     ...cities.flatMap(city => [[cityPath(city.slug, 'en'), '0.9'], [cityPath(city.slug, 'zh'), '0.7']])
   ];
@@ -544,6 +676,7 @@ function sitemap(cities) {
 
 function buildFiles() {
   const { cities, english } = loadCities();
+  const foods = loadFeaturedFoods();
   englishLookup = english;
   const files = new Map();
 
@@ -554,6 +687,8 @@ function buildFiles() {
   guideDefinitions.forEach(guide => {
     files.set(path.join('guides', guide.slug, 'index.html'), guidePage(guide, cities, english));
   });
+  files.set(path.join('guides', foodGuideDefinition.slug, 'index.html'), featuredFoodPage(foods, cities, english, 'en'));
+  files.set(path.join('zh', 'guides', foodGuideDefinition.slug, 'index.html'), featuredFoodPage(foods, cities, english, 'zh'));
 
   files.set(path.join('zh', 'index.html'), chineseHub(cities));
   files.set(path.join('marketing', 'cards', 'index.html'), marketingCards(cities, english));

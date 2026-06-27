@@ -13,7 +13,7 @@
     "prepare:images": "node scripts/prepare-dish-images.js",
     "export:cards": "node scripts/export-marketing-cards.js",
     "verify:map": "node scripts/verify-map.js",
-    "check": "node --check js/data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/prepare-map-assets.js && node --check scripts/prepare-dish-images.js && node --check scripts/generate-site.js && node --check scripts/build-output.js && node --check scripts/export-marketing-cards.js && node --check scripts/verify-map.js && node scripts/prepare-map-assets.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js && node scripts/build-output.js"
+    "check": "node --check js/data.js && node --check js/food-guide-data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/prepare-map-assets.js && node --check scripts/prepare-dish-images.js && node --check scripts/generate-site.js && node --check scripts/build-output.js && node --check scripts/export-marketing-cards.js && node --check scripts/verify-map.js && node scripts/prepare-map-assets.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js && node scripts/build-output.js"
   },
   "keywords": [
     "food",

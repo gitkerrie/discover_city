@@ -7,13 +7,15 @@ const UI_TRANSLATIONS = {
     brandName: 'Taste China',
     brandTagline: '12 cities. One delicious map.',
     language: 'Language',
-    searchLabel: 'Search cities or signature dishes',
-    searchPlaceholder: 'Search cities or signature dishes',
+    searchLabel: 'Search cities or Chinese foods',
+    searchPlaceholder: 'Search cities or Chinese foods',
     clearSearch: 'Clear search',
     searchResults: 'Search results',
     openFavorites: 'Open my wish list',
     favoritesLabel: 'Wish list',
     favoritesCount: 'Saved cities',
+    foodsGuide: '19 foods',
+    foodsGuideLabel: 'Open the Chinese food guide',
     mapLabel: "Map of China's food cities",
     mapEyebrow: "A MAP OF CHINA'S FOOD CITIES",
     mapTitle: 'Meet a city through its flavors',
@@ -45,8 +47,9 @@ const UI_TRANSLATIONS = {
     loading: 'Setting the table',
     classicFlavor: 'Classic flavor',
     hiddenGemFlavor: 'Hidden-gem flavor',
-    noResults: 'No matching city or dish found',
+    noResults: 'No matching city or food found',
     matchPrefix: 'Match: {dishes}',
+    foodGuideResult: 'Food guide · {region}',
     emptyFavoritesTitle: 'Your wish list is empty',
     emptyFavoritesBody: 'Open a city on the map and save the flavors you want to try.',
     removeFavorite: 'Remove {city} from wish list',
@@ -71,13 +74,15 @@ const UI_TRANSLATIONS = {
     brandName: '寻味中国',
     brandTagline: '12 座城市，一张好吃的地图',
     language: '语言',
-    searchLabel: '搜索城市或招牌美食',
-    searchPlaceholder: '搜索城市或招牌美食',
+    searchLabel: '搜索城市或中国美食',
+    searchPlaceholder: '搜索城市或中国美食',
     clearSearch: '清空搜索',
     searchResults: '搜索结果',
     openFavorites: '打开我的想吃清单',
     favoritesLabel: '想吃清单',
     favoritesCount: '收藏数量',
+    foodsGuide: '美食图鉴',
+    foodsGuideLabel: '打开中华美食图鉴',
     mapLabel: '中国美食城市地图',
     mapEyebrow: '中国美食探索地图',
     mapTitle: '顺着味道，认识一座城',
@@ -111,6 +116,7 @@ const UI_TRANSLATIONS = {
     hiddenGemFlavor: '宝藏风味',
     noResults: '没有找到相关城市或美食',
     matchPrefix: '匹配：{dishes}',
+    foodGuideResult: '美食图鉴 · {region}',
     emptyFavoritesTitle: '清单还是空的',
     emptyFavoritesBody: '在地图上打开一座城市，把想吃的味道留在这里。',
     removeFavorite: '从想吃清单移除{city}',
@@ -133,6 +139,7 @@ const UI_TRANSLATIONS = {
 class FoodMapApp {
   constructor() {
     this.cities = foodCitiesData;
+    this.featuredFoods = typeof featuredFoodsData === 'undefined' ? [] : featuredFoodsData;
     this.language = this.loadLanguage();
     this.map = null;
     this.markers = new Map();
@@ -191,6 +198,7 @@ class FoodMapApp {
       favoriteBtn: document.getElementById('favoriteBtn'),
       shareBtn: document.getElementById('shareBtn'),
       favoritesBtn: document.getElementById('favoritesBtn'),
+      foodsGuideLink: document.getElementById('foodsGuideLink'),
       favoritesCount: document.querySelector('.favorites-count'),
       favoritesModal: document.getElementById('favoritesModal'),
       favoritesBackdrop: document.getElementById('favoritesBackdrop'),
@@ -253,6 +261,11 @@ class FoodMapApp {
       button.classList.toggle('is-active', selected);
       button.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
+    if (this.elements.foodsGuideLink) {
+      this.elements.foodsGuideLink.href = this.language === 'zh'
+        ? '/zh/guides/chinese-foods/'
+        : '/guides/chinese-foods/';
+    }
     this.elements.cityVisual.dataset.fallback = this.t('imageFallback');
   }
 
@@ -694,11 +707,34 @@ class FoodMapApp {
     });
   }
 
+  getFeaturedFoodContent(food, language = this.language) {
+    return language === 'zh'
+      ? { name: food.zhName, region: food.zhRegion, category: food.zhCategory, description: food.zhDescription }
+      : { name: food.enName, region: food.enRegion, category: food.enCategory, description: food.enDescription };
+  }
+
+  searchFeaturedFoods(query) {
+    const term = query.trim().toLocaleLowerCase();
+    if (!term) return [];
+
+    return this.featuredFoods.filter(food => [
+      food.zhName,
+      food.enName,
+      food.zhRegion,
+      food.enRegion,
+      food.zhCategory,
+      food.enCategory,
+      food.zhDescription,
+      food.enDescription
+    ].join(' ').toLocaleLowerCase().includes(term));
+  }
+
   renderSearchResults(query) {
     const results = this.searchCities(query);
+    const foodResults = this.searchFeaturedFoods(query);
     const fragment = document.createDocumentFragment();
 
-    if (results.length === 0) {
+    if (results.length === 0 && foodResults.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'search-empty';
       empty.textContent = this.t('noResults');
@@ -736,6 +772,24 @@ class FoodMapApp {
           this.clearSearch();
         });
         fragment.appendChild(button);
+      });
+
+      foodResults.forEach(food => {
+        const content = this.getFeaturedFoodContent(food);
+        const link = document.createElement('a');
+        link.className = 'search-result food-search-result';
+        link.setAttribute('role', 'option');
+        link.href = `${this.language === 'zh' ? '/zh' : ''}/guides/chinese-foods/#food-${food.slug}`;
+        link.innerHTML = `
+          <span class="search-result-symbol" aria-hidden="true">${food.zhName.charAt(0)}</span>
+          <span class="search-result-copy">
+            <strong>${content.name}<small>${content.category}</small></strong>
+            <span>${this.t('foodGuideResult', { region: content.region })}</span>
+          </span>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        `;
+        link.addEventListener('click', () => this.clearSearch());
+        fragment.appendChild(link);
       });
     }
 
@@ -999,7 +1053,7 @@ class FoodMapApp {
 
     this.elements.searchInput.addEventListener('keydown', event => {
       if (event.key === 'ArrowDown') {
-        const firstResult = this.elements.searchResults.querySelector('button');
+        const firstResult = this.elements.searchResults.querySelector('.search-result');
         if (firstResult) {
           event.preventDefault();
           firstResult.focus();
