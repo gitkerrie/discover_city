@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { siteUrl } = require('./site-config');
+const { contactEmail, siteUrl } = require('./site-config');
 
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'js', 'data.js'), 'utf8');
@@ -71,6 +71,8 @@ cities.forEach(city => {
   assert(chinesePage.includes(`<link rel="canonical" href="${chineseUrl}">`), `${city.slug} 中文 canonical 缺失`);
   assert(chinesePage.includes(city.name), `${city.slug} 中文内容缺失`);
   assert((chinesePage.match(/class="hero-media hero-media-/g) || []).length === 4, `${city.slug} 中文页主视觉不是四图拼贴`);
+  assert(englishPage.includes(`mailto:${contactEmail}`), `${city.slug} English page is missing the contact email`);
+  assert(chinesePage.includes(`mailto:${contactEmail}`), `${city.slug} Chinese page is missing the contact email`);
 });
 
 assert(foods.length === 19, `美食图鉴应有 19 项，实际为 ${foods.length}`);
@@ -113,6 +115,9 @@ assert(index.includes('/_vercel/insights/script.js'), '地图首页缺少 Vercel
 assert(index.includes('assets/dishes/chengdu/zhong-shui-jiao.webp'), '地图首页社交图片未切换到菜品图');
 assert(index.includes('js/food-guide-data.js'), '地图首页未加载美食图鉴数据');
 assert(index.includes('/guides/chinese-foods/'), '地图首页缺少美食图鉴入口');
+assert(index.includes(`mailto:${contactEmail}`), 'Homepage is missing the contact email');
+assert(englishFoodGuide.includes(`mailto:${contactEmail}`), 'English food guide is missing the contact email');
+assert(chineseFoodGuide.includes(`mailto:${contactEmail}`), 'Chinese food guide is missing the contact email');
 
 const cards = read('marketing', 'cards', 'index.html');
 assert(cards.includes(`${new URL(siteUrl).host}/city/chengdu/`), 'Social cards do not use the canonical host');

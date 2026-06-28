@@ -655,6 +655,14 @@ a {
   font-weight: 800;
 }
 
+.content-footer nav {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+}
+
 @media (max-width: 800px) {
   .content-nav {
     min-height: 58px;
@@ -784,6 +792,11 @@ a {
   .content-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .content-footer nav {
+    align-items: flex-start;
+    text-align: left;
   }
 }
 

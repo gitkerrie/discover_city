@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { campaign, positioning, siteName, siteUrl } = require('./site-config');
+const { campaign, contactEmail, positioning, siteName, siteUrl } = require('./site-config');
 
 const root = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
@@ -61,6 +61,11 @@ function cityPath(slug, language) {
 
 function foodGuidePath(language) {
   return language === 'zh' ? '/zh/guides/chinese-foods/' : '/guides/chinese-foods/';
+}
+
+function footerLinks(mapHref, mapLabel, language) {
+  const isZh = language === 'zh';
+  return `<nav aria-label="${isZh ? '页脚导航' : 'Footer navigation'}"><a href="${mapHref}">${escapeHtml(mapLabel)}</a><a href="mailto:${escapeHtml(contactEmail)}">${isZh ? '联系' : 'Contact'}: ${escapeHtml(contactEmail)}</a></nav>`;
 }
 
 function getContent(city, english, language) {
@@ -223,7 +228,7 @@ function cityPage(city, english, allCities, language) {
 
   <footer class="content-footer">
     <p>${isZh ? '沿着味道认识中国城市。' : positioning}</p>
-    <a href="${isZh ? '/zh/' : '/'}">${isZh ? '返回城市目录' : `Back to ${siteName}`}</a>
+    ${footerLinks(isZh ? '/zh/' : '/', isZh ? '返回城市目录' : `Back to ${siteName}`, language)}
   </footer>
   <script src="/js/content-page.js"></script>${analyticsSnippet}
 </body>
@@ -334,7 +339,7 @@ function guidePage(guide, cities, english) {
       }).join('\n      ')}
     </section>
   </main>
-  <footer class="content-footer"><p>${positioning}</p><a href="/">Explore the map</a></footer>
+  <footer class="content-footer"><p>${positioning}</p>${footerLinks('/', 'Explore the map', 'en')}</footer>
   <script src="/js/content-page.js"></script>${analyticsSnippet}
 </body>
 </html>
@@ -445,7 +450,7 @@ function featuredFoodPage(foods, cities, english, language) {
       ${foodCards}
     </section>
   </main>
-  <footer class="content-footer"><p>${isZh ? '一道菜是一条线索，下一站仍在地图上。' : 'Every dish is a clue to another city.'}</p><a href="${isZh ? '/?lang=zh' : '/'}">${isZh ? '返回互动地图' : 'Explore the map'}</a></footer>
+  <footer class="content-footer"><p>${isZh ? '一道菜是一条线索，下一站仍在地图上。' : 'Every dish is a clue to another city.'}</p>${footerLinks(isZh ? '/?lang=zh' : '/', isZh ? '返回互动地图' : 'Explore the map', language)}</footer>
   <script src="/js/content-page.js"></script>${analyticsSnippet}
 </body>
 </html>
@@ -498,7 +503,7 @@ function chineseHub(cities) {
       ${cities.map((city, index) => `<article class="guide-city"><a href="${cityPath(city.slug, 'zh')}"><img src="/${city.heroImage}" alt="${escapeHtml(city.imageAlt)}" loading="${index < 2 ? 'eager' : 'lazy'}"><div><span>${String(index + 1).padStart(2, '0')} · ${escapeHtml(city.province)}</span><h2>${escapeHtml(city.name)}</h2><p>${escapeHtml(city.tagline)}</p><small>${city.dishes.map(dish => escapeHtml(dish.name)).join(' · ')}</small></div></a></article>`).join('\n      ')}
     </section>
   </main>
-  <footer class="content-footer"><p>沿着味道认识中国城市。</p><a href="/?lang=zh">打开互动地图</a></footer>
+  <footer class="content-footer"><p>沿着味道认识中国城市。</p>${footerLinks('/?lang=zh', '打开互动地图', 'zh')}</footer>
   <script src="/js/content-page.js"></script>${analyticsSnippet}
 </body>
 </html>
