@@ -439,6 +439,106 @@ const foodCitiesData = [
       { name: '羊肉粉汤', description: '羊肉汤清鲜温热，粉条滑韧，胡椒和香菜带来明快收尾。' }
     ],
     tip: '牛肉面店早上状态最好，点单时记得选面形，中午再吃酿皮与手抓羊肉。'
+  },
+  {
+    id: 23,
+    slug: 'jinan',
+    name: '济南',
+    province: '山东',
+    group: '宝藏',
+    coordinates: [117.1201, 36.6512],
+    tagline: '泉水润城，鲁菜收汁，一桌咸鲜里藏着火候与耐心。',
+    description: '济南的味道一边连着鲁菜宴席，一边落在朴实日常里。糖醋、酱香与清鲜各有分寸，九转大肠讲究繁复火候，把子肉和甜沫则把这座泉城的早晚照顾得踏实温暖。',
+    flavorTags: ['鲁菜火候', '咸鲜醇厚', '泉城小吃'],
+    heroImage: 'assets/dishes/jinan/jiuzhuan-dachang.webp',
+    imageAlt: '浓亮酱汁包裹的济南九转大肠',
+    dishes: [
+      { name: '九转大肠', description: '猪大肠经焯、炸、烧多道工序，酸甜咸辣与香料层层收进浓汁。' },
+      { name: '把子肉', description: '大块五花肉用酱油与香料慢炖，软烂浓香，常配米饭与卤味。' },
+      { name: '甜沫', description: '小米面熬成咸香热粥，加入粉条、花生、豆腐皮与青菜。' },
+      { name: '糖醋鲤鱼', description: '整尾鲤鱼炸至昂首翘尾，再浇明亮酸甜汁，外酥里嫩。' }
+    ],
+    tip: '早晨先喝一碗甜沫，午餐吃把子肉，九转大肠与糖醋鲤鱼适合结伴分食。'
+  },
+  {
+    id: 24,
+    slug: 'qingdao',
+    name: '青岛',
+    province: '山东',
+    group: '经典',
+    coordinates: [120.3826, 36.0671],
+    tagline: '蛤蜊沾着辣汤，海参裹着葱香，海风把鲜味吹进街巷。',
+    description: '青岛餐桌的底色是海鲜的新鲜与山东人的爽快。鲅鱼做馅鲜嫩多汁，蛤蜊旺火快炒，海参用大葱托起醇香，街边烤鱿鱼则把海港夜色变成最直接的烟火味。',
+    flavorTags: ['海鲜当季', '葱香咸鲜', '街头烧烤'],
+    heroImage: 'assets/dishes/qingdao/mackerel-dumplings.webp',
+    imageAlt: '薄皮包裹鲜嫩鱼馅的青岛鲅鱼水饺',
+    dishes: [
+      { name: '鲅鱼水饺', description: '新鲜鲅鱼肉打成柔嫩馅料，加入韭菜提香，饺皮薄而汁水充足。' },
+      { name: '辣炒蛤蜊', description: '本地蛤蜊旺火快炒，辣椒与酱汁刚好衬出贝肉的鲜甜。' },
+      { name: '葱烧海参', description: '海参软糯弹润，大葱煸至焦香后与浓汁共同收味。' },
+      { name: '烤鱿鱼', description: '鱿鱼在铁板或炭火上烤出焦边，刷酱后撒辣椒与孜然。' }
+    ],
+    tip: '海鲜先问当天货色，蛤蜊和水饺趁热吃，葱烧海参适合留给一顿正式鲁菜。'
+  },
+  {
+    id: 25,
+    slug: 'suzhou',
+    name: '苏州',
+    province: '江苏',
+    group: '经典',
+    coordinates: [120.5853, 31.2989],
+    tagline: '甜鲜不腻、刀工细巧，园林之外还有一碗随时令变化的面。',
+    description: '苏州菜重视时令、刀工与恰到好处的甜鲜。松鼠桂鱼以花刀和复炸塑形，鳝糊靠滚油激香，汤面则随着四季更换浇头，精细之外仍保留街巷点心的热气。',
+    flavorTags: ['甜鲜细腻', '时令浇头', '刀工讲究'],
+    heroImage: 'assets/dishes/suzhou/squirrel-mandarin-fish.webp',
+    imageAlt: '花刀炸开并淋酸甜汁的苏州松鼠桂鱼',
+    dishes: [
+      { name: '松鼠桂鱼', description: '桂鱼改花刀后炸至蓬松酥脆，浇上酸甜亮汁，形似松鼠。' },
+      { name: '苏式汤面', description: '清汤或红汤配细面，焖肉、爆鱼与虾仁等浇头随时令变化。' },
+      { name: '响油鳝糊', description: '鳝丝浓油赤酱，蒜末与滚油上桌时激出一声脆响和浓香。' },
+      { name: '苏州生煎', description: '发面皮包住鲜肉汤汁，底部煎脆，芝麻与葱花补上香气。' }
+    ],
+    tip: '面馆宜早去，先选汤底再看当天浇头；松鼠桂鱼和响油鳝糊最好多人分享。'
+  },
+  {
+    id: 26,
+    slug: 'fuzhou',
+    name: '福州',
+    province: '福建',
+    group: '宝藏',
+    coordinates: [119.2965, 26.0745],
+    tagline: '汤清味鲜，酸甜轻盈，山海食材在一只坛与一粒丸里相遇。',
+    description: '福州菜把鲜味放在最前面，却不依赖厚重调味。鱼丸与肉燕讲究手工制皮，荔枝肉以酸甜提神，佛跳墙则用长时间煨制把海味、肉香与酒香收进一坛。',
+    flavorTags: ['汤鲜清润', '酸甜醒味', '山海合鲜'],
+    heroImage: 'assets/dishes/fuzhou/buddha-jumps-wall.webp',
+    imageAlt: '坛中盛放多种山海食材的福州佛跳墙',
+    dishes: [
+      { name: '佛跳墙', description: '多种海味、禽肉与香菇入坛慢煨，汤汁醇厚而香气层叠。' },
+      { name: '福州鱼丸', description: '鱼浆打至弹韧，包入猪肉馅，咬开时汤汁与海味同时释放。' },
+      { name: '荔枝肉', description: '猪肉切花炸卷成荔枝形，以红糟或番茄调出明亮酸甜。' },
+      { name: '肉燕', description: '猪肉捶打成薄韧燕皮，包肉馅煮入清汤，口感滑弹。' }
+    ],
+    tip: '先用鱼丸和肉燕感受清鲜，再吃荔枝肉转换味觉，佛跳墙适合留给从容的一餐。'
+  },
+  {
+    id: 27,
+    slug: 'nanning',
+    name: '南宁',
+    province: '广西',
+    group: '宝藏',
+    coordinates: [108.32, 22.824],
+    tagline: '酸笋、豆豉、柠檬与鲜辣，把南国湿热变成明快食欲。',
+    description: '南宁味道擅长用酸香打开胃口。老友粉在热锅里爆出蒜、豆豉与酸笋香，柠檬鸭酸辣回甘，酸嘢把当季果蔬腌得爽脆，五色糯米饭则保留壮乡节庆的植物清香。',
+    flavorTags: ['酸香开胃', '米粉日常', '壮乡风味'],
+    heroImage: 'assets/dishes/nanning/laoyoufen.webp',
+    imageAlt: '酸笋、豆豉与牛肉搭配的南宁老友粉',
+    dishes: [
+      { name: '老友粉', description: '蒜末、豆豉、酸笋与辣椒爆香后冲入汤水，米粉酸辣热烈。' },
+      { name: '柠檬鸭', description: '鸭肉与咸柠檬、酸姜、酸辣椒同炒，酸香里带着回甘。' },
+      { name: '酸嘢', description: '木瓜、芒果或萝卜以盐、醋、糖和辣椒腌成爽脆街头零食。' },
+      { name: '五色糯米饭', description: '糯米用天然植物染成多种颜色，蒸后清香软糯，是壮乡节庆味道。' }
+    ],
+    tip: '从老友粉开始适应酸辣，午后用酸嘢清口，柠檬鸭和五色糯米饭适合一起分享。'
   }
 ];
 
@@ -773,6 +873,81 @@ const foodCitiesEnglish = {
       { name: 'Lamb Vermicelli Soup', description: 'Clear lamb broth and slippery noodles finish brightly with pepper and cilantro.' }
     ],
     tip: 'Beef noodle shops peak in the morning; choose your noodle width, then save niangpi and lamb for lunch.'
+  },
+  jinan: {
+    name: 'Jinan',
+    province: 'Shandong',
+    tagline: 'Spring water, glossy sauces, and patient heat give Shandong flavor a generous capital.',
+    description: 'Jinan moves easily between formal Shandong cooking and deeply practical everyday food. Sweet-sour, soy-rich, and clean savory flavors each have their place: nine-turn intestines showcase layered technique, while bazirou and tianmo keep the spring city warmly fed from morning to night.',
+    flavorTags: ['Shandong technique', 'Deep savory flavor', 'Spring-city snacks'],
+    imageAlt: 'Jinan nine-turn pork intestines coated in a glossy sauce',
+    dishes: [
+      { name: 'Nine-Turn Pork Intestines', description: 'Pork intestines are blanched, fried, and braised until sweet, sour, savory, spicy, and aromatic notes converge.' },
+      { name: 'Bazirou', description: 'Thick pork belly slabs simmer slowly with soy and spices, then arrive with rice and other braised sides.' },
+      { name: 'Tianmo', description: 'Despite its name, this hot millet porridge is savory, with noodles, peanuts, tofu skin, and greens.' },
+      { name: 'Sweet-Sour Carp', description: 'A whole carp is scored and fried into an arched shape before a bright sweet-sour glaze is poured over.' }
+    ],
+    tip: 'Start the morning with tianmo, take bazirou for lunch, and share the two more elaborate Shandong dishes at dinner.'
+  },
+  qingdao: {
+    name: 'Qingdao',
+    province: 'Shandong',
+    tagline: 'Clams meet chilies, sea cucumber meets scallion, and the sea breeze seasons every street.',
+    description: 'Qingdao tables are shaped by fresh seafood and Shandong generosity. Spanish mackerel becomes a juicy dumpling filling, clams hit the wok over fierce heat, scallions deepen the flavor of sea cucumber, and grilled squid turns the harbor evening into pure street-food smoke.',
+    flavorTags: ['Seasonal seafood', 'Scallion savor', 'Harbor grilling'],
+    imageAlt: 'Qingdao fish dumplings filled with tender Spanish mackerel',
+    dishes: [
+      { name: 'Spanish Mackerel Dumplings', description: 'Fresh mackerel is beaten into a tender, juicy filling brightened with Chinese chives.' },
+      { name: 'Spicy Stir-Fried Clams', description: 'Local clams are flash-fried with chilies and a light sauce that leaves their natural sweetness clear.' },
+      { name: 'Scallion-Braised Sea Cucumber', description: 'Springy sea cucumber absorbs a glossy sauce built on deeply browned Shandong scallions.' },
+      { name: 'Grilled Squid', description: 'Squid chars over a griddle or coals before a final brush of sauce, chili, and cumin.' }
+    ],
+    tip: 'Ask what seafood is freshest that day, eat clams and dumplings hot, and save sea cucumber for a full Shandong meal.'
+  },
+  suzhou: {
+    name: 'Suzhou',
+    province: 'Jiangsu',
+    tagline: 'Refined knife work, measured sweetness, and noodle toppings that change with the season.',
+    description: 'Suzhou cooking values seasonality, precise cutting, and a light-handed sweet-savory balance. Squirrel-shaped fish depends on scoring and double frying, hot-oil eel arrives fragrant and theatrical, while noodle shops rotate toppings through the year without losing their neighborhood warmth.',
+    flavorTags: ['Delicate sweet-savory', 'Seasonal toppings', 'Precise knife work'],
+    imageAlt: 'Suzhou squirrel-shaped mandarin fish with crisp scored flesh and sweet-sour sauce',
+    dishes: [
+      { name: 'Squirrel Mandarin Fish', description: 'A deeply scored fish fries into a crisp, fanned shape before receiving a vivid sweet-sour sauce.' },
+      { name: 'Su-Style Soup Noodles', description: 'Fine noodles come in clear or red broth with seasonal toppings such as braised pork, fish, or shrimp.' },
+      { name: 'Hot-Oil Eel Paste', description: 'Shredded eel in dark savory sauce is finished tableside with garlic and sizzling hot oil.' },
+      { name: 'Suzhou Shengjian', description: 'Fluffy buns hold pork and broth above a crisp-fried base, finished with sesame and scallion.' }
+    ],
+    tip: 'Visit noodle shops early and choose from the day’s toppings; share the fish and eel dishes with the table.'
+  },
+  fuzhou: {
+    name: 'Fuzhou',
+    province: 'Fujian',
+    tagline: 'Clear soups, lively sweet-sour notes, and mountain and sea meeting in a single clay jar.',
+    description: 'Fuzhou cooking puts freshness first without leaning on heavy seasoning. Fish balls and rouyan require patient handwork, lychee pork gives the table an agile sweet-sour lift, and Buddha Jumps Over the Wall concentrates seafood, meat, mushrooms, and wine through long, gentle simmering.',
+    flavorTags: ['Clear savory soups', 'Lively sweet-sour', 'Mountain and sea'],
+    imageAlt: 'Fuzhou Buddha Jumps Over the Wall filled with slow-simmered delicacies',
+    dishes: [
+      { name: 'Buddha Jumps Over the Wall', description: 'Seafood, poultry, cured meat, and mushrooms simmer together in a clay jar into a layered, aromatic broth.' },
+      { name: 'Fuzhou Fish Balls', description: 'Springy fish paste wraps a juicy pork center, releasing both broth and clean ocean flavor when bitten.' },
+      { name: 'Lychee Pork', description: 'Scored pork curls into lychee-like shapes before frying and a bright red sweet-sour glaze.' },
+      { name: 'Rouyan', description: 'Pork is pounded into thin, resilient wrappers that encase more meat and cook in a clear soup.' }
+    ],
+    tip: 'Begin with fish balls and rouyan, reset with lychee pork, and reserve the elaborate clay-jar soup for a leisurely meal.'
+  },
+  nanning: {
+    name: 'Nanning',
+    province: 'Guangxi',
+    tagline: 'Sour bamboo, fermented black beans, lemon, and chili turn southern humidity into appetite.',
+    description: 'Nanning food uses bright acidity to keep every meal lively. Laoyoufen blooms with garlic, black beans, and sour bamboo, lemon duck balances tang and mellow richness, suanye makes seasonal produce crisp and playful, and five-colored rice carries the botanical fragrance of Zhuang celebrations.',
+    flavorTags: ['Appetite-waking sourness', 'Everyday rice noodles', 'Zhuang traditions'],
+    imageAlt: 'Nanning laoyoufen with sour bamboo, fermented black beans, and beef',
+    dishes: [
+      { name: 'Laoyoufen', description: 'Garlic, fermented black beans, sour bamboo, and chili are fried before broth and rice noodles join the wok.' },
+      { name: 'Lemon Duck', description: 'Duck is stir-fried with preserved lemon, pickled ginger, and chilies for a tangy, gently bitter finish.' },
+      { name: 'Suanye', description: 'Papaya, mango, or radish is quickly pickled with salt, vinegar, sugar, and chili into a crisp street snack.' },
+      { name: 'Five-Colored Glutinous Rice', description: 'Natural plant dyes tint sticky rice in several colors, adding a light herbal aroma to this Zhuang festival staple.' }
+    ],
+    tip: 'Begin with laoyoufen, cool down with suanye, then share lemon duck and fragrant colored rice.'
   }
 };
 
@@ -939,6 +1114,36 @@ const foodDishMedia = {
     commonsDish('niangpi', '拌有面筋与辣油的甘肃酿皮', 'Gansu niangpi with wheat gluten and chili oil', 'Vmenkov', 'CC BY-SA 3.0', '5658-Linxia-City-niang-pi.jpg', 'https://upload.wikimedia.org/wikipedia/commons/1/15/5658-Linxia-City-niang-pi.jpg'),
     commonsDish('hand-grabbed-lamb', '清煮切块的甘肃手抓羊肉', 'Gansu hand-grabbed lamb cut into tender pieces', 'N509FZ', 'CC BY-SA 4.0', 'Shouzhua Yangrou at Masongji Restaurant, Jiayuguan (20230919132517).jpg', 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Shouzhua_Yangrou_at_Masongji_Restaurant%2C_Jiayuguan_%2820230919132517%29.jpg'),
     commonsDish('lamb-vermicelli-soup', '羊肉与粉条盛在清汤中的甘肃粉汤', 'Gansu lamb and vermicelli in a clear hot broth', 'N509FZ', 'CC BY-SA 4.0', 'Yangrou Fentang at Xiajia Hezhi, Dunhuang (20230917073058).jpg', 'https://upload.wikimedia.org/wikipedia/commons/3/31/Yangrou_Fentang_at_Xiajia_Hezhi%2C_Dunhuang_%2820230917073058%29.jpg')
+  ],
+  jinan: [
+    commonsDish('jiuzhuan-dachang', '浓亮酱汁包裹的济南九转大肠', 'Jinan nine-turn pork intestines coated in a glossy sauce', 'Rolfmueller', 'CC BY-SA 3.0', 'Jiuqu dachang 2009 03.jpg', 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Jiuqu_dachang_2009_03.jpg'),
+    commonsDish('bazirou', '米饭旁摆放把子肉与肉丸', 'Jinan bazirou and meatballs served beside rice', 'Suginami', 'CC BY-SA 4.0', '济南把子肉和肉丸子.jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/48/%E6%B5%8E%E5%8D%97%E6%8A%8A%E5%AD%90%E8%82%89%E5%92%8C%E8%82%89%E4%B8%B8%E5%AD%90.jpg'),
+    commonsDish('tianmo', '盛在碗中的济南咸香甜沫', 'A bowl of savory Jinan tianmo millet porridge', 'Steven Sun', 'CC BY-SA 4.0', '甜沫 202509.jpg', 'https://upload.wikimedia.org/wikipedia/commons/d/d8/%E7%94%9C%E6%B2%AB_202509.jpg'),
+    commonsDish('sweet-sour-carp', '浇有亮红酸甜汁的糖醋鲤鱼', 'Whole carp covered in a bright sweet-sour glaze', 'Steven Sun', 'CC BY-SA 4.0', 'Tangcu Liyu 20230622.jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/48/Tangcu_Liyu_20230622.jpg')
+  ],
+  qingdao: [
+    commonsDish('mackerel-dumplings', '薄皮包裹鲜嫩鱼馅的青岛鲅鱼水饺', 'Qingdao fish dumplings filled with tender Spanish mackerel', 'N509FZ', 'CC BY-SA 4.0', 'Four-in-one dumplings at Chuange Fish Dumplings, Chaoyang Joy City (20220201192212).jpg', 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Four-in-one_dumplings_at_Chuange_Fish_Dumplings%2C_Chaoyang_Joy_City_%2820220201192212%29.jpg'),
+    commonsDish('spicy-clams', '辣椒酱汁快炒的青岛蛤蜊', 'Qingdao clams stir-fried with chilies and savory sauce', 'Xufanc', 'CC BY-SA 3.0', 'Hoi Lai Pad Phrik Pao75.jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/25/Hoi_Lai_Pad_Phrik_Pao75.jpg'),
+    commonsDish('scallion-sea-cucumber', '大葱与浓汁烧制的海参', 'Sea cucumber braised with browned scallions and glossy sauce', 'Worldtravelwiki', 'CC BY-SA 3.0', '葱烧海参 001.jpg', 'https://upload.wikimedia.org/wikipedia/commons/d/d5/%E8%91%B1%E7%83%A7%E6%B5%B7%E5%8F%82_001.jpg'),
+    commonsDish('grilled-squid', '刷酱烤至焦香的整只鱿鱼', 'Whole squid grilled until lightly charred and brushed with sauce', 'Fumikas Sagisavas', 'CC0 1.0', 'Freshippo grilled squid.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/86/Freshippo_grilled_squid.jpg')
+  ],
+  suzhou: [
+    commonsDish('squirrel-mandarin-fish', '花刀炸开并淋酸甜汁的苏州松鼠桂鱼', 'Suzhou squirrel-shaped mandarin fish with crisp scored flesh and sweet-sour sauce', 'Walter Grassroot', 'CC BY-SA 3.0', '松鼠桂鱼.jpg', 'https://upload.wikimedia.org/wikipedia/commons/e/e4/%E6%9D%BE%E9%BC%A0%E6%A1%82%E9%B1%BC.jpg'),
+    commonsDish('su-style-noodles', '汤清面细并配浇头的苏式汤面', 'Fine Su-style noodles in broth with a seasonal topping', 'Finnnnnn', 'CC BY-SA 4.0', 'Su-style Noodle.jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/22/Su-style_Noodle.jpg'),
+    commonsDish('hot-oil-eel-paste', '蒜末与姜丝覆盖的苏州响油鳝糊', 'Suzhou shredded eel finished with garlic, ginger, and sizzling oil', 'N509FZ', 'CC BY-SA 4.0', 'Stir-fried shredded eel with hot oil and ginger at Songhelou Suzhou Noodles, Parkview Green (20210126165145).jpg', 'https://upload.wikimedia.org/wikipedia/commons/7/77/Stir-fried_shredded_eel_with_hot_oil_and_ginger_at_Songhelou_Suzhou_Noodles%2C_Parkview_Green_%2820210126165145%29.jpg'),
+    commonsDish('suzhou-shengjian', '底部煎脆并撒葱花芝麻的苏州生煎', 'Suzhou shengjian buns with crisp bottoms, sesame, and scallion', 'Shwangtianyuan', 'CC BY-SA 4.0', "Shengjianbao and Suanlafen at Yang's Dumpling Suzhou Center-20220709.jpg", 'https://upload.wikimedia.org/wikipedia/commons/0/04/Shengjianbao_and_Suanlafen_at_Yang%27s_Dumpling_Suzhou_Center-20220709.jpg')
+  ],
+  fuzhou: [
+    commonsDish('buddha-jumps-wall', '坛中盛放多种山海食材的福州佛跳墙', 'Fuzhou Buddha Jumps Over the Wall filled with slow-simmered delicacies', 'N509FZ', 'CC BY-SA 4.0', 'Buddha jumps over the wall at Jingrong (20161203135907).jpg', 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Buddha_jumps_over_the_wall_at_Jingrong_%2820161203135907%29.jpg'),
+    commonsDish('fuzhou-fish-balls', '清汤面中盛放的弹嫩鱼丸', 'Springy fish balls served in a clear soup with noodles', 'ProjectManhattan', 'CC BY-SA 3.0', 'Fish ball soup noodle.jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Fish_ball_soup_noodle.jpg'),
+    commonsDish('lychee-pork', '酸甜亮汁包裹的福州荔枝肉', 'Fuzhou lychee pork coated in bright sweet-sour glaze', 'N509FZ', 'CC BY-SA 4.0', 'Lychee pork at Yibian Restaurant, Fuzhou (20201002200754).jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Lychee_pork_at_Yibian_Restaurant%2C_Fuzhou_%2820201002200754%29.jpg'),
+    commonsDish('rouyan', '成盘摆放的福州肉燕', 'Fuzhou rouyan pork dumplings arranged on a tray', 'Lianxx', 'CC BY 3.0', 'Rouyan.jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Rouyan.jpg')
+  ],
+  nanning: [
+    commonsDish('laoyoufen', '酸笋、豆豉与牛肉搭配的南宁老友粉', 'Nanning laoyoufen with sour bamboo, fermented black beans, and beef', 'N509FZ', 'CC BY-SA 4.0', 'Laoyoufen with beef at Wanguo Restaurant, Nanning (20240216205412).jpg', 'https://upload.wikimedia.org/wikipedia/commons/9/92/Laoyoufen_with_beef_at_Wanguo_Restaurant%2C_Nanning_%2820240216205412%29.jpg'),
+    commonsDish('lemon-duck', '酸香配料包裹的广西柠檬鸭', 'Guangxi lemon duck with pickled citrus and aromatic vegetables', 'N509FZ', 'CC BY-SA 4.0', 'Guangxi lemon duck on Z5 (20160323175957).jpg', 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Guangxi_lemon_duck_on_Z5_%2820160323175957%29.jpg'),
+    commonsDish('suanye', '摆满腌渍果蔬的广西酸嘢摊', 'A Guangxi suanye stall filled with pickled fruit and vegetables', 'EditQ', 'CC BY-SA 4.0', '酸嘢.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/%E9%85%B8%E5%98%A2.jpg'),
+    commonsDish('five-color-glutinous-rice', '植物染色蒸成的广西五色糯米饭', 'Guangxi glutinous rice naturally dyed in five colors', 'N509FZ', 'CC BY-SA 4.0', 'Five-colored glutinous rice at a Guangxi-style restaurant in Beijing (20250331105506).jpg', 'https://upload.wikimedia.org/wikipedia/commons/5/53/Five-colored_glutinous_rice_at_a_Guangxi-style_restaurant_in_Beijing_%2820250331105506%29.jpg')
   ]
 };
 

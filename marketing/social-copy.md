@@ -224,6 +224,56 @@ Alt text: Lanzhou beef noodles with beef, radish, and chili oil.
 
 Hashtags: #ChinaTravel #FoodTravel #Lanzhou #TasteChina
 
+## 23. Jinan
+
+Jinan is a city to taste through Nine-Turn Pork Intestines, Bazirou, Tianmo, and Sweet-Sour Carp. Spring water, glossy sauces, and patient heat give Shandong flavor a generous capital.
+
+Start here: https://mitaste.com/city/jinan/
+
+Alt text: Jinan nine-turn pork intestines coated in a glossy sauce.
+
+Hashtags: #ChinaTravel #FoodTravel #Jinan #TasteChina
+
+## 24. Qingdao
+
+Qingdao is a city to taste through Spanish Mackerel Dumplings, Spicy Stir-Fried Clams, Scallion-Braised Sea Cucumber, and Grilled Squid. Clams meet chilies, sea cucumber meets scallion, and the sea breeze seasons every street.
+
+Start here: https://mitaste.com/city/qingdao/
+
+Alt text: Qingdao fish dumplings filled with tender Spanish mackerel.
+
+Hashtags: #ChinaTravel #FoodTravel #Qingdao #TasteChina
+
+## 25. Suzhou
+
+Suzhou is a city to taste through Squirrel Mandarin Fish, Su-Style Soup Noodles, Hot-Oil Eel Paste, and Suzhou Shengjian. Refined knife work, measured sweetness, and noodle toppings that change with the season.
+
+Start here: https://mitaste.com/city/suzhou/
+
+Alt text: Suzhou squirrel-shaped mandarin fish with crisp scored flesh and sweet-sour sauce.
+
+Hashtags: #ChinaTravel #FoodTravel #Suzhou #TasteChina
+
+## 26. Fuzhou
+
+Fuzhou is a city to taste through Buddha Jumps Over the Wall, Fuzhou Fish Balls, Lychee Pork, and Rouyan. Clear soups, lively sweet-sour notes, and mountain and sea meeting in a single clay jar.
+
+Start here: https://mitaste.com/city/fuzhou/
+
+Alt text: Fuzhou Buddha Jumps Over the Wall filled with slow-simmered delicacies.
+
+Hashtags: #ChinaTravel #FoodTravel #Fuzhou #TasteChina
+
+## 27. Nanning
+
+Nanning is a city to taste through Laoyoufen, Lemon Duck, Suanye, and Five-Colored Glutinous Rice. Sour bamboo, fermented black beans, lemon, and chili turn southern humidity into appetite.
+
+Start here: https://mitaste.com/city/nanning/
+
+Alt text: Nanning laoyoufen with sour bamboo, fermented black beans, and beef.
+
+Hashtags: #ChinaTravel #FoodTravel #Nanning #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

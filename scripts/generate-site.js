@@ -239,19 +239,19 @@ function cityPage(city, english, allCities, language) {
 const guideDefinitions = [
   {
     slug: 'best-food-cities-in-china',
-    title: '22 Best Food Cities in China for Your Next Trip',
-    description: 'A practical introduction to 22 Chinese food cities, from Chengdu and Guangzhou to Beijing, Kunming, and Lanzhou.',
+    title: '27 Best Food Cities in China for Your Next Trip',
+    description: 'A practical introduction to 27 Chinese food cities, from Chengdu and Guangzhou to Beijing, Qingdao, Fuzhou, and Nanning.',
     eyebrow: 'THE ESSENTIAL LIST',
-    heading: '22 Chinese cities worth traveling for food',
-    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 22 cities are a focused place to begin.',
+    heading: '27 Chinese cities worth traveling for food',
+    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 27 cities are a focused place to begin.',
     filter: () => true
   },
   {
     slug: 'hidden-gem-food-cities-in-china',
-    title: '11 Underrated Food Cities in China',
-    description: 'Go beyond the usual stops with 11 hidden-gem food cities, from Chaozhou and Yanji to Harbin, Xiamen, Kunming, and Guiyang.',
+    title: '14 Underrated Food Cities in China',
+    description: 'Go beyond the usual stops with 14 hidden-gem food cities, from Chaozhou and Yanji to Jinan, Fuzhou, and Nanning.',
     eyebrow: 'BEYOND THE CLASSICS',
-    heading: 'Eleven hidden-gem food cities',
+    heading: 'Fourteen hidden-gem food cities',
     intro: 'The most memorable food trip is often one stop beyond the obvious itinerary. These cities reward travelers with distinctive local ingredients, techniques, and everyday eating rituals.',
     filter: city => city.group === '宝藏'
   },
@@ -348,6 +348,7 @@ function guidePage(guide, cities, english) {
 
 function featuredFoodPage(foods, cities, english, language) {
   const isZh = language === 'zh';
+  const dishCount = cities.reduce((total, city) => total + city.dishes.length, 0);
   const pagePath = foodGuidePath(language);
   const alternatePath = foodGuidePath(isZh ? 'en' : 'zh');
   const pageUrl = `${siteUrl}${pagePath}`;
@@ -358,8 +359,8 @@ function featuredFoodPage(foods, cities, english, language) {
   const eyebrow = isZh ? '地图之外 · 19 种味道' : 'BEYOND THE MAP · 19 FLAVORS';
   const heading = isZh ? '从一口点心，到一桌早茶' : 'Nineteen foods, one wider table';
   const intro = isZh
-    ? '城市地图以 88 道招牌菜为起点，这份图鉴继续补上街头早餐、面点、汤粉、围炉和饮茶传统。每张卡片都给出名称、地域线索与最值得先知道的吃法。'
-    : 'The city map begins with 88 signature dishes. This companion guide adds breakfast staples, dumplings, noodles, communal pots, and tea-table traditions—with names, regional context, and a useful first bite for each.';
+    ? `城市地图以 ${dishCount} 道招牌菜为起点，这份图鉴继续补上街头早餐、面点、汤粉、围炉和饮茶传统。每张卡片都给出名称、地域线索与最值得先知道的吃法。`
+    : `The city map begins with ${dishCount} signature dishes. This companion guide adds breakfast staples, dumplings, noodles, communal pots, and tea-table traditions—with names, regional context, and a useful first bite for each.`;
   const coverImage = 'assets/dishes/chengdu/zhong-shui-jiao.webp';
   const coverAlt = isZh ? '红油酱汁中的成都钟水饺' : 'Chengdu dumplings dressed in fragrant red chili oil';
   const categories = [...new Set(foods.map(food => isZh ? food.zhCategory : food.enCategory))];
@@ -464,10 +465,10 @@ function chineseHub(cities) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="探索 22 座中国美食城市，从成都、广州到北京、昆明和兰州。">
+  <meta name="description" content="探索 ${cities.length} 座中国美食城市，从成都、广州到北京、青岛、福州和南宁。">
   <meta name="theme-color" content="#171713">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <title>寻味中国：22 座美食城市地图</title>
+  <title>寻味中国：${cities.length} 座美食城市地图</title>
   <link rel="canonical" href="${pageUrl}">
   <link rel="alternate" hreflang="en" href="${siteUrl}/">
   <link rel="alternate" hreflang="zh-CN" href="${pageUrl}">
@@ -475,7 +476,7 @@ function chineseHub(cities) {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${siteName}">
   <meta property="og:locale" content="zh_CN">
-  <meta property="og:title" content="寻味中国：22 座美食城市地图">
+  <meta property="og:title" content="寻味中国：${cities.length} 座美食城市地图">
   <meta property="og:description" content="沿着味道认识中国城市，从一碗面、一笼点心或一锅热汤开始。">
   <meta property="og:url" content="${pageUrl}">
   <meta property="og:image" content="${absolute(cities[0].heroImage)}">
@@ -498,7 +499,7 @@ function chineseHub(cities) {
 <body class="content-page hub-page">
   <header class="content-nav"><a class="content-brand" href="/zh/"><span aria-hidden="true">味</span>寻味中国</a><nav aria-label="页面导航"><a href="/?lang=zh">互动地图</a><a href="${foodGuidePath('zh')}">美食图鉴</a><a href="/" lang="en">EN</a></nav></header>
   <main>
-    <section class="guide-hero" style="--guide-image: url('/${cities[0].heroImage}')"><p>中国美食探索地图</p><h1>沿着味道，认识一座城</h1><strong>从一碗面、一笼点心或一锅热汤开始，探索 22 座各有性格的美食城市。</strong><a class="primary-action" href="/?lang=zh">打开互动地图</a></section>
+    <section class="guide-hero" style="--guide-image: url('/${cities[0].heroImage}')"><p>中国美食探索地图</p><h1>沿着味道，认识一座城</h1><strong>从一碗面、一笼点心或一锅热汤开始，探索 ${cities.length} 座各有性格的美食城市。</strong><a class="primary-action" href="/?lang=zh">打开互动地图</a></section>
     <section class="guide-grid" aria-label="美食城市目录">
       ${cities.map((city, index) => `<article class="guide-city"><a href="${cityPath(city.slug, 'zh')}"><img src="/${city.heroImage}" alt="${escapeHtml(city.imageAlt)}" loading="${index < 2 ? 'eager' : 'lazy'}"><div><span>${String(index + 1).padStart(2, '0')} · ${escapeHtml(city.province)}</span><h2>${escapeHtml(city.name)}</h2><p>${escapeHtml(city.tagline)}</p><small>${city.dishes.map(dish => escapeHtml(dish.name)).join(' · ')}</small></div></a></article>`).join('\n      ')}
     </section>

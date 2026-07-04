@@ -1,6 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
+const vm = require('vm');
 const { spawn } = require('child_process');
 const { chromium } = require('playwright');
 
@@ -11,29 +12,13 @@ const externalUrl = process.env.CARD_EXPORT_URL;
 const cardUrl = externalUrl || `http://127.0.0.1:${port}/marketing/cards/`;
 const browserChannel = process.env.PLAYWRIGHT_CHANNEL || (process.platform === 'win32' ? 'msedge' : 'chrome');
 
+const dataSource = fs.readFileSync(path.join(root, 'js', 'data.js'), 'utf8');
+const dataContext = {};
+vm.createContext(dataContext);
+vm.runInContext(`${dataSource}\nglobalThis.__citySlugs = foodCitiesData.map(city => city.slug);`, dataContext);
+
 const targets = [
-  ['#card-chengdu', 'city-chengdu.jpg'],
-  ['#card-xian', 'city-xian.jpg'],
-  ['#card-guangzhou', 'city-guangzhou.jpg'],
-  ['#card-changsha', 'city-changsha.jpg'],
-  ['#card-wuhan', 'city-wuhan.jpg'],
-  ['#card-chongqing', 'city-chongqing.jpg'],
-  ['#card-chaozhou', 'city-chaozhou.jpg'],
-  ['#card-liuzhou', 'city-liuzhou.jpg'],
-  ['#card-yanji', 'city-yanji.jpg'],
-  ['#card-taizhou', 'city-taizhou.jpg'],
-  ['#card-kashgar', 'city-kashgar.jpg'],
-  ['#card-yangzhou', 'city-yangzhou.jpg'],
-  ['#card-beijing', 'city-beijing.jpg'],
-  ['#card-shanghai', 'city-shanghai.jpg'],
-  ['#card-hangzhou', 'city-hangzhou.jpg'],
-  ['#card-nanjing', 'city-nanjing.jpg'],
-  ['#card-tianjin', 'city-tianjin.jpg'],
-  ['#card-harbin', 'city-harbin.jpg'],
-  ['#card-xiamen', 'city-xiamen.jpg'],
-  ['#card-kunming', 'city-kunming.jpg'],
-  ['#card-guiyang', 'city-guiyang.jpg'],
-  ['#card-lanzhou', 'city-lanzhou.jpg'],
+  ...dataContext.__citySlugs.map(slug => [`#card-${slug}`, `city-${slug}.jpg`]),
   ['.comparison-1', 'comparison-classics.jpg'],
   ['.comparison-2', 'comparison-hidden-gems.jpg'],
   ['.comparison-3', 'comparison-flavors.jpg']
