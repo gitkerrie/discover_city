@@ -6,16 +6,18 @@ const { contactEmail, siteUrl } = require('./site-config');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'js', 'data.js'), 'utf8');
 const foodGuideSource = fs.readFileSync(path.join(root, 'js', 'food-guide-data.js'), 'utf8');
+const videoTrailSource = fs.readFileSync(path.join(root, 'js', 'video-food-trails-data.js'), 'utf8');
 const context = {};
 vm.createContext(context);
 vm.runInContext(
-  `${source}\n${foodGuideSource}\nglobalThis.__cities = foodCitiesData; globalThis.__english = foodCitiesEnglish; globalThis.__foods = featuredFoodsData;`,
+  `${source}\n${foodGuideSource}\n${videoTrailSource}\nglobalThis.__cities = foodCitiesData; globalThis.__english = foodCitiesEnglish; globalThis.__foods = featuredFoodsData; globalThis.__videoTrails = videoFoodTrailsData;`,
   context
 );
 
 const cities = context.__cities;
 const english = context.__english;
 const foods = context.__foods;
+const videoTrails = context.__videoTrails;
 const dishCount = cities.reduce((total, city) => total + city.dishes.length, 0);
 
 function assert(condition, message) {
@@ -88,6 +90,48 @@ assert((chineseFoodGuide.match(/class="food-card"/g) || []).length === 19, '中�
 assert(foods.every(food => englishFoodGuide.includes(`id="food-${food.slug}"`)), '英文美食图鉴缺少深链锚点');
 assert(foods.every(food => chineseFoodGuide.includes(food.zhName)), '中文美食图鉴缺少菜名');
 
+assert(videoTrails.length === 18, `Video food trails must contain 18 cities, found ${videoTrails.length}`);
+assert(new Set(videoTrails.map(trail => trail.slug)).size === videoTrails.length, 'Video food trail slugs must be unique');
+assert(new Set(videoTrails.map(trail => trail.videoId)).size === videoTrails.length, 'Video food trail IDs must be unique');
+assert(videoTrails.every(trail => /^\d{19}$/.test(trail.videoId)), 'Every video food trail must have a valid Douyin video ID');
+assert(videoTrails.every(trail => trail.city.zh && trail.city.en && trail.foods.length > 0), 'Every video food trail must have bilingual city data and foods');
+assert(videoTrails.reduce((total, trail) => total + trail.foods.length, 0) === 495, 'Video food trails must contain 495 food finds');
+
+const englishVideoTrails = read('guides', 'video-food-trails', 'index.html');
+const chineseVideoTrails = read('zh', 'guides', 'video-food-trails', 'index.html');
+const videoTrailApp = read('js', 'video-food-trails.js');
+const videoTrailStyles = read('css', 'video-food-trails.css');
+assert(englishVideoTrails.includes(`<link rel="canonical" href="${siteUrl}/guides/video-food-trails/">`), 'English video food trails canonical is missing');
+assert(chineseVideoTrails.includes(`<link rel="canonical" href="${siteUrl}/zh/guides/video-food-trails/">`), 'Chinese video food trails canonical is missing');
+assert(englishVideoTrails.includes(`hreflang="zh-Hans" href="${siteUrl}/zh/guides/video-food-trails/"`), 'English video food trails hreflang is missing');
+assert(chineseVideoTrails.includes(`hreflang="en" href="${siteUrl}/guides/video-food-trails/"`), 'Chinese video food trails hreflang is missing');
+assert(englishVideoTrails.includes('/js/data.js'), 'Video food trails must load the local dish photo catalog');
+assert(englishVideoTrails.includes('/js/video-food-trails-data.js'), 'English video food trails data script is missing');
+assert(englishVideoTrails.includes('/js/video-food-trails-media.js'), 'Video food trails licensed media script is missing');
+assert(chineseVideoTrails.includes('/js/video-food-trails.js'), 'Chinese video food trails app script is missing');
+assert(!videoTrailApp.includes('getCategoryVisuals'), 'Video food trails must not use category photos as dish substitutes');
+assert(!videoTrailApp.includes('curatedVisualNames'), 'Video food trails must not assign unrelated curated photos');
+assert(videoTrailApp.includes('{ image: null, name: null, exact: false }'), 'Unmatched foods must render without a substitute photo');
+assert(videoTrailApp.includes('function getPicturedFoods(trail)'), 'City food trails must define a pictured-food collection');
+assert(videoTrailApp.includes('getPicturedFoods(trail).filter(food =>'), 'Search and filters must start from pictured foods');
+assert(videoTrailApp.includes('elements.drawerFoods.innerHTML = picturedFoods.map(food =>'), 'City drawers must render pictured foods only');
+assert(videoTrailApp.includes('function pickHeroMosaic()'), 'City food trails must build a randomized hero mosaic');
+assert(videoTrailApp.includes('item.visual.trailSpecific'), 'Hero mosaic must use verified trail-specific images');
+assert(englishVideoTrails.includes('id="heroMosaicShuffleBtn"'), 'English city food trails must expose the mosaic shuffle control');
+assert(chineseVideoTrails.includes('id="heroMosaicShuffleBtn"'), 'Chinese city food trails must expose the mosaic shuffle control');
+assert(videoTrailApp.includes('has-${previewFoods.length}-foods'), 'City cards must expose their preview image count');
+assert(videoTrailStyles.includes('.trail-card-foods.has-1-foods'), 'Single-image city cards must fill the preview');
+assert(videoTrailStyles.includes('.trail-card-foods.has-2-foods'), 'Two-image city cards must fill the preview');
+assert(!videoTrailApp.includes('food-photo-missing'), 'City food trails must not render cards without photos');
+assert(!videoTrailApp.includes('douyin.com/video'), 'City food trails app must not link to source videos');
+assert(englishVideoTrails.includes('City Food Trails'), 'English city food trails title is missing');
+assert(chineseVideoTrails.includes('城市美食漫游'), 'Chinese city food trails title is missing');
+assert(chineseVideoTrails.includes('这里只展示有核实图片的菜品'), 'Chinese city food trails must explain the pictured-food policy');
+assert(!englishVideoTrails.includes('id="drawerVideoLink"'), 'English city food trails must not expose a video entry');
+assert(!chineseVideoTrails.includes('id="drawerVideoLink"'), 'Chinese city food trails must not expose a video entry');
+assert(!englishVideoTrails.includes('Watch source video'), 'English city food trails must not mention a source video CTA');
+assert(!chineseVideoTrails.includes('去看原视频'), 'Chinese city food trails must not mention a source video CTA');
+
 const dishSources = read('assets', 'dishes', 'SOURCES.md');
 assert((dishSources.match(/^\| .* \| .* \| .* \| .* \| \[.*\]\(.*\) \| \[查看来源\]/gm) || []).length === dishCount, `菜品来源文档不是 ${dishCount} 条`);
 const imageReview = read('marketing', 'image-review.html');
@@ -96,12 +140,15 @@ assert(imageReview.includes('noindex, nofollow'), '图片审核表必须禁止�
 
 const sitemap = read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert(sitemapUrls.length === 7 + (cities.length * 2), `站点地图 URL 数量不正确，实际为 ${sitemapUrls.length}`);
+assert(sitemapUrls.length === 9 + (cities.length * 2), `站点地图 URL 数量不正确，实际为 ${sitemapUrls.length}`);
 assert(new Set(sitemapUrls).size === sitemapUrls.length, '站点地图存在重复 URL');
 assert(cities.every(city => sitemap.includes(`${siteUrl}/city/${city.slug}/`)), '站点地图缺少英文城市页');
 assert(cities.every(city => sitemap.includes(`${siteUrl}/zh/city/${city.slug}/`)), '站点地图缺少中文城市页');
 assert(sitemap.includes(`${siteUrl}/guides/chinese-foods/`), '站点地图缺少英文美食图鉴');
 assert(sitemap.includes(`${siteUrl}/zh/guides/chinese-foods/`), '站点地图缺少中文美食图鉴');
+
+assert(sitemap.includes(`${siteUrl}/guides/video-food-trails/`), 'Sitemap is missing the English video food trails page');
+assert(sitemap.includes(`${siteUrl}/zh/guides/video-food-trails/`), 'Sitemap is missing the Chinese video food trails page');
 
 const robots = read('robots.txt');
 assert(robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`), 'robots.txt 缺少站点地图地址');
@@ -115,6 +162,8 @@ assert(index.includes('/_vercel/insights/script.js'), '地图首页缺少 Vercel
 assert(index.includes('assets/dishes/chengdu/zhong-shui-jiao.webp'), '地图首页社交图片未切换到菜品图');
 assert(index.includes('js/food-guide-data.js'), '地图首页未加载美食图鉴数据');
 assert(index.includes('/guides/chinese-foods/'), '地图首页缺少美食图鉴入口');
+assert(index.includes('/guides/video-food-trails/'), 'Homepage is missing the city food trails entry');
+assert(index.includes('Food trails'), 'Homepage city food trails label is missing');
 assert(index.includes(`mailto:${contactEmail}`), 'Homepage is missing the contact email');
 assert(englishFoodGuide.includes(`mailto:${contactEmail}`), 'English food guide is missing the contact email');
 assert(chineseFoodGuide.includes(`mailto:${contactEmail}`), 'Chinese food guide is missing the contact email');

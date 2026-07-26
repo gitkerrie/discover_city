@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>济南视频美食图片审查</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f2efe8; color: #25231f; font-family: Arial, "Microsoft YaHei", sans-serif; }
+    .page-head { padding: 28px clamp(18px, 4vw, 54px); border-top: 6px solid #b53b32; background: #fffdf8; }
+    .page-head h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: 0; }
+    .page-head p { max-width: 760px; margin: 0; color: #686158; line-height: 1.6; }
+    main { width: min(1500px, calc(100% - 32px)); margin: 24px auto 60px; }
+    .food-group { padding: 20px 0 26px; border-bottom: 1px solid #cfc8bb; }
+    .food-group > header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .food-group > header > span { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #b53b32; border-radius: 50%; color: #b53b32; font-family: Georgia, serif; font-weight: 700; }
+    h2 { margin: 0; font-size: 21px; letter-spacing: 0; }
+    header p { margin: 3px 0 0; color: #777067; font-size: 12px; }
+    .candidate-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .candidate { min-width: 0; overflow: hidden; border: 1px solid #d2cbbc; border-radius: 6px; background: #fff; }
+    .candidate img, .image-missing { width: 100%; aspect-ratio: 4 / 3; display: block; object-fit: cover; background: #ded8cd; }
+    .image-missing { display: grid; place-items: center; color: #716b62; }
+    .candidate-copy { padding: 11px; }
+    .candidate-copy strong, .candidate-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .candidate-copy strong { font-size: 13px; }
+    .candidate-copy span { margin-top: 5px; color: #9a342c; font-size: 11px; font-weight: 700; }
+    .candidate-copy p { min-height: 34px; margin: 7px 0; color: #676159; font-size: 11px; line-height: 1.45; }
+    .candidate-copy a { color: #1e5f6b; font-size: 11px; font-weight: 700; }
+    .empty { margin: 0; padding: 18px; border: 1px dashed #aaa296; color: #6f685f; }
+    @media (max-width: 980px) { .candidate-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { main { width: min(100% - 20px, 1500px); } .candidate-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="page-head">
+    <h1>济南 · 视频美食图片候选</h1>
+    <p>仅展示通过 CC0、CC BY 或 CC BY-SA 许可过滤的候选。搜索分数只用于排序，不代表图片已经核实；正式采用前必须逐张确认菜品内容与来源页。</p>
+  </header>
+  <main>
+      <section class="food-group">
+        <header>
+          <span>01</span>
+          <div>
+            <h2>牛肉烧饼</h2>
+            <p>检索词：牛肉烧饼</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="200">
+            <img src="/assets/video-foods/review/jinan/01-1.webp" alt="牛肉烧饼 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 护国寺小吃出品的芝麻牛肉烧饼.jpg</strong>
+              <span>CC BY 4.0 · 匹配分 200</span>
+              <p>​护国寺小吃出品的芝麻牛肉烧饼</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E6%8A%A4%E5%9B%BD%E5%AF%BA%E5%B0%8F%E5%90%83%E5%87%BA%E5%93%81%E7%9A%84%E8%8A%9D%E9%BA%BB%E7%89%9B%E8%82%89%E7%83%A7%E9%A5%BC.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/01-2.webp" alt="牛肉烧饼 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Roujiamo-cn.jpg</strong>
+              <span>CC BY-SA 3.0 · 匹配分 22</span>
+              <p>a typical chinese food with meat and boiled bread, from Xi&#39;an, Shaanxi, China</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Roujiamo-cn.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>02</span>
+          <div>
+            <h2>甜沫</h2>
+            <p>检索词：甜沫</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/02-1.webp" alt="甜沫 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 甜沫 202509.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​甜沫 于丰香源餐厅</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E7%94%9C%E6%B2%AB_202509.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>03</span>
+          <div>
+            <h2>灌汤包</h2>
+            <p>检索词：灌汤包</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/03-1.webp" alt="灌汤包 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 开封第一楼小笼包.JPG</strong>
+              <span>CC BY-SA 3.0 · 匹配分 22</span>
+              <p>​开封第一楼小笼包</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E5%BC%80%E5%B0%81%E7%AC%AC%E4%B8%80%E6%A5%BC%E5%B0%8F%E7%AC%BC%E5%8C%85.JPG" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/03-2.webp" alt="灌汤包 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Shanghai-tangbao-Oasis21-Nagoya.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>上海湯包小館 オアシス21</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Shanghai-tangbao-Oasis21-Nagoya.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/03-3.webp" alt="灌汤包 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Shanghai-tangbao-shokan-Asunal-Kanayama.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Shanghai tangbao shokan, Asunal Kanayama</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Shanghai-tangbao-shokan-Asunal-Kanayama.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>04</span>
+          <div>
+            <h2>五仁麻酱烧饼</h2>
+            <p>检索词：五仁麻酱烧饼</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>05</span>
+          <div>
+            <h2>把子肉</h2>
+            <p>检索词：把子肉</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/05-1.webp" alt="把子肉 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Food 把子肉, Yi Yuan Peking Cuisine, The Westin Taipei, 頤園, 頤園北京料理, 六福皇宮, 台北威斯汀六福皇宮, 台北 (20222070712).jpg</strong>
+              <span>CC BY-SA 2.0 · 匹配分 204</span>
+              <p>把子肉, Yi Yuan Peking Cuisine, The Westin Taipei, 頤園, 頤園北京料理, 六福皇宮, 台北威斯汀六福皇宮, 台北</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Food_%E6%8A%8A%E5%AD%90%E8%82%89,_Yi_Yuan_Peking_Cuisine,_The_Westin_Taipei,_%E9%A0%A4%E5%9C%92,_%E9%A0%A4%E5%9C%92%E5%8C%97%E4%BA%AC%E6%96%99%E7%90%86,_%E5%85%AD%E7%A6%8F%E7%9A%87%E5%AE%AE,_%E5%8F%B0%E5%8C%97%E5%A8%81%E6%96%AF%E6%B1%80%E5%85%AD%E7%A6%8F%E7%9A%87%E5%AE%AE,_%E5%8F%B0%E5%8C%97_(20222070712).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/05-2.webp" alt="把子肉 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. 把子肉和黄面鸡.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​左边是把子肉，右侧是黄面鸡。鲁菜馆的外卖食品。</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E6%8A%8A%E5%AD%90%E8%82%89%E5%92%8C%E9%BB%84%E9%9D%A2%E9%B8%A1.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/05-3.webp" alt="把子肉 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. 济南把子肉和肉丸子.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​济南把子肉和肉丸子，拍摄于超意兴餐厅</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E6%B5%8E%E5%8D%97%E6%8A%8A%E5%AD%90%E8%82%89%E5%92%8C%E8%82%89%E4%B8%B8%E5%AD%90.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>06</span>
+          <div>
+            <h2>鲁菜</h2>
+            <p>检索词：鲁菜</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/06-1.webp" alt="鲁菜 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 把子肉和黄面鸡.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​左边是把子肉，右侧是黄面鸡。鲁菜馆的外卖食品。</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E6%8A%8A%E5%AD%90%E8%82%89%E5%92%8C%E9%BB%84%E9%9D%A2%E9%B8%A1.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/06-2.webp" alt="鲁菜 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Mianjin hongshao paigu 2009 03.jpg</strong>
+              <span>CC BY-SA 3.0 · 匹配分 22</span>
+              <p>Photograph of the mianjin hongshao paigu (面筋红烧排骨) dish served in Jinan, Shandong Province, China.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Mianjin_hongshao_paigu_2009_03.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/06-3.webp" alt="鲁菜 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Qing Yun Lou (慶雲 樓) Shandong Cuisine. Benincasa hispida (winter melon).jpg</strong>
+              <span>CC BY-SA 2.0 · 匹配分 22</span>
+              <p>Qing Yun Lou (慶雲 樓) Shandong Cuisine. Benincasa hispida (winter melon).</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Qing_Yun_Lou_(%E6%85%B6%E9%9B%B2_%E6%A8%93)_Shandong_Cuisine._Benincasa_hispida_(winter_melon).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>07</span>
+          <div>
+            <h2>特色烧烤</h2>
+            <p>检索词：特色烧烤 / 烧烤</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/07-1.webp" alt="特色烧烤 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Hanging Meat at a Street Fair 2.JPG</strong>
+              <span>CC BY-SA 3.0 · 匹配分 18</span>
+              <p>Spit barbecue meat hanging on Avenue C in the East Village (Loisaida section) during a street fair</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Hanging_Meat_at_a_Street_Fair_2.JPG" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/07-2.webp" alt="特色烧烤 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Whole hog barbecue, Big Apple Barbecue Block Party 2013.jpg</strong>
+              <span>CC BY 2.0 · 匹配分 18</span>
+              <p>The one-and-only Rodney Scott (@rodneyscottbbq) making the best dish of the event: Whole Hog</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Whole_hog_barbecue,_Big_Apple_Barbecue_Block_Party_2013.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="14">
+            <img src="/assets/video-foods/review/jinan/07-3.webp" alt="特色烧烤 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Paneer tikka barbecue 01.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 14</span>
+              <p>Making of paneer tikka.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Paneer_tikka_barbecue_01.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>08</span>
+          <div>
+            <h2>肥蛤炸</h2>
+            <p>检索词：肥蛤炸</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>09</span>
+          <div>
+            <h2>面包</h2>
+            <p>检索词：面包</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/09-1.webp" alt="面包 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Kifli made with spelt flour (Serbian cuisine).jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Kifli made with spelt flour, filled with sheep&#39;s cheese, topped with sesame seeds. Made for Christmas (January 7) 2018. In Serbian, singular is kifla, plural is kiflice. (Cuisine of Serbia)</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Kifli_made_with_spelt_flour_(Serbian_cuisine).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/09-2.webp" alt="面包 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Мармалад од кајсии 2.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Apricot jam in a glass canning jar with slices of bread</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D1%80%D0%BC%D0%B0%D0%BB%D0%B0%D0%B4_%D0%BE%D0%B4_%D0%BA%D0%B0%D1%98%D1%81%D0%B8%D0%B8_2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/09-3.webp" alt="面包 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Breads of Moskovskaya Oblast. img 008.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Breads of Moskovskaya Oblast. Long loaf, wheat flour bread.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Breads_of_Moskovskaya_Oblast._img_008.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>10</span>
+          <div>
+            <h2>奶茶</h2>
+            <p>检索词：奶茶</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/10-1.webp" alt="奶茶 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Special milk tea with hong kong style.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Hong Kong style milk tea with set of breakfast in local Chinese restaurant</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Special_milk_tea_with_hong_kong_style.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/10-2.webp" alt="奶茶 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Bubble tea by Johnny.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Bubble tea</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Bubble_tea_by_Johnny.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/10-3.webp" alt="奶茶 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Fresh Milk Tea 1.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 18</span>
+              <p>Fresh Milk Tea.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Fresh_Milk_Tea_1.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>11</span>
+          <div>
+            <h2>糖果子鸡蛋包</h2>
+            <p>检索词：糖果子鸡蛋包</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>12</span>
+          <div>
+            <h2>豆浆</h2>
+            <p>检索词：豆浆</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/12-1.webp" alt="豆浆 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 肉松饭团 Glutinous Rice Roll with Pork Floss AUD3.50, 豆浆 Soy Milk AUD2.20 - Zhu Mama (3835982669).jpg</strong>
+              <span>CC BY-SA 2.0 · 匹配分 204</span>
+              <p>Not the best Taiwanese I&#39;ve had, but quite good value for money. Doing brisk business too! 朱妈妈台湾小吃 Mother Chu&#39;s Taiwanese Gourmet (02) 9211 0288 Shop 1/ 86-88 Dixon St Haymarket NSW 2000</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E8%82%89%E6%9D%BE%E9%A5%AD%E5%9B%A2_Glutinous_Rice_Roll_with_Pork_Floss_AUD3.50,_%E8%B1%86%E6%B5%86_Soy_Milk_AUD2.20_-_Zhu_Mama_(3835982669).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/12-2.webp" alt="豆浆 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Korean noodles-Kongguksu-01.jpg</strong>
+              <span>CC BY 2.0 · 匹配分 22</span>
+              <p>금산의 어느 음식점에서..</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Korean_noodles-Kongguksu-01.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/12-3.webp" alt="豆浆 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Soy milk soup with wonton cc flickr user jetalone 2.jpg</strong>
+              <span>CC BY 2.0 · 匹配分 22</span>
+              <p>Chinese soy milk soup with wonton.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Soy_milk_soup_with_wonton_cc_flickr_user_jetalone_2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>13</span>
+          <div>
+            <h2>干炸里脊</h2>
+            <p>检索词：干炸里脊</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>14</span>
+          <div>
+            <h2>杏鲍菇</h2>
+            <p>检索词：杏鲍菇</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/14-1.webp" alt="杏鲍菇 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Beef and shrimp set meal on G65 (20170307121129).jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Tastes all well, although it&#39;s sold for 65.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Beef_and_shrimp_set_meal_on_G65_(20170307121129).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>15</span>
+          <div>
+            <h2>芸豆</h2>
+            <p>检索词：芸豆</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/15-1.webp" alt="芸豆 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Phaseolus vulgaris MHNT.BOT.2016.24.73.jpg</strong>
+              <span>CC BY-SA 3.0 · 匹配分 22</span>
+              <p>Phaseolus vulgaris, common bean, seeds</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Phaseolus_vulgaris_MHNT.BOT.2016.24.73.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/15-2.webp" alt="芸豆 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Judías verdes (Phaseolus vulgaris).jpg</strong>
+              <span>CC BY 4.0 · 匹配分 22</span>
+              <p>Judías verdes (Phaseolus vulgaris).</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Jud%C3%ADas_verdes_(Phaseolus_vulgaris).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/15-3.webp" alt="芸豆 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Phaseolus vulgaris - Curtobacterium flaccumfaciens - Howard F. Schwartz.jpg</strong>
+              <span>CC BY 3.0 · 匹配分 22</span>
+              <p>The Curtobacterium flaccumfaciens pv. flaccumfaciens infestation has caused yellowing and brown necrosis on the bean leaves.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Phaseolus_vulgaris_-_Curtobacterium_flaccumfaciens_-_Howard_F._Schwartz.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>16</span>
+          <div>
+            <h2>酸奶</h2>
+            <p>检索词：酸奶</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/16-1.webp" alt="酸奶 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Yogurt in box.jpg</strong>
+              <span>CC BY 4.0 · 匹配分 204</span>
+              <p>​盒装凝固型酸奶，天润牌</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Yogurt_in_box.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/16-2.webp" alt="酸奶 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Joghurt.jpg</strong>
+              <span>CC BY-SA 3.0 · 匹配分 22</span>
+              <p>Bulgarian yogurt</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Joghurt.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/16-3.webp" alt="酸奶 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Yogurt vainilla soja.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Yogurt vegano de vainilla de la marca Veggedía</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Yogurt_vainilla_soja.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>17</span>
+          <div>
+            <h2>煎饼</h2>
+            <p>检索词：煎饼</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/17-1.webp" alt="煎饼 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 201909 煎饼果子.jpg</strong>
+              <span>CC BY-SA 3.0 · 匹配分 204</span>
+              <p>无图片描述</p>
+              <a href="https://commons.wikimedia.org/wiki/File:201909_%E7%85%8E%E9%A5%BC%E6%9E%9C%E5%AD%90.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/17-2.webp" alt="煎饼 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. 煎饼馃子制作过程2.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​煎饼馃子制作过程</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E7%85%8E%E9%A5%BC%E9%A6%83%E5%AD%90%E5%88%B6%E4%BD%9C%E8%BF%87%E7%A8%8B2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/17-3.webp" alt="煎饼 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. 煎饼馃子制作过程3.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​煎饼馃子制作过程</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E7%85%8E%E9%A5%BC%E9%A6%83%E5%AD%90%E5%88%B6%E4%BD%9C%E8%BF%87%E7%A8%8B3.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>18</span>
+          <div>
+            <h2>梅花烙</h2>
+            <p>检索词：梅花烙</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>19</span>
+          <div>
+            <h2>铜锅羊肉</h2>
+            <p>检索词：铜锅羊肉</p>
+          </div>
+        </header>
+        <div class="candidate-grid"><p class="empty">未找到许可与尺寸均合格的候选图。</p></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>20</span>
+          <div>
+            <h2>老式面包</h2>
+            <p>检索词：老式面包 / 面包</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/20-1.webp" alt="老式面包 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Kifli made with spelt flour (Serbian cuisine).jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 18</span>
+              <p>Kifli made with spelt flour, filled with sheep&#39;s cheese, topped with sesame seeds. Made for Christmas (January 7) 2018. In Serbian, singular is kifla, plural is kiflice. (Cuisine of Serbia)</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Kifli_made_with_spelt_flour_(Serbian_cuisine).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/20-2.webp" alt="老式面包 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Мармалад од кајсии 2.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 18</span>
+              <p>Apricot jam in a glass canning jar with slices of bread</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D1%80%D0%BC%D0%B0%D0%BB%D0%B0%D0%B4_%D0%BE%D0%B4_%D0%BA%D0%B0%D1%98%D1%81%D0%B8%D0%B8_2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="18">
+            <img src="/assets/video-foods/review/jinan/20-3.webp" alt="老式面包 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Breads of Moskovskaya Oblast. img 008.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 18</span>
+              <p>Breads of Moskovskaya Oblast. Long loaf, wheat flour bread.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Breads_of_Moskovskaya_Oblast._img_008.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>21</span>
+          <div>
+            <h2>朝鲜面</h2>
+            <p>检索词：朝鲜面</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/21-1.webp" alt="朝鲜面 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. 唐山德源里市场朝鲜面.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>​河北省唐山市路北区</p>
+              <a href="https://commons.wikimedia.org/wiki/File:%E5%94%90%E5%B1%B1%E5%BE%B7%E6%BA%90%E9%87%8C%E5%B8%82%E5%9C%BA%E6%9C%9D%E9%B2%9C%E9%9D%A2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/21-2.webp" alt="朝鲜面 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. KOCIS Mul-naengmyeon, Chilled Buckwheat Noodle Soup (4594756202).jpg</strong>
+              <span>CC BY-SA 2.0 · 匹配分 22</span>
+              <p>Noodles made with buckwheat and starch. Served in a chilled beef broth with pickled radish, sliced Korean pear and a hard-boiled egg. It is often served with a side dish of vinegar and mustard.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:KOCIS_Mul-naengmyeon,_Chilled_Buckwheat_Noodle_Soup_(4594756202).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/21-3.webp" alt="朝鲜面 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Mul-naengmyeon 2.jpg</strong>
+              <span>CC BY 2.0 · 匹配分 22</span>
+              <p>Mul-naengmyeon (cold noodle soup)</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Mul-naengmyeon_2.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>22</span>
+          <div>
+            <h2>炸串</h2>
+            <p>检索词：炸串</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="204">
+            <img src="/assets/video-foods/review/jinan/22-1.webp" alt="炸串 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop 夸夫炸串炸雞店 KuaFood August 2023 Px3 03.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 204</span>
+              <p>SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop in August 2023</p>
+              <a href="https://commons.wikimedia.org/wiki/File:SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E5%8D%97%E5%B1%B1_Nanshan_%E7%9B%8A%E7%94%B0%E5%81%87%E6%97%A5%E5%B9%BF%E5%9C%BA_Yitian_Holiday_Plaza_%E5%95%86%E5%A0%B4_Mall_shop_%E5%A4%B8%E5%A4%AB%E7%82%B8%E4%B8%B2%E7%82%B8%E9%9B%9E%E5%BA%97_KuaFood_August_2023_Px3_03.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="200">
+            <img src="/assets/video-foods/review/jinan/22-2.webp" alt="炸串 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop 夸夫炸串炸雞店 KuaFood August 2023 Px3 02.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 200</span>
+              <p>SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop in August 2023</p>
+              <a href="https://commons.wikimedia.org/wiki/File:SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E5%8D%97%E5%B1%B1_Nanshan_%E7%9B%8A%E7%94%B0%E5%81%87%E6%97%A5%E5%B9%BF%E5%9C%BA_Yitian_Holiday_Plaza_%E5%95%86%E5%A0%B4_Mall_shop_%E5%A4%B8%E5%A4%AB%E7%82%B8%E4%B8%B2%E7%82%B8%E9%9B%9E%E5%BA%97_KuaFood_August_2023_Px3_02.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="200">
+            <img src="/assets/video-foods/review/jinan/22-3.webp" alt="炸串 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop 夸夫炸串炸雞店 KuaFood August 2023 Px3 01.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 200</span>
+              <p>SZ 深圳 Shenzhen 南山 Nanshan 益田假日广场 Yitian Holiday Plaza 商場 Mall shop in August 2023</p>
+              <a href="https://commons.wikimedia.org/wiki/File:SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E5%8D%97%E5%B1%B1_Nanshan_%E7%9B%8A%E7%94%B0%E5%81%87%E6%97%A5%E5%B9%BF%E5%9C%BA_Yitian_Holiday_Plaza_%E5%95%86%E5%A0%B4_Mall_shop_%E5%A4%B8%E5%A4%AB%E7%82%B8%E4%B8%B2%E7%82%B8%E9%9B%9E%E5%BA%97_KuaFood_August_2023_Px3_01.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>23</span>
+          <div>
+            <h2>糯米果果</h2>
+            <p>检索词：糯米果果</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/23-1.webp" alt="糯米果果 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Viburnum setigerum Kalina herbaciana 2010-05-15 02.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Tea viburnum ( Viburnum setigerum ), flowers, plant cultivated in Wrocław University Botanical Garden, Wrocław , Poland .</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Viburnum_setigerum_Kalina_herbaciana_2010-05-15_02.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/23-2.webp" alt="糯米果果 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Viburnum setigerum Kalina herbaciana 2021-10-16 03.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Viburnum setigerum fruit, cultivated in Wojsławice Arboretum, Niemcza, Poland.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Viburnum_setigerum_Kalina_herbaciana_2021-10-16_03.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/23-3.webp" alt="糯米果果 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Viburnum setigerum Kalina herbaciana 2021-10-16 01.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>Viburnum setigerum cultivated in Wojsławice Arboretum, Niemcza, Poland.</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Viburnum_setigerum_Kalina_herbaciana_2021-10-16_01.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section>
+      <section class="food-group">
+        <header>
+          <span>24</span>
+          <div>
+            <h2>炸鸡翅</h2>
+            <p>检索词：炸鸡翅</p>
+          </div>
+        </header>
+        <div class="candidate-grid">
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/24-1.webp" alt="炸鸡翅 候选图 1" loading="lazy">
+            <div class="candidate-copy">
+              <strong>1. Fried chicken legs in the display.jpg</strong>
+              <span>CC BY-SA 4.0 · 匹配分 22</span>
+              <p>A lot of Fried Chicken Legs from display from Oi Kwan Restaurant in Choi Hung Estate</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Fried_chicken_legs_in_the_display.jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/24-2.webp" alt="炸鸡翅 候选图 2" loading="lazy">
+            <div class="candidate-copy">
+              <strong>2. Fried chicken (25163375255).jpg</strong>
+              <span>CC BY 2.0 · 匹配分 22</span>
+              <p>Jim Dandy Fried Chicken, South Los Angeles</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Fried_chicken_(25163375255).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article>
+          <article class="candidate" data-score="22">
+            <img src="/assets/video-foods/review/jinan/24-3.webp" alt="炸鸡翅 候选图 3" loading="lazy">
+            <div class="candidate-copy">
+              <strong>3. Fried Chicken (5905281949).jpg</strong>
+              <span>CC BY 2.0 · 匹配分 22</span>
+              <p>Per the recipe in the Ad Hoc Cookbook -- turned out amazing!</p>
+              <a href="https://commons.wikimedia.org/wiki/File:Fried_Chicken_(5905281949).jpg" target="_blank" rel="noopener">核对 Commons 来源</a>
+            </div>
+          </article></div>
+      </section></main>
+</body>
+</html>

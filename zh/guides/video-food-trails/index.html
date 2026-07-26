@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b43127">
+  <title>城市美食漫游：18 座城的有图风味｜寻味中国</title>
+  <meta name="description" content="用核实过的真实菜品图片，逛遍 18 座美食城市。搜城市、筛口味、随机抽城，还能保存自己的想吃清单。">
+  <link rel="canonical" href="https://mitaste.com/zh/guides/video-food-trails/">
+  <link rel="alternate" hreflang="en" href="https://mitaste.com/guides/video-food-trails/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://mitaste.com/zh/guides/video-food-trails/">
+  <link rel="alternate" hreflang="x-default" href="https://mitaste.com/guides/video-food-trails/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="城市美食漫游：18 座城的有图风味">
+  <meta property="og:description" content="用核实过的菜品图片，做成一张可以抽签、筛选和收藏的城市美食路线板。">
+  <meta property="og:url" content="https://mitaste.com/zh/guides/video-food-trails/">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/regular.min.css">
+  <link rel="stylesheet" href="/css/video-food-trails.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "城市美食漫游",
+      "description": "用核实菜品图片介绍 18 座美食城市的互动美食索引。",
+      "url": "https://mitaste.com/zh/guides/video-food-trails/",
+      "inLanguage": "zh-Hans",
+      "isPartOf": { "@type": "WebSite", "name": "寻味中国", "url": "https://mitaste.com/?lang=zh" }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#trail-explorer">跳到路线板</a>
+
+  <header class="trail-nav">
+    <a class="trail-brand" href="/?lang=zh" aria-label="寻味中国首页">
+      <span class="trail-brand-mark" aria-hidden="true">味</span>
+      <span>寻味中国</span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="/?lang=zh"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span>美食地图</span></a>
+      <a href="/zh/guides/chinese-foods/"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i><span>108 道风味</span></a>
+      <a class="is-current" href="/zh/guides/video-food-trails/" aria-current="page"><i class="fa-solid fa-route" aria-hidden="true"></i><span>美食漫游</span></a>
+      <a href="/guides/video-food-trails/" lang="en" hreflang="en"><i class="fa-solid fa-language" aria-hidden="true"></i><span>EN</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="trail-hero" aria-labelledby="page-title">
+      <div class="trail-hero-media" id="heroMosaic" aria-hidden="true">
+        <figure><img src="/assets/video-foods/wuhu/01-roast-duck.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/tianjin/01-tianjin-baozi.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/liuzhou/05-qingbuliang.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/nanning/05-stir-fried-juanfen.webp" alt="" width="1200" height="900"></figure>
+      </div>
+      <div class="trail-hero-shade" aria-hidden="true"></div>
+      <div class="trail-hero-content">
+        <p class="trail-kicker"><span aria-hidden="true"></span>18 座城 · 只看有图的好味道</p>
+        <h1 id="page-title">城市美食漫游</h1>
+        <p class="trail-lede">按城市收好有核实图片的当地美食，做成一张可以抽签、筛选和收藏的寻味路线板。</p>
+        <div class="trail-hero-actions">
+          <button class="trail-button trail-button-primary" id="randomCityBtn" type="button">
+            <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+            <span>抽一座城</span>
+          </button>
+          <button class="trail-button trail-button-secondary" id="heroPickBtn" type="button">
+            <i class="fa-solid fa-dice-three" aria-hidden="true"></i>
+            <span>今日吃三口</span>
+          </button>
+        </div>
+        <dl class="trail-stats" aria-label="收录总数">
+          <div><dt id="routeCount">18</dt><dd>条路线</dd></div>
+          <div><dt id="cityCount">18</dt><dd>座城市</dd></div>
+          <div><dt id="foodCount">0</dt><dd>道有图美食</dd></div>
+        </dl>
+      </div>
+      <div class="trail-hero-tools">
+        <button class="trail-hero-mosaic-button" id="heroMosaicShuffleBtn" type="button" aria-label="换一组横幅拼图" title="换一组拼图">
+          <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+        </button>
+        <a class="trail-image-credit" href="/assets/video-foods/SOURCES.md"><i class="fa-regular fa-image" aria-hidden="true"></i> 图片来源与许可</a>
+      </div>
+    </section>
+
+    <section class="trail-explorer" id="trail-explorer" aria-labelledby="explorer-title">
+      <header class="trail-explorer-intro">
+        <div>
+          <p class="trail-section-label">城市美食图鉴</p>
+          <h2 id="explorer-title">先从哪座城开吃？</h2>
+        </div>
+        <p>这里只展示有核实图片的菜品；“想吃”记录只保存在当前浏览器。</p>
+      </header>
+
+      <div class="trail-toolbar" aria-label="美食路线筛选">
+        <label class="trail-search" for="trailSearch">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <span class="sr-only">搜索城市或美食</span>
+          <input id="trailSearch" type="search" autocomplete="off" placeholder="搜城市或菜名…">
+          <button id="clearSearchBtn" type="button" aria-label="清空搜索" title="清空搜索" hidden>
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </label>
+
+        <div class="trail-categories" role="group" aria-label="美食分类">
+          <button class="is-active" type="button" data-category="all" aria-pressed="true">全部</button>
+          <button type="button" data-category="staples" aria-pressed="false"><i class="fa-solid fa-bowl-rice" aria-hidden="true"></i> 面饭主食</button>
+          <button type="button" data-category="breakfast" aria-pressed="false"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i> 早点早茶</button>
+          <button type="button" data-category="barbecue" aria-pressed="false"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> 烧烤炸物</button>
+          <button type="button" data-category="seafood" aria-pressed="false"><i class="fa-solid fa-fish-fins" aria-hidden="true"></i> 江鲜海味</button>
+          <button type="button" data-category="sweets" aria-pressed="false"><i class="fa-solid fa-cookie-bite" aria-hidden="true"></i> 甜品饮子</button>
+        </div>
+
+        <button class="trail-saved-filter" id="savedFilterBtn" type="button" aria-pressed="false">
+          <i class="fa-regular fa-heart" aria-hidden="true"></i>
+          <span>想吃清单</span>
+          <strong id="savedCount">0</strong>
+        </button>
+      </div>
+
+      <section class="daily-route" id="dailyRoute" aria-labelledby="daily-title">
+        <div class="daily-route-heading">
+          <span class="daily-route-icon" aria-hidden="true"><i class="fa-solid fa-dice-three"></i></span>
+          <div>
+            <p>今日迷你行程</p>
+            <h3 id="daily-title">先吃三口，别纠结</h3>
+          </div>
+        </div>
+        <div class="daily-picks" id="dailyPicks" aria-live="polite"></div>
+        <button class="trail-icon-button" id="dailyShuffleBtn" type="button" aria-label="换一组今日美食" title="换一组">
+          <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+        </button>
+      </section>
+
+      <div class="trail-results-heading">
+        <h2>城市食单</h2>
+        <p id="resultsCount" aria-live="polite"></p>
+      </div>
+      <div class="trail-grid" id="trailGrid"></div>
+      <div class="trail-empty" id="trailEmpty" hidden>
+        <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+        <h3>还没找到这一口</h3>
+        <p>换个关键词，或者少选一个条件。</p>
+        <button class="trail-button trail-button-ink" id="resetFiltersBtn" type="button">重置筛选</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="trail-footer">
+    <a class="trail-brand" href="/?lang=zh"><span class="trail-brand-mark" aria-hidden="true">味</span><span>寻味中国</span></a>
+    <p>按城市整理菜名与核实图片；翻开食签可查看作者、许可和图片来源。</p>
+    <a href="/zh/contact/">联系我们</a>
+  </footer>
+
+  <div class="trail-drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="trail-drawer" id="trailDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerCity" aria-hidden="true" tabindex="-1" inert>
+    <header class="trail-drawer-header">
+      <div>
+        <p id="drawerRegion"></p>
+        <h2 id="drawerCity"></h2>
+      </div>
+      <button class="trail-icon-button" id="drawerCloseBtn" type="button" aria-label="关闭城市路线" title="关闭">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </header>
+    <div class="trail-drawer-summary">
+      <span><i class="fa-solid fa-utensils" aria-hidden="true"></i> <strong id="drawerFoodCount">0</strong> 道有图美食</span>
+      <span><i class="fa-solid fa-heart" aria-hidden="true"></i> 已收藏 <strong id="drawerSavedCount">0</strong> 个</span>
+    </div>
+    <div class="trail-drawer-copy">
+      <div>
+        <h3>这座城吃什么</h3>
+        <p>仅收录有核实实拍图的菜品；翻开食签可查看实际菜名、作者与许可。</p>
+      </div>
+      <button class="drawer-lucky-button" id="drawerLuckyBtn" type="button">
+        <i class="fa-solid fa-dice" aria-hidden="true"></i>
+        <span>抽一口</span>
+      </button>
+    </div>
+    <div class="trail-drawer-foods" id="drawerFoods"></div>
+  </aside>
+
+  <div class="trail-toast" id="trailToast" role="status" aria-live="polite"></div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/video-food-trails-data.js"></script>
+  <script src="/js/video-food-trails-media.js"></script>
+  <script src="/js/video-food-trails.js"></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

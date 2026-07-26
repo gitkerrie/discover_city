@@ -312,6 +312,7 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+.food-trails-link,
 .foods-guide-link,
 .contact-link {
   min-width: 108px;
@@ -329,12 +330,14 @@ a:focus-visible {
   text-decoration: none;
 }
 
+.food-trails-link:hover,
 .foods-guide-link:hover,
 .contact-link:hover {
   background: #292a25;
   border-color: #7b7c74;
 }
 
+.food-trails-link i,
 .foods-guide-link i,
 .contact-link i {
   color: var(--gold);
@@ -1341,6 +1344,7 @@ a:focus-visible {
     min-width: 78px;
   }
 
+  .food-trails-link,
   .foods-guide-link,
   .contact-link {
     min-width: 42px;
@@ -1348,6 +1352,7 @@ a:focus-visible {
     padding: 0;
   }
 
+  .food-trails-link span,
   .foods-guide-link span,
   .contact-link span {
     display: none;
@@ -1415,6 +1420,7 @@ a:focus-visible {
     padding: 0 8px;
   }
 
+  .food-trails-link,
   .foods-guide-link,
   .contact-link {
     height: 36px;
@@ -1595,8 +1601,9 @@ a:focus-visible {
   }
 }
 
-@media (max-width: 360px) {
-  .foods-guide-link {
+@media (max-width: 480px) {
+  .foods-guide-link,
+  .contact-link {
     display: none;
   }
 }

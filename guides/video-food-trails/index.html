@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b43127">
+  <title>City Food Trails: Pictured Flavors from 18 Cities | Taste China</title>
+  <meta name="description" content="Explore verified dish photos from 18 Chinese food cities. Search dishes, filter cravings, draw a random city, and keep a personal want-to-eat list.">
+  <link rel="canonical" href="https://mitaste.com/guides/video-food-trails/">
+  <link rel="alternate" hreflang="en" href="https://mitaste.com/guides/video-food-trails/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://mitaste.com/zh/guides/video-food-trails/">
+  <link rel="alternate" hreflang="x-default" href="https://mitaste.com/guides/video-food-trails/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="City Food Trails: Pictured Flavors from 18 Cities">
+  <meta property="og:description" content="A playful, filterable collection of verified dish photos from 18 Chinese food cities.">
+  <meta property="og:url" content="https://mitaste.com/guides/video-food-trails/">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/regular.min.css">
+  <link rel="stylesheet" href="/css/video-food-trails.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "City Food Trails",
+      "description": "An interactive collection using verified dish photos to introduce the foods of 18 Chinese cities.",
+      "url": "https://mitaste.com/guides/video-food-trails/",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "name": "Taste China", "url": "https://mitaste.com/" }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#trail-explorer">Skip to the trails</a>
+
+  <header class="trail-nav">
+    <a class="trail-brand" href="/" aria-label="Taste China home">
+      <span class="trail-brand-mark" aria-hidden="true">味</span>
+      <span>Taste China</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="/"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span>Food map</span></a>
+      <a href="/guides/chinese-foods/"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i><span>108 dishes</span></a>
+      <a class="is-current" href="/guides/video-food-trails/" aria-current="page"><i class="fa-solid fa-route" aria-hidden="true"></i><span>Food trails</span></a>
+      <a href="/zh/guides/video-food-trails/" lang="zh-Hans" hreflang="zh-Hans"><i class="fa-solid fa-language" aria-hidden="true"></i><span>中文</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="trail-hero" aria-labelledby="page-title">
+      <div class="trail-hero-media" id="heroMosaic" aria-hidden="true">
+        <figure><img src="/assets/video-foods/wuhu/01-roast-duck.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/tianjin/01-tianjin-baozi.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/liuzhou/05-qingbuliang.webp" alt="" width="1200" height="900"></figure>
+        <figure><img src="/assets/video-foods/nanning/05-stir-fried-juanfen.webp" alt="" width="1200" height="900"></figure>
+      </div>
+      <div class="trail-hero-shade" aria-hidden="true"></div>
+      <div class="trail-hero-content">
+        <p class="trail-kicker"><span aria-hidden="true"></span>18 cities · only pictured flavors</p>
+        <h1 id="page-title">City Food Trails</h1>
+        <p class="trail-lede">Verified dish photos from 18 Chinese food cities, gathered into one playful board to search, shuffle, and save.</p>
+        <div class="trail-hero-actions">
+          <button class="trail-button trail-button-primary" id="randomCityBtn" type="button">
+            <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+            <span>Draw a city</span>
+          </button>
+          <button class="trail-button trail-button-secondary" id="heroPickBtn" type="button">
+            <i class="fa-solid fa-dice-three" aria-hidden="true"></i>
+            <span>Pick three bites</span>
+          </button>
+        </div>
+        <dl class="trail-stats" aria-label="Collection totals">
+          <div><dt id="routeCount">18</dt><dd>food trails</dd></div>
+          <div><dt id="cityCount">18</dt><dd>cities</dd></div>
+          <div><dt id="foodCount">0</dt><dd>pictured foods</dd></div>
+        </dl>
+      </div>
+      <div class="trail-hero-tools">
+        <button class="trail-hero-mosaic-button" id="heroMosaicShuffleBtn" type="button" aria-label="Shuffle the banner collage" title="Shuffle collage">
+          <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+        </button>
+        <a class="trail-image-credit" href="/assets/video-foods/SOURCES.md"><i class="fa-regular fa-image" aria-hidden="true"></i> Image credits</a>
+      </div>
+    </section>
+
+    <section class="trail-explorer" id="trail-explorer" aria-labelledby="explorer-title">
+      <header class="trail-explorer-intro">
+        <div>
+          <p class="trail-section-label">The city food collection</p>
+          <h2 id="explorer-title">Where should we start eating?</h2>
+        </div>
+        <p>Only foods with verified photos are shown. Saved bites live only in this browser.</p>
+      </header>
+
+      <div class="trail-toolbar" aria-label="Food trail filters">
+        <label class="trail-search" for="trailSearch">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <span class="sr-only">Search cities and foods</span>
+          <input id="trailSearch" type="search" autocomplete="off" placeholder="Search a city or dish…">
+          <button id="clearSearchBtn" type="button" aria-label="Clear search" title="Clear search" hidden>
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </label>
+
+        <div class="trail-categories" role="group" aria-label="Food categories">
+          <button class="is-active" type="button" data-category="all" aria-pressed="true">All</button>
+          <button type="button" data-category="staples" aria-pressed="false"><i class="fa-solid fa-bowl-rice" aria-hidden="true"></i> Noodles & staples</button>
+          <button type="button" data-category="breakfast" aria-pressed="false"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Breakfast</button>
+          <button type="button" data-category="barbecue" aria-pressed="false"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> Grilled</button>
+          <button type="button" data-category="seafood" aria-pressed="false"><i class="fa-solid fa-fish-fins" aria-hidden="true"></i> Seafood</button>
+          <button type="button" data-category="sweets" aria-pressed="false"><i class="fa-solid fa-cookie-bite" aria-hidden="true"></i> Sweets</button>
+        </div>
+
+        <button class="trail-saved-filter" id="savedFilterBtn" type="button" aria-pressed="false">
+          <i class="fa-regular fa-heart" aria-hidden="true"></i>
+          <span>Want to eat</span>
+          <strong id="savedCount">0</strong>
+        </button>
+      </div>
+
+      <section class="daily-route" id="dailyRoute" aria-labelledby="daily-title">
+        <div class="daily-route-heading">
+          <span class="daily-route-icon" aria-hidden="true"><i class="fa-solid fa-dice-three"></i></span>
+          <div>
+            <p>Today’s tiny itinerary</p>
+            <h3 id="daily-title">Three bites, no deliberating</h3>
+          </div>
+        </div>
+        <div class="daily-picks" id="dailyPicks" aria-live="polite"></div>
+        <button class="trail-icon-button" id="dailyShuffleBtn" type="button" aria-label="Shuffle today’s picks" title="Shuffle today’s picks">
+          <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+        </button>
+      </section>
+
+      <div class="trail-results-heading">
+        <h2>City menus</h2>
+        <p id="resultsCount" aria-live="polite"></p>
+      </div>
+      <div class="trail-grid" id="trailGrid"></div>
+      <div class="trail-empty" id="trailEmpty" hidden>
+        <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+        <h3>No matching bites yet</h3>
+        <p>Try another word or loosen a filter.</p>
+        <button class="trail-button trail-button-ink" id="resetFiltersBtn" type="button">Reset filters</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="trail-footer">
+    <a class="trail-brand" href="/"><span class="trail-brand-mark" aria-hidden="true">味</span><span>Taste China</span></a>
+    <p>Foods and verified photos are organized by city; flip a card to see its author, license, and source.</p>
+    <a href="/contact/">Contact</a>
+  </footer>
+
+  <div class="trail-drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="trail-drawer" id="trailDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerCity" aria-hidden="true" tabindex="-1" inert>
+    <header class="trail-drawer-header">
+      <div>
+        <p id="drawerRegion"></p>
+        <h2 id="drawerCity"></h2>
+      </div>
+      <button class="trail-icon-button" id="drawerCloseBtn" type="button" aria-label="Close city trail" title="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </header>
+    <div class="trail-drawer-summary">
+      <span><i class="fa-solid fa-utensils" aria-hidden="true"></i> <strong id="drawerFoodCount">0</strong> pictured foods</span>
+      <span><i class="fa-solid fa-heart" aria-hidden="true"></i> <strong id="drawerSavedCount">0</strong> saved</span>
+    </div>
+    <div class="trail-drawer-copy">
+      <div>
+        <h3>What to eat in this city</h3>
+        <p>Every food shown has a verified photo; flip a card for the pictured dish, author, and license.</p>
+      </div>
+      <button class="drawer-lucky-button" id="drawerLuckyBtn" type="button">
+        <i class="fa-solid fa-dice" aria-hidden="true"></i>
+        <span>Draw one bite</span>
+      </button>
+    </div>
+    <div class="trail-drawer-foods" id="drawerFoods"></div>
+  </aside>
+
+  <div class="trail-toast" id="trailToast" role="status" aria-live="polite"></div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/video-food-trails-data.js"></script>
+  <script src="/js/video-food-trails-media.js"></script>
+  <script src="/js/video-food-trails.js"></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

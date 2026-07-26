@@ -11,9 +11,11 @@
     "build": "node scripts/prepare-map-assets.js && node scripts/generate-site.js && node scripts/build-output.js",
     "generate": "node scripts/prepare-map-assets.js && node scripts/generate-site.js",
     "prepare:images": "node scripts/prepare-dish-images.js",
+    "prepare:video-images": "node scripts/prepare-video-food-images.js",
+    "research:video-images": "node scripts/research-video-food-images.js",
     "export:cards": "node scripts/export-marketing-cards.js",
     "verify:map": "node scripts/verify-map.js",
-    "check": "node --check js/data.js && node --check js/food-guide-data.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/prepare-map-assets.js && node --check scripts/prepare-dish-images.js && node --check scripts/generate-site.js && node --check scripts/build-output.js && node --check scripts/export-marketing-cards.js && node --check scripts/verify-map.js && node scripts/prepare-map-assets.js && node scripts/validate-data.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js && node scripts/build-output.js"
+    "check": "node --check js/data.js && node --check js/food-guide-data.js && node --check js/video-food-trails-data.js && node --check js/video-food-trails-media.js && node --check js/video-food-trails.js && node --check js/app.js && node --check js/content-page.js && node --check scripts/server.js && node --check scripts/prepare-map-assets.js && node --check scripts/prepare-dish-images.js && node --check scripts/prepare-video-food-images.js && node --check scripts/research-video-food-images.js && node --check scripts/validate-video-food-images.js && node --check scripts/generate-site.js && node --check scripts/build-output.js && node --check scripts/export-marketing-cards.js && node --check scripts/verify-map.js && node scripts/prepare-map-assets.js && node scripts/validate-data.js && node scripts/validate-video-food-images.js && node scripts/generate-site.js --check && node scripts/test-app.js && node scripts/test-site.js && node scripts/build-output.js"
   },
   "keywords": [
     "food",

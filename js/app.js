@@ -14,6 +14,8 @@ const UI_TRANSLATIONS = {
     openFavorites: 'Open my wish list',
     favoritesLabel: 'Wish list',
     favoritesCount: 'Saved cities',
+    foodTrails: 'Food trails',
+    foodTrailsLabel: 'Open city food trails',
     foodsGuide: '19 foods',
     foodsGuideLabel: 'Open the Chinese food guide',
     contactEmail: 'Contact',
@@ -83,6 +85,8 @@ const UI_TRANSLATIONS = {
     openFavorites: '打开我的想吃清单',
     favoritesLabel: '想吃清单',
     favoritesCount: '收藏数量',
+    foodTrails: '美食漫游',
+    foodTrailsLabel: '打开城市美食漫游',
     foodsGuide: '美食图鉴',
     foodsGuideLabel: '打开中华美食图鉴',
     contactEmail: '联系',
@@ -202,6 +206,7 @@ class FoodMapApp {
       favoriteBtn: document.getElementById('favoriteBtn'),
       shareBtn: document.getElementById('shareBtn'),
       favoritesBtn: document.getElementById('favoritesBtn'),
+      foodTrailsLink: document.getElementById('foodTrailsLink'),
       foodsGuideLink: document.getElementById('foodsGuideLink'),
       favoritesCount: document.querySelector('.favorites-count'),
       favoritesModal: document.getElementById('favoritesModal'),
@@ -269,6 +274,11 @@ class FoodMapApp {
       this.elements.foodsGuideLink.href = this.language === 'zh'
         ? '/zh/guides/chinese-foods/'
         : '/guides/chinese-foods/';
+    }
+    if (this.elements.foodTrailsLink) {
+      this.elements.foodTrailsLink.href = this.language === 'zh'
+        ? '/zh/guides/video-food-trails/'
+        : '/guides/video-food-trails/';
     }
     this.elements.cityVisual.dataset.fallback = this.t('imageFallback');
   }

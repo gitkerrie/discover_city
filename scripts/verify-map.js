@@ -314,6 +314,9 @@ async function main() {
       return;
     }
 
+    await browser.close();
+    browser = await chromium.launch({ channel: browserChannel, headless: true });
+
     const colors = await verifyDetailedMap(browser);
     await verifyMobileMap(browser);
     await verifyFallbackMap(browser);

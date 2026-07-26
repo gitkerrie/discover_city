@@ -1,0 +1,1703 @@
+:root {
+  color-scheme: light;
+  --trail-paper: #f5f2ea;
+  --trail-paper-strong: #fffdf8;
+  --trail-ink: #1b1b18;
+  --trail-muted: #69685f;
+  --trail-line: #d6d1c5;
+  --trail-red: #b43127;
+  --trail-red-dark: #86231d;
+  --trail-gold: #d69b2d;
+  --trail-teal: #116d68;
+  --trail-blue: #2f6287;
+  --trail-green: #497345;
+  --trail-shadow: 0 18px 50px rgba(35, 31, 24, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--trail-paper);
+  color: var(--trail-ink);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+body.is-drawer-open {
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 10px 14px;
+  background: var(--trail-ink);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.trail-nav {
+  position: relative;
+  z-index: 40;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px max(24px, calc((100vw - 1280px) / 2));
+  background: var(--trail-paper-strong);
+  border-bottom: 1px solid var(--trail-line);
+}
+
+.trail-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--trail-ink);
+  font-weight: 850;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.trail-brand-mark {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 36px;
+  border-radius: 4px;
+  background: var(--trail-red);
+  color: #fff;
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.trail-nav nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.trail-nav nav a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #4f4d46;
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.trail-nav nav a i {
+  color: var(--trail-red);
+}
+
+.trail-nav nav a.is-current {
+  border-color: var(--trail-line);
+  background: #ede8dc;
+  color: var(--trail-ink);
+}
+
+.trail-nav nav a:hover {
+  background: #eee9de;
+  color: var(--trail-ink);
+}
+
+.trail-hero {
+  position: relative;
+  min-height: 560px;
+  height: 72vh;
+  max-height: 720px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #302d27;
+}
+
+.trail-hero-media {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  background: #1c1a17;
+}
+
+.trail-hero-media figure {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.trail-hero-media figure:first-child,
+.trail-hero-media figure:last-child {
+  grid-row: 1 / 3;
+}
+
+.trail-hero-media figure:last-child {
+  grid-column: 3;
+}
+
+.trail-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 180ms ease, transform 420ms ease;
+}
+
+.trail-hero-media.is-changing img {
+  opacity: 0.2;
+  transform: scale(1.025);
+}
+
+.trail-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(18, 17, 14, 0.6);
+}
+
+.trail-hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(1280px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  padding: 72px 32px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: #fff;
+}
+
+.trail-kicker,
+.trail-section-label {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.trail-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f6d983;
+}
+
+.trail-kicker span {
+  width: 32px;
+  height: 3px;
+  background: var(--trail-gold);
+}
+
+.trail-hero h1 {
+  max-width: 920px;
+  margin: 0;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-size: 76px;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.trail-lede {
+  max-width: 760px;
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.trail-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.trail-button {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 17px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.trail-button:hover {
+  transform: translateY(-2px);
+}
+
+.trail-button-primary {
+  border-color: #e2a43b;
+  background: var(--trail-gold);
+  color: #201b12;
+}
+
+.trail-button-primary:hover {
+  background: #edb647;
+}
+
+.trail-button-secondary {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(22, 20, 17, 0.62);
+  color: #fff;
+}
+
+.trail-button-secondary:hover {
+  background: rgba(22, 20, 17, 0.82);
+}
+
+.trail-button-ink {
+  background: var(--trail-ink);
+  color: #fff;
+}
+
+.trail-button.is-spinning i,
+.daily-route.is-shuffling .trail-icon-button i {
+  animation: trail-spin 520ms ease;
+}
+
+@keyframes trail-spin {
+  to { transform: rotate(360deg); }
+}
+
+.trail-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 32px 0 0;
+  padding: 17px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.trail-stats div {
+  min-width: 116px;
+  padding: 0 22px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.trail-stats div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.trail-stats dt {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 27px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.trail-stats dd {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.trail-hero-tools {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.trail-hero-mosaic-button {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 34px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 5px;
+  background: rgba(20, 19, 16, 0.58);
+  color: #fff;
+  cursor: pointer;
+}
+
+.trail-hero-mosaic-button:hover {
+  background: rgba(20, 19, 16, 0.82);
+}
+
+.trail-hero-mosaic-button.is-spinning i {
+  animation: trail-spin 520ms ease;
+}
+
+.trail-hero-mosaic-button:disabled {
+  cursor: wait;
+}
+
+.trail-image-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.trail-explorer {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  padding: 68px 32px 84px;
+}
+
+.trail-explorer-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 450px);
+  align-items: end;
+  gap: 44px;
+  margin-bottom: 34px;
+}
+
+.trail-section-label {
+  color: var(--trail-red);
+}
+
+.trail-explorer-intro h2,
+.trail-results-heading h2 {
+  margin: 0;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  letter-spacing: 0;
+}
+
+.trail-explorer-intro h2 {
+  max-width: 760px;
+  font-size: 42px;
+  line-height: 1.12;
+}
+
+.trail-explorer-intro > p {
+  margin: 0 0 5px;
+  color: var(--trail-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.trail-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: minmax(230px, 310px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  margin: 0 -12px 34px;
+  padding: 12px;
+  background: rgba(245, 242, 234, 0.97);
+  border-top: 1px solid var(--trail-line);
+  border-bottom: 1px solid var(--trail-line);
+}
+
+.trail-search {
+  min-width: 0;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid #bdb7a9;
+  border-radius: 6px;
+  background: var(--trail-paper-strong);
+  color: var(--trail-muted);
+}
+
+.trail-search:focus-within {
+  border-color: var(--trail-red);
+  box-shadow: 0 0 0 3px rgba(180, 49, 39, 0.12);
+}
+
+.trail-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--trail-ink);
+  font-size: 14px;
+}
+
+.trail-search button {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--trail-muted);
+  cursor: pointer;
+}
+
+.trail-categories {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.trail-categories::-webkit-scrollbar {
+  display: none;
+}
+
+.trail-categories button,
+.trail-saved-filter {
+  min-height: 40px;
+  border: 1px solid var(--trail-line);
+  border-radius: 6px;
+  background: var(--trail-paper-strong);
+  color: #56534c;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.trail-categories button {
+  padding: 8px 11px;
+}
+
+.trail-categories button i {
+  margin-right: 5px;
+  color: var(--trail-red);
+}
+
+.trail-categories button.is-active {
+  border-color: var(--trail-ink);
+  background: var(--trail-ink);
+  color: #fff;
+}
+
+.trail-categories button.is-active i {
+  color: #f0c45f;
+}
+
+.trail-saved-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.trail-saved-filter i {
+  color: var(--trail-red);
+}
+
+.trail-saved-filter strong {
+  min-width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e9e4d8;
+  color: var(--trail-ink);
+  font-size: 11px;
+}
+
+.trail-saved-filter[aria-pressed="true"] {
+  border-color: var(--trail-red-dark);
+  background: var(--trail-red);
+  color: #fff;
+}
+
+.trail-saved-filter[aria-pressed="true"] i {
+  color: #fff;
+}
+
+.daily-route {
+  width: 100vw;
+  min-height: 126px;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin: 0 -50vw 58px;
+  padding: 24px max(32px, calc((100vw - 1216px) / 2));
+  display: grid;
+  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.5fr) 46px;
+  align-items: center;
+  gap: 28px;
+  background: var(--trail-teal);
+  color: #fff;
+}
+
+.daily-route-heading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.daily-route-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 46px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #f6cf72;
+  font-size: 18px;
+}
+
+.daily-route-heading p {
+  margin: 0 0 3px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.daily-route-heading h3 {
+  margin: 0;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.daily-picks {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.daily-pick {
+  min-width: 0;
+  min-height: 70px;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-left: 3px solid #f3c75e;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.daily-pick img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.daily-pick-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9px 11px;
+}
+
+.daily-picks-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+
+.daily-pick strong,
+.daily-pick small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.daily-pick strong {
+  font-size: 14px;
+}
+
+.daily-pick small {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+}
+
+.trail-icon-button {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--trail-line);
+  border-radius: 6px;
+  background: var(--trail-paper-strong);
+  color: var(--trail-ink);
+  cursor: pointer;
+}
+
+.daily-route .trail-icon-button {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  color: #fff;
+}
+
+.trail-results-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.trail-results-heading h2 {
+  font-size: 27px;
+}
+
+.trail-results-heading p {
+  margin: 0;
+  color: var(--trail-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.trail-card {
+  min-width: 0;
+  min-height: 390px;
+  display: flex;
+}
+
+.trail-card-open {
+  --card-accent: var(--trail-red);
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--trail-line);
+  border-top: 6px solid var(--card-accent);
+  border-radius: 6px;
+  background: var(--trail-paper-strong);
+  color: var(--trail-ink);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(57, 50, 39, 0.05);
+  transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+}
+
+.trail-card:nth-child(5n + 2) .trail-card-open { --card-accent: var(--trail-gold); }
+.trail-card:nth-child(5n + 3) .trail-card-open { --card-accent: var(--trail-teal); }
+.trail-card:nth-child(5n + 4) .trail-card-open { --card-accent: var(--trail-blue); }
+.trail-card:nth-child(5n) .trail-card-open { --card-accent: var(--trail-green); }
+
+.trail-card-open::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 51px;
+  border-top: 1px dashed #c8c1b3;
+}
+
+.trail-card-open:hover {
+  border-color: #aaa295;
+  box-shadow: 0 14px 28px rgba(44, 39, 31, 0.12);
+  transform: translateY(-4px);
+}
+
+.trail-card-head {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: start;
+  gap: 15px;
+  padding: 17px 20px 68px;
+}
+
+.trail-card-index {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--card-accent);
+  border-radius: 50%;
+  color: var(--card-accent);
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.trail-card-location {
+  margin: 1px 0 2px;
+  color: var(--trail-muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.trail-card h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-size: 29px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.trail-card-count {
+  margin: 5px 0 0;
+  color: var(--card-accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.trail-card-foods {
+  position: relative;
+  height: 176px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  overflow: hidden;
+  background: #d9d2c4;
+}
+
+.trail-card-foods.has-1-foods {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.trail-card-foods.has-2-foods {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trail-card-food {
+  position: relative;
+  min-width: 0;
+  height: 176px;
+  overflow: hidden;
+  background: #a94a3f;
+}
+
+.trail-card-food:nth-child(3n + 2) { background: #b7862e; }
+.trail-card-food:nth-child(3n) { background: #35706a; }
+
+.trail-card-food img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.trail-grid.are-images-ready .trail-card-food img {
+  opacity: 1;
+}
+
+.trail-card-open:hover .trail-card-food img {
+  transform: scale(1.04);
+}
+
+.trail-card-food-label {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  padding: 5px 6px;
+  overflow: hidden;
+  background: rgba(20, 19, 16, 0.82);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trail-card-food.is-saved > .trail-card-food-label::before {
+  content: "♥";
+  margin-right: 4px;
+  color: #f7a6a0;
+}
+
+.trail-card-more {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 4px;
+  background: rgba(20, 19, 16, 0.78);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.trail-card-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 20px;
+  color: #4e4a43;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.trail-card-foot i {
+  color: var(--card-accent);
+}
+
+.trail-empty {
+  min-height: 330px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.trail-empty > i {
+  color: var(--trail-red);
+  font-size: 34px;
+}
+
+.trail-empty h3,
+.trail-empty p {
+  margin: 0;
+}
+
+.trail-empty h3 {
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-size: 25px;
+}
+
+.trail-empty p {
+  color: var(--trail-muted);
+}
+
+.trail-empty .trail-button {
+  margin-top: 12px;
+}
+
+.trail-footer {
+  min-height: 150px;
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 36px;
+  padding: 34px max(32px, calc((100vw - 1280px) / 2));
+  border-top: 1px solid #38362f;
+  background: var(--trail-ink);
+  color: #fff;
+}
+
+.trail-footer p {
+  max-width: 660px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  text-align: center;
+}
+
+.trail-footer > a:last-child {
+  color: #f1c45e;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.trail-footer .trail-brand {
+  color: #fff;
+}
+
+.trail-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(19, 18, 15, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.trail-drawer-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.trail-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  width: min(560px, 100%);
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  background: var(--trail-paper-strong);
+  box-shadow: var(--trail-shadow);
+  transform: translateX(105%);
+  transition: transform 250ms ease;
+}
+
+.trail-drawer.is-open {
+  transform: translateX(0);
+}
+
+.trail-drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 28px 26px 20px;
+  border-top: 7px solid var(--trail-red);
+}
+
+.trail-drawer-header p {
+  margin: 0 0 3px;
+  color: var(--trail-muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.trail-drawer-header h2 {
+  margin: 0;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.trail-drawer-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 0 26px 18px;
+  border-bottom: 1px solid var(--trail-line);
+  color: var(--trail-muted);
+  font-size: 12px;
+}
+
+.trail-drawer-summary i {
+  margin-right: 4px;
+  color: var(--trail-red);
+}
+
+.trail-drawer-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px 26px 12px;
+}
+
+.trail-drawer-copy h3,
+.trail-drawer-copy p {
+  margin: 0;
+}
+
+.trail-drawer-copy h3 {
+  font-size: 16px;
+}
+
+.trail-drawer-copy p {
+  margin-top: 3px;
+  color: var(--trail-muted);
+  font-size: 12px;
+}
+
+.drawer-lucky-button {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border: 1px solid #b67e1c;
+  border-radius: 5px;
+  background: #e3a42c;
+  color: #241b0b;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.trail-drawer-foods {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px;
+  padding: 0 26px max(24px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  perspective: 1200px;
+}
+
+.drawer-food-card {
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  perspective: 900px;
+}
+
+.drawer-food-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 420ms cubic-bezier(0.2, 0.72, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.drawer-food-card.is-flipped .drawer-food-card-inner {
+  transform: rotateY(180deg);
+}
+
+.drawer-food-face {
+  position: absolute;
+  inset: 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--trail-line);
+  border-radius: 6px;
+  backface-visibility: hidden;
+}
+
+.drawer-food-front {
+  display: block;
+  padding: 0;
+  background: #d8d1c4;
+  color: var(--trail-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.drawer-food-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.drawer-food-front:hover img {
+  transform: scale(1.04);
+}
+
+.drawer-food-front-copy {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 9px;
+  background: rgba(20, 19, 16, 0.84);
+  color: #fff;
+}
+
+.drawer-food-front-copy strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-food-front-copy small {
+  flex: 0 0 auto;
+  color: #f5ca66;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.drawer-food-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 13px;
+  background: #efe9dc;
+  color: var(--trail-ink);
+  transform: rotateY(180deg);
+}
+
+.drawer-food-card.is-saved .drawer-food-face {
+  border-color: #ca746d;
+}
+
+.drawer-food-meta {
+  min-width: 0;
+}
+
+.drawer-food-visual-kind {
+  display: block;
+  overflow: hidden;
+  color: var(--trail-muted);
+  font-size: 10px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-food-visual-kind i {
+  margin-right: 4px;
+  color: var(--trail-red);
+}
+
+.drawer-food-credit {
+  display: block;
+  margin-top: 4px;
+  overflow: hidden;
+  color: #27666b;
+  font-size: 9px;
+  font-weight: 800;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-food-credit i {
+  margin-right: 3px;
+  font-size: 8px;
+}
+
+.drawer-food-credit:hover {
+  text-decoration: underline;
+}
+
+.drawer-food-back > strong {
+  overflow-wrap: anywhere;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-size: 19px;
+  line-height: 1.18;
+}
+
+.drawer-food-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34px;
+  gap: 6px;
+}
+
+.drawer-food-favorite,
+.drawer-food-unflip {
+  min-height: 34px;
+  border: 1px solid #c4bcad;
+  border-radius: 5px;
+  background: var(--trail-paper-strong);
+  color: var(--trail-ink);
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.drawer-food-favorite {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
+}
+
+.drawer-food-unflip {
+  width: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.drawer-food-favorite[aria-pressed="true"] {
+  border-color: var(--trail-red);
+  background: var(--trail-red);
+  color: #fff;
+}
+
+.drawer-food-card.is-lucky {
+  animation: lucky-card 760ms ease;
+}
+
+@keyframes lucky-card {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-8px); }
+  62% { transform: translateY(3px); }
+}
+
+.trail-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 120;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 11px 16px;
+  border-radius: 6px;
+  background: var(--trail-ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 14px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.trail-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid #f0bd48;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1080px) {
+  .trail-nav {
+    padding-inline: 22px;
+  }
+
+  .trail-nav nav a {
+    width: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .trail-nav nav a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .trail-toolbar {
+    grid-template-columns: minmax(220px, 1fr) auto;
+  }
+
+  .trail-categories {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .trail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .daily-route {
+    grid-template-columns: minmax(230px, 0.75fr) minmax(0, 1.25fr) 46px;
+  }
+}
+
+@media (max-width: 760px) {
+  .trail-nav {
+    min-height: 64px;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .trail-brand {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .trail-brand-mark {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    font-size: 18px;
+  }
+
+  .trail-nav nav {
+    gap: 3px;
+  }
+
+  .trail-nav nav a {
+    width: 36px;
+    min-height: 38px;
+  }
+
+  .trail-hero {
+    min-height: 570px;
+    height: 78vh;
+    max-height: 680px;
+  }
+
+  .trail-hero-media {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .trail-hero-media figure:first-child,
+  .trail-hero-media figure:last-child {
+    grid-row: auto;
+  }
+
+  .trail-hero-media figure:last-child {
+    grid-column: auto;
+  }
+
+  .trail-hero-shade {
+    background: rgba(18, 17, 14, 0.67);
+  }
+
+  .trail-hero-content {
+    padding: 52px 20px 34px;
+  }
+
+  .trail-hero h1 {
+    max-width: 520px;
+    font-size: 48px;
+    line-height: 1.05;
+  }
+
+  .trail-lede {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .trail-hero-actions {
+    margin-top: 20px;
+  }
+
+  .trail-button {
+    min-height: 44px;
+  }
+
+  .trail-stats {
+    width: 100%;
+    margin-top: 24px;
+    padding-top: 14px;
+  }
+
+  .trail-stats div {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0 10px;
+  }
+
+  .trail-stats dt {
+    font-size: 23px;
+  }
+
+  .trail-stats dd {
+    font-size: 10px;
+  }
+
+  .trail-image-credit {
+    display: none;
+  }
+
+  .trail-hero-tools {
+    top: 14px;
+    right: 14px;
+    bottom: auto;
+  }
+
+  .trail-explorer {
+    padding: 48px 18px 64px;
+  }
+
+  .trail-explorer-intro {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+
+  .trail-explorer-intro h2 {
+    font-size: 34px;
+  }
+
+  .trail-toolbar {
+    top: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 9px;
+    margin: 0 -6px 26px;
+    padding: 9px 6px;
+  }
+
+  .trail-search {
+    height: 43px;
+  }
+
+  .trail-saved-filter {
+    width: 44px;
+    height: 43px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .trail-saved-filter > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .trail-saved-filter strong {
+    position: absolute;
+    margin: -25px 0 0 25px;
+    border: 2px solid var(--trail-paper);
+  }
+
+  .daily-route {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 16px;
+    margin-bottom: 42px;
+    padding: 22px 18px;
+  }
+
+  .daily-picks {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .daily-route > .trail-icon-button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .trail-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .trail-card,
+  .trail-card-open {
+    min-height: 376px;
+  }
+
+  .trail-footer {
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    padding: 30px 20px;
+  }
+
+  .trail-footer p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  .trail-drawer {
+    top: 8vh;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .trail-drawer-header {
+    padding: 20px 18px 16px;
+  }
+
+  .trail-drawer-header h2 {
+    font-size: 32px;
+  }
+
+  .trail-drawer-summary,
+  .trail-drawer-copy {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .trail-drawer-foods {
+    padding: 0 18px max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 480px) {
+  .trail-nav nav a:nth-child(2) {
+    display: none;
+  }
+
+  .trail-hero h1 {
+    font-size: 39px;
+  }
+
+  .trail-hero-actions {
+    width: 100%;
+  }
+
+  .trail-hero-actions .trail-button {
+    flex: 1 1 0;
+    padding-inline: 10px;
+    font-size: 13px;
+  }
+
+  .trail-kicker {
+    font-size: 11px;
+  }
+
+  .trail-explorer-intro h2 {
+    font-size: 30px;
+  }
+
+  .daily-picks {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-pick {
+    min-height: 70px;
+  }
+
+  .trail-results-heading {
+    align-items: flex-end;
+  }
+
+  .trail-results-heading h2 {
+    font-size: 24px;
+  }
+
+  .trail-card-head {
+    grid-template-columns: 44px minmax(0, 1fr);
+    padding-inline: 16px;
+  }
+
+  .trail-card-index {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .trail-card h3 {
+    font-size: 25px;
+  }
+
+  .trail-card-foot {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .trail-drawer-foods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .drawer-food-back {
+    padding: 9px;
+  }
+
+  .drawer-food-back > strong {
+    font-size: 15px;
+  }
+
+  .drawer-food-front-copy {
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    padding: 6px 7px;
+  }
+
+  .drawer-food-front-copy small {
+    display: none;
+  }
+}
+
+@media (max-width: 340px) {
+  .trail-drawer-foods {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

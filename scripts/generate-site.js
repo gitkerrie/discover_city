@@ -63,6 +63,10 @@ function foodGuidePath(language) {
   return language === 'zh' ? '/zh/guides/chinese-foods/' : '/guides/chinese-foods/';
 }
 
+function foodTrailPath(language) {
+  return language === 'zh' ? '/zh/guides/video-food-trails/' : '/guides/video-food-trails/';
+}
+
 function footerLinks(mapHref, mapLabel, language) {
   const isZh = language === 'zh';
   return `<nav aria-label="${isZh ? '页脚导航' : 'Footer navigation'}"><a href="${mapHref}">${escapeHtml(mapLabel)}</a><a href="mailto:${escapeHtml(contactEmail)}">${isZh ? '联系' : 'Contact'}: ${escapeHtml(contactEmail)}</a></nav>`;
@@ -675,6 +679,8 @@ function sitemap(cities) {
     ['/zh/', '0.8'],
     [foodGuidePath('en'), '0.8'],
     [foodGuidePath('zh'), '0.8'],
+    [foodTrailPath('en'), '0.8'],
+    [foodTrailPath('zh'), '0.8'],
     ...guideDefinitions.map(guide => [`/guides/${guide.slug}/`, '0.8']),
     ...cities.flatMap(city => [[cityPath(city.slug, 'en'), '0.9'], [cityPath(city.slug, 'zh'), '0.7']])
   ];
