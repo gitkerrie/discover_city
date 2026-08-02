@@ -90,6 +90,11 @@ assert(searchApp.searchCities('北京烤鸭').map(city => city.slug).join(',') =
 assert(searchApp.searchCities('shacha noodles').map(city => city.slug).join(',') === 'xiamen', '新增英文菜名搜索未命中厦门');
 assert(searchApp.searchCities('松鼠桂鱼').map(city => city.slug).join(',') === 'suzhou', '新增中文菜名搜索未命中苏州');
 assert(searchApp.searchCities('laoyoufen').map(city => city.slug).join(',') === 'nanning', '新增英文菜名搜索未命中南宁');
+assert(searchApp.searchCities('南昌拌粉').map(city => city.slug).join(',') === 'nanchang', '新增中文菜名搜索未命中南昌');
+assert(searchApp.searchCities('Qingbuliang').map(city => city.slug).join(',') === 'haikou', '新增英文菜名搜索未命中海口');
+assert(searchApp.searchCities('姜母鸭').map(city => city.slug).join(',') === 'quanzhou', '新增中文菜名搜索未命中泉州');
+assert(searchApp.searchCities('grilled chicken rack').map(city => city.slug).join(',') === 'shenyang', '新增英文菜名搜索未命中沈阳');
+assert(searchApp.searchCities('头脑').map(city => city.slug).join(',') === 'taiyuan', '新增中文菜名搜索未命中太原');
 assert(searchApp.searchFeaturedFoods('兰州拉面').map(food => food.slug).join(',') === 'lanzhou-beef-noodles', '新增美食中文别名搜索失败');
 assert(searchApp.searchFeaturedFoods('soup dumplings').some(food => food.slug === 'xiaolongbao'), '新增美食英文搜索失败');
 assert(searchApp.searchFeaturedFoods('早茶').map(food => food.slug).join(',') === 'morning-tea', '饮食场景搜索失败');

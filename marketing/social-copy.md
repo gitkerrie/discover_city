@@ -274,6 +274,56 @@ Alt text: Nanning laoyoufen with sour bamboo, fermented black beans, and beef.
 
 Hashtags: #ChinaTravel #FoodTravel #Nanning #TasteChina
 
+## 28. Nanchang
+
+Nanchang is a city to taste through Nanchang Banfen, Earthenware Pot Soup, Nanchang Fried Rice Noodles, and Steamed Pork with Rice Powder. Cool mixed rice noodles, warm crock soups, chile, and rice aroma light up everyday Jiangxi flavor.
+
+Start here: https://mitaste.com/city/nanchang/
+
+Alt text: Nanchang banfen mixed with chili oil and small garnishes.
+
+Hashtags: #ChinaTravel #FoodTravel #Nanchang #TasteChina
+
+## 29. Haikou
+
+Haikou is a city to taste through Wenchang Chicken, Hainanfen, Qingbuliang, and Coconut Rice. Coconut fragrance, tender chicken, and cooling sweets turn tropical island cooking light and easy.
+
+Start here: https://mitaste.com/city/haikou/
+
+Alt text: Sliced Hainan Wenchang chicken served on a plate.
+
+Hashtags: #ChinaTravel #FoodTravel #Haikou #TasteChina
+
+## 30. Quanzhou
+
+Quanzhou is a city to taste through Misua Paste, Ginger Duck, Roast Pork Zongzi, and Runbing. A Maritime Silk Road city where gentle seafood, ginger warmth, noodles, and zongzi meet.
+
+Start here: https://mitaste.com/city/quanzhou/
+
+Alt text: A bowl of thick, silky Quanzhou misua paste.
+
+Hashtags: #ChinaTravel #FoodTravel #Quanzhou #TasteChina
+
+## 31. Shenyang
+
+Shenyang is a city to taste through Laobian Dumplings, Grilled Chicken Rack, Smoked Pork Flatbread, and Shenyang Shaomai. Chicken racks, dumplings, smoked pork flatbread, and steaming wheat snacks define Northeast street-table joy.
+
+Start here: https://mitaste.com/city/shenyang/
+
+Alt text: Laobian dumplings arranged neatly on a plate.
+
+Hashtags: #ChinaTravel #FoodTravel #Shenyang #TasteChina
+
+## 32. Taiyuan
+
+Taiyuan is a city to taste through Tounao, Knife-Cut Noodles, Guoyourou, and Yangzage. Vinegar brightness, chewy noodles, and steaming mutton broth show the sturdy side of Shanxi cooking.
+
+Start here: https://mitaste.com/city/taiyuan/
+
+Alt text: Taiyuan tounao soup served with pickled leeks.
+
+Hashtags: #ChinaTravel #FoodTravel #Taiyuan #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

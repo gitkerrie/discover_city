@@ -539,6 +539,106 @@ const foodCitiesData = [
       { name: '五色糯米饭', description: '糯米用天然植物染成多种颜色，蒸后清香软糯，是壮乡节庆味道。' }
     ],
     tip: '从老友粉开始适应酸辣，午后用酸嘢清口，柠檬鸭和五色糯米饭适合一起分享。'
+  },
+  {
+    id: 28,
+    slug: 'nanchang',
+    name: '南昌',
+    province: '江西',
+    group: '宝藏',
+    coordinates: [115.8582, 28.682],
+    tagline: '拌粉清爽、瓦罐汤温热，辣椒与米香把赣味日常点亮。',
+    description: '南昌的味道落在米粉、瓦罐与烟火小炒里。拌粉用酱油、萝卜干和辣椒油打开早晨，瓦罐汤慢煨出温润底味，炒粉讲究锅气，粉蒸肉则把米香和肉香蒸得绵密。',
+    flavorTags: ['米粉日常', '瓦罐慢煨', '赣味鲜辣'],
+    heroImage: 'assets/dishes/nanchang/nanchang-banfen.webp',
+    imageAlt: '拌有辣椒油和小菜的南昌拌粉',
+    dishes: [
+      { name: '南昌拌粉', description: '米粉烫熟后拌入酱油、辣椒油、萝卜干与葱花，清爽却很有冲劲。' },
+      { name: '瓦罐汤', description: '小瓦罐隔水慢煨，肉、蛋或菌菇的鲜味被稳稳锁进一盅热汤里。' },
+      { name: '南昌炒粉', description: '米粉经旺火快炒，吸入酱香、辣味与锅气，是夜宵桌上的硬菜。' },
+      { name: '米粉蒸肉', description: '五花肉裹上调味米粉蒸至软糯，油脂被米香托住，入口丰润。' }
+    ],
+    tip: '早餐从拌粉配瓦罐汤开始，晚上再点炒粉和粉蒸肉，辣度可以循序渐进。'
+  },
+  {
+    id: 29,
+    slug: 'haikou',
+    name: '海口',
+    province: '海南',
+    group: '宝藏',
+    coordinates: [110.3312, 20.031],
+    tagline: '椰香、鸡油饭与清甜糖水，把热带海岛吃成轻快节奏。',
+    description: '海口把海南的海岛物产收进日常餐桌。文昌鸡皮滑肉嫩，海南粉酸甜咸鲜，清补凉用椰奶和杂粮降温，椰子饭则把糯米和椰香蒸进同一个壳里。',
+    flavorTags: ['热带椰香', '清爽粉食', '海岛慢食'],
+    heroImage: 'assets/dishes/haikou/wenchang-chicken.webp',
+    imageAlt: '切件装盘的海南文昌鸡',
+    dishes: [
+      { name: '文昌鸡', description: '鸡肉白切后皮滑肉嫩，蘸料里的酸、辣、蒜香衬出鸡味清甜。' },
+      { name: '海南粉', description: '细粉拌入卤汁、酸菜、花生与肉丝，酸甜咸鲜层次明快。' },
+      { name: '清补凉', description: '椰奶、绿豆、薏米、红枣与水果同碗，清甜冰凉，是海口的午后续命。' },
+      { name: '椰子饭', description: '糯米与椰肉、椰汁同蒸，米粒软糯，带着干净的热带甜香。' }
+    ],
+    tip: '午间先吃文昌鸡和海南粉，下午留给清补凉，椰子饭适合当甜口收尾。'
+  },
+  {
+    id: 30,
+    slug: 'quanzhou',
+    name: '泉州',
+    province: '福建',
+    group: '宝藏',
+    coordinates: [118.6759, 24.8741],
+    tagline: '海丝古城的清鲜与药膳香，藏在面线、姜母鸭和一粒粽里。',
+    description: '泉州饮食兼具闽南海味与侨乡气息。面线糊柔滑暖胃，姜母鸭以老姜和药料焖出浓香，烧肉粽扎实饱满，润饼菜把春日蔬菜和花生糖粉卷成清爽一口。',
+    flavorTags: ['闽南清鲜', '古早小吃', '姜香药膳'],
+    heroImage: 'assets/dishes/quanzhou/misua-paste.webp',
+    imageAlt: '碗中柔滑浓稠的泉州面线糊',
+    dishes: [
+      { name: '面线糊', description: '细面线煮成柔滑糊汤，常加醋肉、海蛎或卤料，清晨吃尤其暖胃。' },
+      { name: '姜母鸭', description: '鸭肉与老姜、麻油和香料慢焖，姜香辛暖，肉质入味不腻。' },
+      { name: '烧肉粽', description: '糯米包入烧肉、香菇、虾米等馅料，蒸透后蘸甜辣酱更显丰厚。' },
+      { name: '润饼菜', description: '薄饼卷入蔬菜、海味、肉丝与花生糖粉，清爽中带着细碎甜香。' }
+    ],
+    tip: '面线糊适合早餐，姜母鸭留给晚餐慢吃；古城小吃可以沿街分段尝。'
+  },
+  {
+    id: 31,
+    slug: 'shenyang',
+    name: '沈阳',
+    province: '辽宁',
+    group: '宝藏',
+    coordinates: [123.4315, 41.8057],
+    tagline: '鸡架、饺子、熏肉大饼和热气蒸腾的面点，构成东北街头的爽快。',
+    description: '沈阳的味道豪爽却不粗糙。老边饺子以馅心和汤汁见长，鸡架是街头夜宵的灵魂，熏肉大饼把烟熏肉香包进酥韧饼皮，清真烧麦则让牛羊肉香与烫面皮结合。',
+    flavorTags: ['东北烟火', '夜宵鸡架', '面点扎实'],
+    heroImage: 'assets/dishes/shenyang/laobian-dumplings.webp',
+    imageAlt: '盘中整齐摆放的沈阳老边饺子',
+    dishes: [
+      { name: '老边饺子', description: '馅料讲究煸炒与调汤，饺子皮薄馅香，是沈阳老字号味道。' },
+      { name: '烤鸡架', description: '鸡架烤到边缘焦香，再刷酱撒料，啃骨间全是东北夜宵的痛快。' },
+      { name: '熏肉大饼', description: '熏肉切片夹进薄韧大饼，配葱丝和甜面酱，烟香与面香直接碰撞。' },
+      { name: '沈阳烧麦', description: '烫面皮裹住牛羊肉馅，蒸后油香充盈，趁热吃最能感受汤汁。' }
+    ],
+    tip: '白天吃饺子和烧麦，晚上把胃口留给鸡架；熏肉大饼适合多人分食。'
+  },
+  {
+    id: 32,
+    slug: 'taiyuan',
+    name: '太原',
+    province: '山西',
+    group: '宝藏',
+    coordinates: [112.5492, 37.8706],
+    tagline: '醋香、面香与羊汤热气，铺开山西餐桌的筋道与厚实。',
+    description: '太原是认识山西面食与老城味道的入口。头脑温补浓香，刀削面棱角分明，过油肉以醋香和滑嫩肉片见功夫，羊杂割则用热汤、胡椒和香菜唤醒清晨。',
+    flavorTags: ['山西面食', '老城醋香', '羊汤热气'],
+    heroImage: 'assets/dishes/taiyuan/tounao.webp',
+    imageAlt: '太原头脑配腌韭菜一同上桌',
+    dishes: [
+      { name: '头脑', description: '黄酒、羊肉、藕片与药膳香气交织成温热浓汤，是太原清晨的老味道。' },
+      { name: '刀削面', description: '面片中厚边薄，入汤后筋道爽利，配肉臊、醋和辣椒更显山西性格。' },
+      { name: '过油肉', description: '肉片先滑油后与木耳、蒜薹同炒，醋香明亮，口感滑嫩。' },
+      { name: '羊杂割', description: '羊杂切片入热汤，胡椒、葱花和香菜提香，喝起来热烈而实在。' }
+    ],
+    tip: '早起尝头脑或羊杂割，中午留给刀削面；吃过油肉时别忘了让醋香做主角。'
   }
 ];
 
@@ -948,6 +1048,81 @@ const foodCitiesEnglish = {
       { name: 'Five-Colored Glutinous Rice', description: 'Natural plant dyes tint sticky rice in several colors, adding a light herbal aroma to this Zhuang festival staple.' }
     ],
     tip: 'Begin with laoyoufen, cool down with suanye, then share lemon duck and fragrant colored rice.'
+  },
+  nanchang: {
+    name: 'Nanchang',
+    province: 'Jiangxi',
+    tagline: 'Cool mixed rice noodles, warm crock soups, chile, and rice aroma light up everyday Jiangxi flavor.',
+    description: 'Nanchang food lives in rice noodles, clay crocks, and wok-fired street meals. Banfen opens the morning with soy sauce, preserved radish, and chili oil, crock soup builds a gentle savory base, fried rice noodles bring wok heat, and steamed pork with rice powder turns meat and grain into something soft and fragrant.',
+    flavorTags: ['Rice-noodle mornings', 'Slow crock soups', 'Jiangxi chile bite'],
+    imageAlt: 'Nanchang banfen mixed with chili oil and small garnishes',
+    dishes: [
+      { name: 'Nanchang Banfen', description: 'Rice noodles are blanched, then mixed with soy sauce, chili oil, preserved radish, and scallions for a bright, punchy breakfast.' },
+      { name: 'Earthenware Pot Soup', description: 'Small crocks slowly steam meat, egg, mushrooms, or other ingredients into a clear, warming soup.' },
+      { name: 'Nanchang Fried Rice Noodles', description: 'Rice noodles meet high wok heat, soy aroma, chile, and smoky breath-of-the-wok flavor.' },
+      { name: 'Steamed Pork with Rice Powder', description: 'Pork belly is coated in seasoned rice powder and steamed until soft, rich, and deeply fragrant.' }
+    ],
+    tip: 'Start with banfen and crock soup for breakfast, then save fried noodles and steamed pork for a more chile-forward evening.'
+  },
+  haikou: {
+    name: 'Haikou',
+    province: 'Hainan',
+    tagline: 'Coconut fragrance, tender chicken, and cooling sweets turn tropical island cooking light and easy.',
+    description: 'Haikou gathers Hainan’s island produce into an everyday table. Wenchang chicken is silky and clean-tasting, Hainanfen layers sweet, sour, and savory notes, qingbuliang cools the afternoon with coconut milk and grains, and coconut rice steams sticky rice inside pure tropical aroma.',
+    flavorTags: ['Tropical coconut', 'Refreshing noodles', 'Island slow food'],
+    imageAlt: 'Sliced Hainan Wenchang chicken served on a plate',
+    dishes: [
+      { name: 'Wenchang Chicken', description: 'Poached chicken is sliced with glossy skin and tender meat, then brightened by tangy, garlicky dipping sauces.' },
+      { name: 'Hainanfen', description: 'Fine rice noodles are dressed with gravy, pickles, peanuts, and shredded meat for a sweet-sour-savory mix.' },
+      { name: 'Qingbuliang', description: 'Coconut milk, mung beans, grains, dates, and fruit make a cooling Hainan dessert bowl.' },
+      { name: 'Coconut Rice', description: 'Sticky rice steams with coconut flesh and juice, becoming soft, lightly sweet, and deeply aromatic.' }
+    ],
+    tip: 'Eat Wenchang chicken and Hainanfen at lunch, cool down with qingbuliang, and finish with coconut rice as a gentle sweet.'
+  },
+  quanzhou: {
+    name: 'Quanzhou',
+    province: 'Fujian',
+    tagline: 'A Maritime Silk Road city where gentle seafood, ginger warmth, noodles, and zongzi meet.',
+    description: 'Quanzhou cooking carries both Minnan seafood clarity and an old overseas-Chinese rhythm. Misua paste is silky and warming, ginger duck slowly draws depth from old ginger and aromatics, roast pork zongzi is hearty and compact, and runbing wraps vegetables, seafood, meat, and sweet peanut powder into one fresh bite.',
+    flavorTags: ['Minnan freshness', 'Old-school snacks', 'Ginger warmth'],
+    imageAlt: 'A bowl of thick, silky Quanzhou misua paste',
+    dishes: [
+      { name: 'Misua Paste', description: 'Fine wheat noodles cook into a smooth soup, often topped with fried pork, oysters, or braised garnishes.' },
+      { name: 'Ginger Duck', description: 'Duck is braised with old ginger, sesame oil, and spices until warming, aromatic, and deeply seasoned.' },
+      { name: 'Roast Pork Zongzi', description: 'Sticky rice wraps roast pork, mushrooms, dried shrimp, and other fillings, then pairs well with sweet chili sauce.' },
+      { name: 'Runbing', description: 'Thin wrappers fold vegetables, seafood, shredded meat, and peanut sugar into a fresh, lightly sweet roll.' }
+    ],
+    tip: 'Make misua paste breakfast, save ginger duck for a slower dinner, and graze the old city in small snack stops.'
+  },
+  shenyang: {
+    name: 'Shenyang',
+    province: 'Liaoning',
+    tagline: 'Chicken racks, dumplings, smoked pork flatbread, and steaming wheat snacks define Northeast street-table joy.',
+    description: 'Shenyang food is bold without being careless. Laobian dumplings are known for their fragrant filling and juices, chicken rack anchors late-night snacking, smoked pork flatbread folds cured meat into chewy pastry, and Shenyang shaomai brings beef-and-lamb richness into thin hot-water dough.',
+    flavorTags: ['Northeast street food', 'Chicken-rack nights', 'Hearty wheat snacks'],
+    imageAlt: 'Laobian dumplings arranged neatly on a plate',
+    dishes: [
+      { name: 'Laobian Dumplings', description: 'A classic Shenyang dumpling style with seasoned fillings, thin wrappers, and a juicy bite.' },
+      { name: 'Grilled Chicken Rack', description: 'Chicken frames are grilled until the edges char, then brushed with sauce and spices for late-night nibbling.' },
+      { name: 'Smoked Pork Flatbread', description: 'Slices of smoked pork tuck into a pliant flatbread with scallions and sweet bean sauce.' },
+      { name: 'Shenyang Shaomai', description: 'Hot-water dough holds beef or lamb filling, steaming into a rich, juicy northern snack.' }
+    ],
+    tip: 'Try dumplings and shaomai by day, save chicken rack for night, and split the smoked pork flatbread with friends.'
+  },
+  taiyuan: {
+    name: 'Taiyuan',
+    province: 'Shanxi',
+    tagline: 'Vinegar brightness, chewy noodles, and steaming mutton broth show the sturdy side of Shanxi cooking.',
+    description: 'Taiyuan is an entry point to Shanxi noodles and old-city flavors. Tounao is warming and aromatic, knife-cut noodles show off firm edges and soft centers, guoyourou balances tender pork with bright vinegar, and yangzage wakes the morning with hot offal soup, pepper, and herbs.',
+    flavorTags: ['Shanxi noodles', 'Old-city vinegar', 'Mutton-broth warmth'],
+    imageAlt: 'Taiyuan tounao soup served with pickled leeks',
+    dishes: [
+      { name: 'Tounao', description: 'A warming soup of huangjiu, mutton, lotus root, and medicinal aromatics, long tied to Taiyuan breakfasts.' },
+      { name: 'Knife-Cut Noodles', description: 'Thick-edged noodle slices land springy in broth, especially lively with meat sauce, vinegar, and chili.' },
+      { name: 'Guoyourou', description: 'Pork slices are oil-blanched, then stir-fried with wood ear and vegetables in a bright vinegar-leaning sauce.' },
+      { name: 'Yangzage', description: 'Sliced mutton offal in hot broth gets lifted by pepper, scallion, and cilantro.' }
+    ],
+    tip: 'Wake early for tounao or yangzage, eat knife-cut noodles at lunch, and let vinegar lead when ordering guoyourou.'
   }
 };
 
@@ -1144,6 +1319,36 @@ const foodDishMedia = {
     commonsDish('lemon-duck', '酸香配料包裹的广西柠檬鸭', 'Guangxi lemon duck with pickled citrus and aromatic vegetables', 'N509FZ', 'CC BY-SA 4.0', 'Guangxi lemon duck on Z5 (20160323175957).jpg', 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Guangxi_lemon_duck_on_Z5_%2820160323175957%29.jpg'),
     commonsDish('suanye', '摆满腌渍果蔬的广西酸嘢摊', 'A Guangxi suanye stall filled with pickled fruit and vegetables', 'EditQ', 'CC BY-SA 4.0', '酸嘢.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/%E9%85%B8%E5%98%A2.jpg'),
     commonsDish('five-color-glutinous-rice', '植物染色蒸成的广西五色糯米饭', 'Guangxi glutinous rice naturally dyed in five colors', 'N509FZ', 'CC BY-SA 4.0', 'Five-colored glutinous rice at a Guangxi-style restaurant in Beijing (20250331105506).jpg', 'https://upload.wikimedia.org/wikipedia/commons/5/53/Five-colored_glutinous_rice_at_a_Guangxi-style_restaurant_in_Beijing_%2820250331105506%29.jpg')
+  ],
+  nanchang: [
+    commonsDish('nanchang-banfen', '拌有辣椒油和小菜的南昌拌粉', 'Nanchang banfen mixed with chili oil and small garnishes', 'Nagae Iku', 'CC0 1.0', 'Nanchang Banfen (20251205 085026).jpg', 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Nanchang_Banfen_%2820251205_085026%29.jpg'),
+    commonsDish('waguan-soup', '瓦罐中慢煨的南昌汤品', 'Nanchang earthenware pot soup simmered in a small crock', '吴光耀', 'CC BY-SA 4.0', '瓦罐汤.jpg', 'https://upload.wikimedia.org/wikipedia/commons/3/37/%E7%93%A6%E7%BD%90%E6%B1%A4.jpg'),
+    commonsDish('nanchang-fried-rice-noodles', '酱香浓郁的南昌炒粉', 'Nanchang fried rice noodles with soy aroma and wok heat', 'Qa003qa003', 'CC BY-SA 4.0', '南昌炒粉 20161008 185424.jpg', 'https://upload.wikimedia.org/wikipedia/commons/f/f8/%E5%8D%97%E6%98%8C%E7%82%92%E7%B2%89_20161008_185424.jpg'),
+    commonsDish('fenzhengrou', '米粉包裹蒸熟的粉蒸肉', 'Steamed pork coated with seasoned rice powder', 'Ruocaled', 'CC BY 2.0', '粉蒸肉.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/05/%E7%B2%89%E8%92%B8%E8%82%89.jpg')
+  ],
+  haikou: [
+    commonsDish('wenchang-chicken', '切件装盘的海南文昌鸡', 'Sliced Hainan Wenchang chicken served on a plate', 'EVOW Sahgyune Paiem KAASEI 02238', 'CC0 1.0', 'HK SYP 西環 Sai Ying Pun 德輔道西 308 Des Voeux Road West 食神麗宮酒家 Chinese Banquet Seafood Restaurant food 海南 文昌 白切雞 Hainan Wenchang White Cut Chicken January 2026 N13P 06.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/c2/HK_SYP_%E8%A5%BF%E7%92%B0_Sai_Ying_Pun_%E5%BE%B7%E8%BC%94%E9%81%93%E8%A5%BF_308_Des_Voeux_Road_West_%E9%A3%9F%E7%A5%9E%E9%BA%97%E5%AE%AE%E9%85%92%E5%AE%B6_Chinese_Banquet_Seafood_Restaurant_food_%E6%B5%B7%E5%8D%97_%E6%96%87%E6%98%8C_%E7%99%BD%E5%88%87%E9%9B%9E_Hainan_Wenchang_White_Cut_Chicken_January_2026_N13P_06.jpg'),
+    commonsDish('hainanfen', '卤汁与小料拌好的海南粉', 'Hainanfen rice noodles mixed with gravy and garnishes', 'N509FZ', 'CC BY-SA 4.0', 'Hainanfen at a restaurant in Sanya (20230324201859).jpg', 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Hainanfen_at_a_restaurant_in_Sanya_%2820230324201859%29.jpg'),
+    commonsDish('qingbuliang', '椰奶中加入杂粮和水果的海南清补凉', 'Hainan qingbuliang dessert with coconut milk, grains, and fruit', 'N509FZ', 'CC BY-SA 4.0', 'Coconut milk Ching Bo Leung (20220421141453).jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Coconut_milk_Ching_Bo_Leung_%2820220421141453%29.jpg'),
+    commonsDish('coconut-rice', '装在椰壳中的海南椰子饭', 'Hainan coconut rice steamed and served in a coconut shell', 'Popolon', 'CC BY-SA 4.0', 'Riz-coco des Li.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Riz-coco_des_Li.jpg')
+  ],
+  quanzhou: [
+    commonsDish('misua-paste', '碗中柔滑浓稠的泉州面线糊', 'A bowl of thick, silky Quanzhou misua paste', 'N509FZ', 'CC BY-SA 4.0', 'Mī-suànn-kôo in Quanzhou (20200929220207).jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/29/M%C4%AB-su%C3%A0nn-k%C3%B4o_in_Quanzhou_%2820200929220207%29.jpg'),
+    commonsDish('ginger-duck', '姜香浓郁的泉州姜母鸭', 'Quanzhou ginger duck braised with old ginger and spices', 'N509FZ', 'CC BY-SA 4.0', 'Quanzhou-style Kiuⁿ-bó-ah (Ginger Duck) at Yipin Xiangqing Restaurant, Beijing (20240908174515).jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/47/Quanzhou-style_Kiu%E2%81%BF-b%C3%B3-ah_%28Ginger_Duck%29_at_Yipin_Xiangqing_Restaurant%2C_Beijing_%2820240908174515%29.jpg'),
+    commonsDish('roast-pork-zongzi', '剥开后露出烧肉馅料的闽南肉粽', 'Minnan roast pork zongzi opened to show its savory filling', '向史公哲曰', 'CC BY-SA 4.0', '1980烧肉粽前埔店的菜品.jpg', 'https://upload.wikimedia.org/wikipedia/commons/7/79/1980%E7%83%A7%E8%82%89%E7%B2%BD%E5%89%8D%E5%9F%94%E5%BA%97%E7%9A%84%E8%8F%9C%E5%93%81.jpg'),
+    commonsDish('runbing', '薄饼卷起蔬菜和配料的泉州润饼菜', 'Quanzhou runbing wrapped with vegetables and savory fillings', 'Sjschen.', 'CC BY-SA 3.0', 'LunBhia.jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/ae/LunBhia.jpg')
+  ],
+  shenyang: [
+    commonsDish('laobian-dumplings', '盘中整齐摆放的沈阳老边饺子', 'Laobian dumplings arranged neatly on a plate', 'JIP', 'CC BY-SA 4.0', 'Chinese-style dumplings at home.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/86/Chinese-style_dumplings_at_home.jpg'),
+    commonsDish('grilled-chicken-rack', '刷酱烤至焦香的沈阳鸡架', 'Shenyang grilled chicken rack brushed with sauce and spices', 'N509FZ', 'CC BY-SA 4.0', 'Grilled chicken ribs at Handsome Cooking Guys, Hopson One (20220330164842).jpg', 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Grilled_chicken_ribs_at_Handsome_Cooking_Guys%2C_Hopson_One_%2820220330164842%29.jpg'),
+    commonsDish('smoked-pork-flatbread', '熏肉与大饼组合成的沈阳熏肉大饼', 'Smoked pork and flatbread served as a Shenyang-style set', 'N509FZ', 'CC BY-SA 4.0', 'Single set at Li Liangui Xunrou Dabing (20231010124144).jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/87/Single_set_at_Li_Liangui_Xunrou_Dabing_%2820231010124144%29.jpg'),
+    commonsDish('shenyang-shaomai', '蒸笼中的沈阳清真烧麦', 'Shenyang halal shaomai steaming in a bamboo basket', 'UjuiUjuMandan', 'CC BY-SA 4.0', '沈阳清真饭店的烧麦.jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/2c/%E6%B2%88%E9%98%B3%E6%B8%85%E7%9C%9F%E9%A5%AD%E5%BA%97%E7%9A%84%E7%83%A7%E9%BA%A6.jpg')
+  ],
+  taiyuan: [
+    commonsDish('tounao', '太原头脑配腌韭菜一同上桌', 'Taiyuan tounao soup served with pickled leeks', 'N509FZ', 'CC BY-SA 4.0', 'Tounao and pickled leek at Ren Yi Li, Taiyuannan Railway Station (20241104133220).jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Tounao_and_pickled_leek_at_Ren_Yi_Li%2C_Taiyuannan_Railway_Station_%2820241104133220%29.jpg'),
+    commonsDish('knife-cut-noodles', '浇头覆盖的山西刀削面', 'Shanxi knife-cut noodles topped with savory sauce', 'N509FZ', 'CC BY-SA 4.0', 'Daoxiaomian at Beixinqiao, Beijing (20201011183536).jpg', 'https://upload.wikimedia.org/wikipedia/commons/9/91/Daoxiaomian_at_Beixinqiao%2C_Beijing_%2820201011183536%29.jpg'),
+    commonsDish('guoyourou', '木耳和蔬菜同炒的山西过油肉', 'Shanxi guoyourou stir-fried with wood ear and vegetables', 'Liuxingy', 'CC BY-SA 4.0', '榆次 全盛园之胡师傅过油肉.jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/4a/%E6%A6%86%E6%AC%A1_%E5%85%A8%E7%9B%9B%E5%9B%AD%E4%B9%8B%E8%83%A1%E5%B8%88%E5%82%85%E8%BF%87%E6%B2%B9%E8%82%89.jpg'),
+    commonsDish('yangzage', '热汤中的山西羊杂割', 'Shanxi yangzage mutton offal served in hot broth', 'AddisWang', 'CC BY-SA 3.0', '羊杂割.JPG', 'https://upload.wikimedia.org/wikipedia/commons/c/c7/%E7%BE%8A%E6%9D%82%E5%89%B2.JPG')
   ]
 };
 

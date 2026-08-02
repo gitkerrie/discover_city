@@ -243,19 +243,19 @@ function cityPage(city, english, allCities, language) {
 const guideDefinitions = [
   {
     slug: 'best-food-cities-in-china',
-    title: '27 Best Food Cities in China for Your Next Trip',
-    description: 'A practical introduction to 27 Chinese food cities, from Chengdu and Guangzhou to Beijing, Qingdao, Fuzhou, and Nanning.',
+    title: '32 Best Food Cities in China for Your Next Trip',
+    description: 'A practical introduction to 32 Chinese food cities, from Chengdu and Guangzhou to Haikou, Quanzhou, Shenyang, and Taiyuan.',
     eyebrow: 'THE ESSENTIAL LIST',
-    heading: '27 Chinese cities worth traveling for food',
-    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 27 cities are a focused place to begin.',
+    heading: '32 Chinese cities worth traveling for food',
+    intro: 'China does not have one food culture. It has hundreds of regional traditions shaped by climate, migration, trade, and local ingredients. These 32 cities are a focused place to begin.',
     filter: () => true
   },
   {
     slug: 'hidden-gem-food-cities-in-china',
-    title: '14 Underrated Food Cities in China',
-    description: 'Go beyond the usual stops with 14 hidden-gem food cities, from Chaozhou and Yanji to Jinan, Fuzhou, and Nanning.',
+    title: '19 Underrated Food Cities in China',
+    description: 'Go beyond the usual stops with 19 hidden-gem food cities, from Chaozhou and Yanji to Nanchang, Quanzhou, Shenyang, and Taiyuan.',
     eyebrow: 'BEYOND THE CLASSICS',
-    heading: 'Fourteen hidden-gem food cities',
+    heading: 'Nineteen hidden-gem food cities',
     intro: 'The most memorable food trip is often one stop beyond the obvious itinerary. These cities reward travelers with distinctive local ingredients, techniques, and everyday eating rituals.',
     filter: city => city.group === '宝藏'
   },
@@ -469,7 +469,7 @@ function chineseHub(cities) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="探索 ${cities.length} 座中国美食城市，从成都、广州到北京、青岛、福州和南宁。">
+  <meta name="description" content="探索 ${cities.length} 座中国美食城市，从成都、广州到海口、泉州、沈阳和太原。">
   <meta name="theme-color" content="#171713">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <title>寻味中国：${cities.length} 座美食城市地图</title>
