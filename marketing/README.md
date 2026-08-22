@@ -4,11 +4,13 @@ This directory contains the working assets for the first organic launch of Taste
 
 ## Generated Assets
 
-- `cards/index.html` renders 12 city cards and three comparison covers in a 4:5 layout.
-- `exports/` contains the 15 ready-to-publish JPEG files at 1080 x 1350 pixels.
+- `cards/index.html` renders 32 city cards and three comparison covers in a 4:5 layout.
+- `exports/` contains the 35 ready-to-publish JPEG files at 1080 x 1350 pixels.
 - `social-copy.md` contains an English caption, alt text, and hashtags for every city.
-- `utm-links.csv` contains channel-specific links for all 12 cities and three comparison guides across Pinterest, Instagram, Reddit, and creator outreach.
+- `utm-links.csv` contains channel-specific links for all 32 cities and four guides across Pinterest, Instagram, Reddit, and creator outreach.
 - `launch-checklist.md` separates verified launch work from account-level owner actions.
+- `growth-plan.md` defines the current baseline, key actions, 14-day validation sprint, and 30/60/90-day targets.
+- `content-calendar.md` is the working 30-day validation calendar and weekly experiment log.
 
 Run `npm run generate` after editing city data. The files above are generated from `js/data.js` and should not be edited by hand.
 

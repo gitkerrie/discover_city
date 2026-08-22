@@ -215,7 +215,7 @@ function cityPage(city, english, allCities, language) {
 
         <div class="content-actions">
           <a class="primary-action map-link" href="${mapUrl}" data-map-slug="${city.slug}" ${analyticsEventAttributes('City Map Opened', { city: city.slug, language })}>${isZh ? '在互动地图中打开' : 'Open on the interactive map'}</a>
-          <button class="secondary-action share-page" type="button" ${analyticsEventAttributes('Landing Page Shared', { city: city.slug, language })}>${isZh ? '分享城市' : 'Share this city'}</button>
+          <button class="secondary-action share-page" type="button">${isZh ? '分享城市' : 'Share this city'}</button>
         </div>
       </article>
 
@@ -224,7 +224,7 @@ function cityPage(city, english, allCities, language) {
         <h2 id="related-title">${isZh ? '下一座城市' : 'Your next food city'}</h2>
         ${otherCities.map(item => {
           const itemContent = getContent(item, english, language);
-          return `<a href="${cityPath(item.slug, language)}"><span>${escapeHtml(itemContent.province)}</span><strong>${escapeHtml(itemContent.name)}</strong><small>${escapeHtml(itemContent.dishes[0].name)}</small></a>`;
+          return `<a href="${cityPath(item.slug, language)}" ${analyticsEventAttributes('Related City Opened', { from: city.slug, city: item.slug, language })}><span>${escapeHtml(itemContent.province)}</span><strong>${escapeHtml(itemContent.name)}</strong><small>${escapeHtml(itemContent.dishes[0].name)}</small></a>`;
         }).join('\n        ')}
       </aside>
     </div>
@@ -384,7 +384,7 @@ function featuredFoodPage(foods, cities, english, language) {
     const cardDescription = isZh ? food.zhDescription : food.enDescription;
     const related = food.relatedCities.map(item => {
       const label = isZh ? item.zhLabel : item.enLabel;
-      return `<a href="${cityPath(item.slug, language)}">${escapeHtml(label)}</a>`;
+      return `<a href="${cityPath(item.slug, language)}" ${analyticsEventAttributes('Food Related City Opened', { food: food.slug, city: item.slug, language })}>${escapeHtml(label)}</a>`;
     }).join('');
 
     return `<article class="food-card" id="food-${food.slug}">

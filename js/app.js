@@ -163,6 +163,7 @@ class FoodMapApp {
     this.galleryIndex = 0;
     this.galleryDishes = [];
     this.galleryTouchStartX = null;
+    this.searchAnalytics = null;
     this.favoriteSlugs = this.loadFavorites();
 
     this.cacheElements();
@@ -231,6 +232,29 @@ class FoodMapApp {
     if (typeof window.va === 'function') {
       window.va('event', { name, data });
     }
+  }
+
+  completeSearch(selection = 'dismissed', result = null) {
+    const summary = this.searchAnalytics;
+    if (!summary || summary.tracked) return;
+
+    summary.tracked = true;
+    const queryLength = summary.queryLength <= 2
+      ? '1-2'
+      : summary.queryLength <= 5
+        ? '3-5'
+        : summary.queryLength <= 10
+          ? '6-10'
+          : '11+';
+    const data = {
+      language: this.language,
+      queryLength,
+      cityResults: summary.cityResults,
+      foodResults: summary.foodResults,
+      selection
+    };
+    if (result) data.result = result;
+    this.trackEvent('Search Completed', data);
   }
 
   t(key, replacements = {}) {
@@ -451,7 +475,7 @@ class FoodMapApp {
 
       marker.on('click', event => {
         this.lastTrigger = event.originalEvent?.target || null;
-        this.selectCity(city, { updateHash: true });
+        this.selectCity(city, { updateHash: true, source: 'map_marker' });
       });
 
       marker.bindTooltip(`${content.name} · ${content.dishes[0].name}`, {
@@ -496,7 +520,7 @@ class FoodMapApp {
       button.innerHTML = `<span>${String(index + 1).padStart(2, '0')}</span>${content.name}`;
       button.addEventListener('click', event => {
         this.lastTrigger = event.currentTarget;
-        this.selectCity(city, { updateHash: true });
+        this.selectCity(city, { updateHash: true, source: 'city_index' });
       });
       fragment.appendChild(button);
     });
@@ -504,7 +528,7 @@ class FoodMapApp {
     this.elements.cityIndex.replaceChildren(fragment);
   }
 
-  selectCity(city, { updateHash = false } = {}) {
+  selectCity(city, { updateHash = false, source = 'direct' } = {}) {
     if (!city) return;
 
     this.currentCity = city;
@@ -529,7 +553,7 @@ class FoodMapApp {
       }
     }
 
-    this.trackEvent('City Viewed', { city: city.slug, language: this.language });
+    this.trackEvent('City Viewed', { city: city.slug, language: this.language, source });
   }
 
   populateDrawer(city) {
@@ -747,6 +771,12 @@ class FoodMapApp {
     const results = this.searchCities(query);
     const foodResults = this.searchFeaturedFoods(query);
     const fragment = document.createDocumentFragment();
+    this.searchAnalytics = {
+      queryLength: query.trim().length,
+      cityResults: results.length,
+      foodResults: foodResults.length,
+      tracked: false
+    };
 
     if (results.length === 0 && foodResults.length === 0) {
       const empty = document.createElement('p');
@@ -782,8 +812,9 @@ class FoodMapApp {
         `;
         button.addEventListener('click', event => {
           this.lastTrigger = event.currentTarget;
-          this.selectCity(city, { updateHash: true });
-          this.clearSearch();
+          this.completeSearch('city', city.slug);
+          this.selectCity(city, { updateHash: true, source: 'search' });
+          this.clearSearch({ track: false });
         });
         fragment.appendChild(button);
       });
@@ -802,7 +833,10 @@ class FoodMapApp {
           </span>
           <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         `;
-        link.addEventListener('click', () => this.clearSearch());
+        link.addEventListener('click', () => {
+          this.completeSearch('food', food.slug);
+          this.clearSearch({ track: false });
+        });
         fragment.appendChild(link);
       });
     }
@@ -812,13 +846,16 @@ class FoodMapApp {
     this.elements.searchInput.setAttribute('aria-expanded', 'true');
   }
 
-  clearSearch() {
+  clearSearch({ track = true } = {}) {
+    if (track) this.completeSearch('cleared');
     this.elements.searchInput.value = '';
     this.elements.searchClear.classList.remove('is-visible');
     this.closeSearchResults();
+    this.searchAnalytics = null;
   }
 
   closeSearchResults() {
+    this.completeSearch('dismissed');
     this.elements.searchResults.classList.remove('is-visible');
     this.elements.searchInput.setAttribute('aria-expanded', 'false');
   }
@@ -915,6 +952,10 @@ class FoodMapApp {
     this.elements.favoritesModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
     this.elements.favoritesClose.focus();
+    this.trackEvent('Wish List Opened', {
+      language: this.language,
+      savedCities: this.favoriteSlugs.length
+    });
   }
 
   closeFavorites() {
@@ -960,7 +1001,7 @@ class FoodMapApp {
         openButton.addEventListener('click', event => {
           this.closeFavorites();
           this.lastTrigger = event.currentTarget;
-          this.selectCity(city, { updateHash: true });
+          this.selectCity(city, { updateHash: true, source: 'wish_list' });
         });
 
         removeButton.type = 'button';
@@ -1025,7 +1066,7 @@ class FoodMapApp {
     const city = this.findCity(slug);
 
     if (city) {
-      this.selectCity(city, { updateHash: false });
+      this.selectCity(city, { updateHash: false, source: 'deep_link' });
     } else if (this.currentCity) {
       this.closeDrawer({ updateHash: false, restoreFocus: false });
     }
@@ -1089,6 +1130,20 @@ class FoodMapApp {
     this.elements.favoriteBtn.addEventListener('click', () => this.toggleFavorite());
     this.elements.shareBtn.addEventListener('click', () => this.shareCurrentCity());
     this.elements.favoritesBtn.addEventListener('click', () => this.openFavorites());
+    this.elements.foodTrailsLink?.addEventListener('click', () => {
+      this.trackEvent('Guide Opened', {
+        guide: 'video_food_trails',
+        language: this.language,
+        source: 'map_header'
+      });
+    });
+    this.elements.foodsGuideLink?.addEventListener('click', () => {
+      this.trackEvent('Guide Opened', {
+        guide: 'chinese_foods',
+        language: this.language,
+        source: 'map_header'
+      });
+    });
     this.elements.favoritesClose.addEventListener('click', () => this.closeFavorites());
     this.elements.favoritesBackdrop.addEventListener('click', () => this.closeFavorites());
 

@@ -42,6 +42,10 @@
   const shareButton = document.querySelector('.share-page');
   if (shareButton) {
     shareButton.addEventListener('click', async () => {
+      const eventData = {
+        city: document.body.dataset.city || 'unknown',
+        language: document.documentElement.lang.startsWith('zh') ? 'zh' : 'en'
+      };
       const shareData = {
         title: document.title,
         text: document.querySelector('meta[name="description"]')?.content || '',
@@ -51,12 +55,17 @@
       try {
         if (navigator.share) {
           await navigator.share(shareData);
+          track('Landing Page Shared', { ...eventData, method: 'native' });
         } else {
           await navigator.clipboard.writeText(shareData.url);
           shareButton.textContent = document.documentElement.lang.startsWith('zh') ? '链接已复制' : 'Link copied';
+          track('Landing Page Shared', { ...eventData, method: 'clipboard' });
         }
       } catch (error) {
-        if (error?.name !== 'AbortError') window.prompt('Copy this link:', shareData.url);
+        if (error?.name !== 'AbortError') {
+          window.prompt('Copy this link:', shareData.url);
+          track('Landing Page Share Fallback', eventData);
+        }
       }
     });
   }

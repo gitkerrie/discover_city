@@ -69,6 +69,9 @@ cities.forEach(city => {
   assert((englishPage.match(/class="hero-media hero-media-/g) || []).length === 4, `${city.slug} 英文页主视觉不是四图拼贴`);
   assert((englishPage.match(/class="dish-photo"/g) || []).length === 4, `${city.slug} 英文页菜品图片数量不是 4`);
   assert(city.dishes.every(dish => englishPage.includes(`/${dish.image}`)), `${city.slug} 英文页缺少菜品图片`);
+  assert(englishPage.includes('data-analytics-event="Related City Opened"'), `${city.slug} 英文页缺少相关推荐埋点`);
+  assert(chinesePage.includes('data-analytics-event="Related City Opened"'), `${city.slug} 中文页缺少相关推荐埋点`);
+  assert(!englishPage.includes('class="secondary-action share-page" type="button" data-analytics-event'), `${city.slug} 分享按钮不应在分享完成前记录成功事件`);
   assert(chinesePage.includes(`<html lang="zh-CN">`), `${city.slug} 中文页语言不正确`);
   assert(chinesePage.includes(`<link rel="canonical" href="${chineseUrl}">`), `${city.slug} 中文 canonical 缺失`);
   assert(chinesePage.includes(city.name), `${city.slug} 中文内容缺失`);
@@ -116,6 +119,9 @@ assert(videoTrailApp.includes('function getPicturedFoods(trail)'), 'City food tr
 assert(videoTrailApp.includes('getPicturedFoods(trail).filter(food =>'), 'Search and filters must start from pictured foods');
 assert(videoTrailApp.includes('elements.drawerFoods.innerHTML = picturedFoods.map(food =>'), 'City drawers must render pictured foods only');
 assert(videoTrailApp.includes('function pickHeroMosaic()'), 'City food trails must build a randomized hero mosaic');
+assert(videoTrailApp.includes('function shuffleDaily(shouldScroll = false, trackInteraction = false)'), 'Automatic food-trail shuffles must not inflate analytics events');
+assert(videoTrailApp.includes('elements.search.addEventListener("change"'), 'City food trails must record a privacy-safe completed search event');
+assert(videoTrailApp.includes('source: "city_grid"'), 'City food trail opens must record their source');
 assert(videoTrailApp.includes('item.visual.trailSpecific'), 'Hero mosaic must use verified trail-specific images');
 assert(englishVideoTrails.includes('id="heroMosaicShuffleBtn"'), 'English city food trails must expose the mosaic shuffle control');
 assert(chineseVideoTrails.includes('id="heroMosaicShuffleBtn"'), 'Chinese city food trails must expose the mosaic shuffle control');
@@ -196,6 +202,13 @@ assert(
 );
 
 const app = read('js', 'app.js');
+const contentPageApp = read('js', 'content-page.js');
+assert(app.includes("this.trackEvent('Search Completed'"), '地图搜索缺少完成事件');
+assert(app.includes("source: 'map_marker'"), '城市查看事件缺少地图来源');
+assert(app.includes("source: 'wish_list'"), '城市查看事件缺少收藏来源');
+assert(app.includes("this.trackEvent('Guide Opened'"), '地图页指南入口缺少事件');
+assert(contentPageApp.includes("track('Landing Page Shared'"), '城市页缺少分享成功事件');
+assert(contentPageApp.includes("method: 'clipboard'"), '城市页分享事件缺少分享方式');
 assert(app.includes('/assets/maps/land-110m.geojson'), '地图未使用本地陆地底图');
 assert(!app.includes('tile.openstreetmap.org'), '地图仍依赖外部 OSM 瓦片');
 assert(fs.existsSync(path.join(root, 'assets', 'maps', 'land-110m.geojson')), '缺少本地陆地底图');

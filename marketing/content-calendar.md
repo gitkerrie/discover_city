@@ -1,38 +1,40 @@
-# 30-Day Organic Launch Calendar
+# 30-Day Validation Calendar
 
 ## Targets
 
-- 1,000 qualified visits from outside mainland China.
-- 5% combined favorite and share rate.
-- Three relevant backlinks or creator references.
-- Two channels that consistently send engaged visitors.
+- 450–500 visitors in a complete 28-day window.
+- 10% key-action rate after custom events become available.
+- 1.25 page views per visitor and a 10% second-page visit rate.
+- 25 organic-search clicks in a complete 28-day window.
+- One relevant backlink or creator reference.
+- One social channel that sends engaged visitors alongside Google Search.
 
-## Week 1: Launch Readiness
+## Week 1: Measurement Readiness
 
 | Day | Deliverable | Success check |
 | --- | --- | --- |
-| 1 | Review all English city pages and dish spellings | 12 pages approved |
-| 2 | Export the 12 city cards | Images legible at mobile size |
-| 3 | Verify Open Graph previews and canonical URLs | No generic previews |
-| 4 | Enable Vercel Web Analytics | Production pageviews visible |
-| 5 | Add the site and sitemap to Search Console | Sitemap accepted |
-| 6 | Test the map from North America and Europe | Tiles and city images load |
-| 7 | Establish baseline traffic and save/share activity | Baseline recorded |
+| 1 | Run the full site and map verification | All checks pass |
+| 2 | Verify every key event name and property | No raw search terms collected |
+| 3 | Review the 8 non-indexed Search Console URLs | Every URL classified |
+| 4 | Save the 28-day page, referrer, country, and device baseline | Baseline recorded |
+| 5 | Confirm every published link uses the matching UTM URL | No untagged campaign links |
+| 6 | Review the top five landing pages on desktop and mobile | Clear next action on each page |
+| 7 | Decide whether to start one 14-day Pro trial | Owner decision recorded |
 
-## Week 2: Seed Content
+## Week 2: Collect a Clean Sample
 
-Publish three city spotlights: Chengdu, Guangzhou, and Chaozhou. Publish one comparison carousel, “Start with the classics.” Prepare the Reddit article “12 Chinese food cities beyond Beijing and Shanghai.”
+Do not add cities. Publish at most two posts using existing assets: one proven city page and one comparison guide. Use only one social channel and record UTM visits plus key actions.
 
-## Week 3: Community Distribution
+## Week 3: Improve the Strongest Landing Path
 
-Publish three city spotlights: Xi’an, Wuhan, and Liuzhou. Share two adapted, self-contained posts in relevant travel or food communities after checking each community’s current rules. Contact ten small China travel or Asian food creators.
+Choose the landing page with at least 30 visits and the strongest key-action rate. Improve its title, first-screen promise, related-city choices, and route into the map. Contact five highly relevant creators with personalized outreach.
 
-## Week 4: Hidden Gems and Review
+## Week 4: Search-Led Content and Review
 
-Publish Yanji, Taizhou, Kashgar, and Yangzhou spotlights plus “Choose your flavor.” Contact ten more creators. Compare traffic source, city-page engagement, favorites, shares, and backlinks; retain the two strongest channels for month two.
+Use Search Console to select one high-impression, low-CTR query or one query ranking 8–20. Improve the matching page or publish one substantial guide. Compare sources, landing pages, key actions, search clicks, and backlinks; keep Google Search and only the strongest social channel for month two.
 
 ## Weekly Log
 
-| Date | Channel | Asset | UTM URL | Visits | Saves/shares | Notes |
-| --- | --- | --- | --- | ---: | ---: | --- |
-| | | | | | | |
+| Date | Channel | Asset | UTM URL | Visits | Key actions | Effective visit rate | Notes |
+| --- | --- | --- | --- | ---: | ---: | ---: | --- |
+| | | | | | | | |

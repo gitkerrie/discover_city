@@ -454,7 +454,7 @@
     }).join("");
   }
 
-  function shuffleDaily(shouldScroll = false) {
+  function shuffleDaily(shouldScroll = false, trackInteraction = false) {
     const shuffledPool = shuffle(getDailyPool());
     const usedVisuals = new Set();
     dailySelection = shuffledPool.filter(({ trail, food }) => {
@@ -476,7 +476,9 @@
     if (shouldScroll) {
       elements.dailyRoute.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-    track("video_food_trails_shuffle", { category: activeCategory, count: dailySelection.length });
+    if (trackInteraction) {
+      track("video_food_trails_shuffle", { category: activeCategory, count: dailySelection.length });
+    }
   }
 
   function updateResults({ reshuffle = true } = {}) {
@@ -538,7 +540,7 @@
     }).join("");
   }
 
-  function openDrawer(slug, { updateHash = true } = {}) {
+  function openDrawer(slug, { updateHash = true, source = "direct" } = {}) {
     const trail = videoFoodTrailsData.find(item => item.slug === slug);
     if (!trail) {
       return;
@@ -556,7 +558,7 @@
       history.replaceState(null, "", `${location.pathname}${location.search}#city=${encodeURIComponent(slug)}`);
     }
     window.setTimeout(() => elements.drawerClose.focus(), 260);
-    track("video_food_trail_open", { city: slug });
+    track("video_food_trail_open", { city: slug, source, language });
   }
 
   function closeDrawer({ updateHash = true } = {}) {
@@ -637,7 +639,11 @@
       elements.drawerSavedCount.textContent = String(savedCountForTrail(activeTrail));
     }
     showToast(isSaved ? ui.removed(food) : ui.saved(food));
-    track("video_food_trail_favorite", { action: isSaved ? "remove" : "add", food });
+    track("video_food_trail_favorite", {
+      action: isSaved ? "remove" : "add",
+      city: activeTrail?.slug || "unknown",
+      food
+    });
   }
 
   function showToast(message) {
@@ -673,7 +679,7 @@
       elements.randomCity.classList.remove("is-spinning");
       elements.randomCity.disabled = false;
       randomTimer = null;
-      openDrawer(selection.trail.slug);
+      openDrawer(selection.trail.slug, { source: "random_city" });
       track("video_food_trails_random_city", { city: selection.trail.slug });
     }, 520);
   }
@@ -700,6 +706,20 @@
   elements.search.addEventListener("input", () => {
     elements.clearSearch.hidden = elements.search.value.length === 0;
     updateResults();
+  });
+
+  elements.search.addEventListener("change", () => {
+    const queryLength = elements.search.value.trim().length;
+    if (queryLength === 0) {
+      return;
+    }
+    const matchingFoods = filteredTrails.reduce((total, result) => total + result.foods.length, 0);
+    track("video_food_trails_search", {
+      language,
+      queryLength: queryLength <= 2 ? "1-2" : queryLength <= 5 ? "3-5" : queryLength <= 10 ? "6-10" : "11+",
+      routes: filteredTrails.length,
+      foods: matchingFoods
+    });
   });
 
   elements.clearSearch.addEventListener("click", () => {
@@ -733,14 +753,14 @@
   elements.grid.addEventListener("click", event => {
     const button = event.target.closest(".trail-card-open");
     if (button) {
-      openDrawer(button.dataset.slug);
+      openDrawer(button.dataset.slug, { source: "city_grid" });
     }
   });
 
   elements.dailyPicks.addEventListener("click", event => {
     const button = event.target.closest(".daily-pick");
     if (button) {
-      openDrawer(button.dataset.slug);
+      openDrawer(button.dataset.slug, { source: "daily_pick" });
     }
   });
 
@@ -771,8 +791,8 @@
     shuffleHeroMosaic({ trackInteraction: true });
   });
   elements.drawerLucky.addEventListener("click", drawLuckyFood);
-  elements.heroPick.addEventListener("click", () => shuffleDaily(true));
-  elements.dailyShuffle.addEventListener("click", () => shuffleDaily(false));
+  elements.heroPick.addEventListener("click", () => shuffleDaily(true, true));
+  elements.dailyShuffle.addEventListener("click", () => shuffleDaily(false, true));
   elements.resetFilters.addEventListener("click", resetFilters);
   elements.drawerClose.addEventListener("click", () => closeDrawer());
   elements.backdrop.addEventListener("click", () => closeDrawer());
@@ -787,7 +807,7 @@
   window.addEventListener("hashchange", () => {
     const hashSlug = new URLSearchParams(location.hash.slice(1)).get("city");
     if (hashSlug) {
-      openDrawer(hashSlug, { updateHash: false });
+      openDrawer(hashSlug, { updateHash: false, source: "deep_link" });
     } else {
       closeDrawer({ updateHash: false });
     }
@@ -799,6 +819,6 @@
   updateResults();
   const initialSlug = new URLSearchParams(location.hash.slice(1)).get("city");
   if (initialSlug) {
-    openDrawer(initialSlug, { updateHash: false });
+    openDrawer(initialSlug, { updateHash: false, source: "deep_link" });
   }
 })();

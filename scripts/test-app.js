@@ -100,6 +100,17 @@ assert(searchApp.searchFeaturedFoods('soup dumplings').some(food => food.slug ==
 assert(searchApp.searchFeaturedFoods('早茶').map(food => food.slug).join(',') === 'morning-tea', '饮食场景搜索失败');
 assert(searchApp.language === 'en', '首次访问未默认使用英文');
 
+const analyticsEvents = [];
+searchApp.trackEvent = (name, data) => analyticsEvents.push({ name, data });
+searchApp.searchAnalytics = { queryLength: 7, cityResults: 1, foodResults: 2, tracked: false };
+searchApp.completeSearch('city', 'wuhan');
+searchApp.completeSearch('dismissed');
+assert(analyticsEvents.length === 1, '一次搜索被重复记录');
+assert(analyticsEvents[0].name === 'Search Completed', '搜索完成事件名称不正确');
+assert(analyticsEvents[0].data.queryLength === '6-10', '搜索长度分桶不正确');
+assert(analyticsEvents[0].data.result === 'wuhan', '搜索结果标识缺失');
+assert(!Object.hasOwn(analyticsEvents[0].data, 'query'), '分析事件不应记录用户原始搜索词');
+
 const zhApp = createApp(createStorage([['foodMapLanguage', 'zh']]));
 assert(zhApp.language === 'zh', '未恢复已保存的中文偏好');
 assert(zhApp.getCityContent(zhApp.cities[0]).name === '成都', '中文城市内容读取失败');
