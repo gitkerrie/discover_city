@@ -49,7 +49,10 @@ const expectedSlugs = [
   'haikou',
   'quanzhou',
   'shenyang',
-  'taiyuan'
+  'taiyuan',
+  'xuzhou',
+  'luoyang',
+  'kaifeng'
 ];
 const allowedLicenses = new Set([
   'CC0 1.0',
@@ -66,7 +69,7 @@ function assert(condition, message) {
 
 async function main() {
   assert(Array.isArray(cities), 'foodCitiesData 必须是数组');
-  assert(cities.length === 32, `应有 32 座城市，实际为 ${cities.length}`);
+  assert(cities.length === 35, `应有 35 座城市，实际为 ${cities.length}`);
 
   const ids = new Set();
   const slugs = new Set();

@@ -639,6 +639,66 @@ const foodCitiesData = [
       { name: '羊杂割', description: '羊杂切片入热汤，胡椒、葱花和香菜提香，喝起来热烈而实在。' }
     ],
     tip: '早起尝头脑或羊杂割，中午留给刀削面；吃过油肉时别忘了让醋香做主角。'
+  },
+  {
+    id: 33,
+    slug: 'xuzhou',
+    name: '徐州',
+    province: '江苏',
+    group: '宝藏',
+    coordinates: [117.2841, 34.2058],
+    tagline: '羊汤的热气、辣汤的胡椒香和重口锅气，撑起淮海之夜。',
+    description: '徐州位于南北风味交汇处，饮食既有北方面食与羊肉的厚实，也有苏北街头小吃的灵活。一碗辣汤醒早，地锅菜以饼菜同熟聚起热闹，伏羊与烧烤则把夜晚吃得酷畅。',
+    flavorTags: ['胡椒辣香', '伏羊风俗', '锅气浓郁'],
+    heroImage: 'assets/dishes/xuzhou/meatball-hulatang.webp',
+    imageAlt: '肉丸与辣油点缀的徐州辣汤',
+    dishes: [
+      { name: '徐州辣汤', description: '鲜汤里加入面筋、肉丸等配料，胡椒的辛香醒胃又暖身。' },
+      { name: '把子肉', description: '大块五花肉以酱油慢煮至软烂，汤汁配米饭尤其饱满。' },
+      { name: '麻酱凉皮', description: '宽凉皮裹上浓厚芝麻酱，配黄瓜与辣油，香浓又爽利。' },
+      { name: '肉酱米线', description: '滑润米线浸入鲜汤，以红烧肉酱增添咸香和厚度。' }
+    ],
+    tip: '早晨先吃辣汤，中午用米线或把子肉补足体力，晚上再去感受烧烤与伏羊的热气。'
+  },
+  {
+    id: 34,
+    slug: 'luoyang',
+    name: '洛阳',
+    province: '河南',
+    group: '宝藏',
+    coordinates: [112.454, 34.6197],
+    tagline: '汤水贯穿三餐，酸辣、麦香与古都宴席在一碗中相遇。',
+    description: '洛阳人爱“喝汤”，牛羊肉汤、不翻汤和胡辣汤撑起早晨，洛阳水席则用一道道汤菜讲述古都宴饮。浆面条的微酸与锅贴的焦脆，让这座面食之城多了更鲜明的节奏。',
+    flavorTags: ['汤馆日常', '酸辣利口', '古都宴席'],
+    heroImage: 'assets/dishes/luoyang/luoyang-water-banquet.webp',
+    imageAlt: '洛阳真不同水席的汤菜宴面',
+    dishes: [
+      { name: '洛阳水席', description: '热菜多带汤水，菜品依次上桌，酸辣爽利中见古都宴席规矩。' },
+      { name: '胡辣汤', description: '浓稠汤底融合胡椒辛香、面筋和蔬菜，是洛阳早餐里的热辣一口。' },
+      { name: '小街锅贴', description: '月牙形面皮底部煎至金黄，内馅鲜香多汁，脆软相间。' },
+      { name: '浆面条', description: '发酵酸浆将面条煮得柔软，配黄豆、青豆与菜码，微酸清爽。' }
+    ],
+    tip: '汤馆多在早晨最热闹；水席菜数多，适合结伴分享，再把锅贴和浆面条留给街头小吃时间。'
+  },
+  {
+    id: 35,
+    slug: 'kaifeng',
+    name: '开封',
+    province: '河南',
+    group: '宝藏',
+    coordinates: [114.3076, 34.7973],
+    tagline: '汤包蒸气与夜市灯火交织，汴京老味在街头一直鲜活。',
+    description: '开封的味道一头连着豫菜筵席，一头连着热闹夜市。灌汤包讲究皮薄、馅鲜、汤足，桶子鸡以卤香和紧实肉质取胜，羊汤与花生糕则把咸鲜与甜香铺进一整天。',
+    flavorTags: ['汴京老味', '夜市烟火', '汤鲜卤香'],
+    heroImage: 'assets/dishes/kaifeng/kaifeng-soup-buns.webp',
+    imageAlt: '蒸笼中褶口细密的开封灌汤包',
+    dishes: [
+      { name: '开封灌汤包', description: '薄皮提褶包住鲜肉和汤汁，先开口吸汤，再蘸陈醋品尝。' },
+      { name: '桶子鸡', description: '整鸡经老卤煮制后色泽金黄，皮脆肉紧，咸香醇厚。' },
+      { name: '羊肉汤', description: '羊肉和羊骨熝出热汤，加葱花、香菜与胡椒，鲜浓暖胃。' },
+      { name: '花生糕', description: '花生炒香后碾碎与糖反复锤打成型，口感酥松，香甜不腻。' }
+    ],
+    tip: '灌汤包要趁热慢吃；白天尝桶子鸡和羊汤，傍晚再转入夜市，用花生糕收尾。'
   }
 ];
 
@@ -1123,6 +1183,51 @@ const foodCitiesEnglish = {
       { name: 'Yangzage', description: 'Sliced mutton offal in hot broth gets lifted by pepper, scallion, and cilantro.' }
     ],
     tip: 'Wake early for tounao or yangzage, eat knife-cut noodles at lunch, and let vinegar lead when ordering guoyourou.'
+  },
+  xuzhou: {
+    name: 'Xuzhou',
+    province: 'Jiangsu',
+    tagline: 'Peppery soup, mutton-broth steam, and bold wok flavor power the nights of the Huaihai region.',
+    description: 'Xuzhou sits where northern and southern food traditions meet. Hearty wheat dishes and mutton share the table with flexible northern Jiangsu street food. Pepper soup wakes the morning, earthen-pot cooking brings breads and braises together, and late-night barbecue keeps the city lively.',
+    flavorTags: ['Peppery warmth', 'Fuyang mutton season', 'Bold wok flavor'],
+    imageAlt: 'Xuzhou pepper soup with meatballs and chili oil',
+    dishes: [
+      { name: 'Xuzhou Pepper Soup', description: 'A savory broth thick with gluten, meatballs, and other ingredients, sharpened by warming black pepper.' },
+      { name: 'Bazirou', description: 'Large pieces of pork belly are slowly soy-braised until tender, with rich juices made for rice.' },
+      { name: 'Sesame Liangpi', description: 'Broad cool noodles are coated in sesame paste, then brightened with cucumber and chili oil.' },
+      { name: 'Meat-Sauce Rice Noodles', description: 'Slippery rice noodles sit in savory broth under a deeply seasoned braised-meat sauce.' }
+    ],
+    tip: 'Begin with pepper soup, refuel on rice noodles or bazirou at lunch, then save the evening for barbecue and summer mutton traditions.'
+  },
+  luoyang: {
+    name: 'Luoyang',
+    province: 'Henan',
+    tagline: 'Soup runs through every meal as sour heat, wheat, and ancient banquet traditions meet.',
+    description: 'Luoyang begins the day over soup: beef, mutton, bufan, and pepper soups are all part of the morning rhythm. The celebrated Water Banquet turns soup-rich dishes into an old-capital ceremony, while tangy fermented noodles and crisp-bottomed guotie reveal the city’s everyday wheat traditions.',
+    flavorTags: ['Soup-house mornings', 'Bright sour heat', 'Ancient banquets'],
+    imageAlt: 'Soup-rich dishes at a traditional Luoyang Water Banquet',
+    dishes: [
+      { name: 'Luoyang Water Banquet', description: 'Soup-rich dishes arrive in sequence, balancing lively sour heat with the formal rhythm of an old-capital feast.' },
+      { name: 'Hulatang', description: 'A thick pepper soup with gluten and vegetables, served as a warming, spicy Luoyang breakfast.' },
+      { name: 'Xiaojie Guotie', description: 'Crescent dumplings fry to a golden base while keeping their filling juicy and their upper wrappers tender.' },
+      { name: 'Jiangmian Tiao', description: 'Noodles soften in a lightly fermented sour broth with soybeans, green peas, and chopped vegetables.' }
+    ],
+    tip: 'Visit soup shops early, share the many courses of a Water Banquet, and leave room for guotie and fermented noodles later.'
+  },
+  kaifeng: {
+    name: 'Kaifeng',
+    province: 'Henan',
+    tagline: 'Soup-bun steam meets night-market light, keeping old Bianjing flavors vividly alive.',
+    description: 'Kaifeng cooking connects formal Henan banquet traditions with one of China’s liveliest night-market cultures. Soup buns prize thin wrappers and abundant broth, tongzi chicken brings aromatic master-stock depth, while mutton soup and peanut candy carry the day from savory warmth to a crisp sweet finish.',
+    flavorTags: ['Old Bianjing flavors', 'Night-market energy', 'Broth and master stock'],
+    imageAlt: 'Pleated Kaifeng soup buns arranged in a bamboo steamer',
+    dishes: [
+      { name: 'Kaifeng Soup Buns', description: 'Fine pleats hold pork and hot broth inside a thin wrapper; open, sip, then season with vinegar.' },
+      { name: 'Tongzi Chicken', description: 'A whole chicken is cooked in aromatic master stock until golden, firm-textured, and deeply savory.' },
+      { name: 'Mutton Soup', description: 'Mutton and bones simmer into a warming broth lifted with scallion, cilantro, and pepper.' },
+      { name: 'Peanut Candy', description: 'Roasted peanuts and sugar are pounded and shaped into a crisp, fragrant sweet that finishes cleanly.' }
+    ],
+    tip: 'Take soup buns slowly while hot, try tongzi chicken and mutton soup by day, then finish a night-market walk with peanut candy.'
   }
 };
 
@@ -1349,6 +1454,24 @@ const foodDishMedia = {
     commonsDish('knife-cut-noodles', '浇头覆盖的山西刀削面', 'Shanxi knife-cut noodles topped with savory sauce', 'N509FZ', 'CC BY-SA 4.0', 'Daoxiaomian at Beixinqiao, Beijing (20201011183536).jpg', 'https://upload.wikimedia.org/wikipedia/commons/9/91/Daoxiaomian_at_Beixinqiao%2C_Beijing_%2820201011183536%29.jpg'),
     commonsDish('guoyourou', '木耳和蔬菜同炒的山西过油肉', 'Shanxi guoyourou stir-fried with wood ear and vegetables', 'Liuxingy', 'CC BY-SA 4.0', '榆次 全盛园之胡师傅过油肉.jpg', 'https://upload.wikimedia.org/wikipedia/commons/4/4a/%E6%A6%86%E6%AC%A1_%E5%85%A8%E7%9B%9B%E5%9B%AD%E4%B9%8B%E8%83%A1%E5%B8%88%E5%82%85%E8%BF%87%E6%B2%B9%E8%82%89.jpg'),
     commonsDish('yangzage', '热汤中的山西羊杂割', 'Shanxi yangzage mutton offal served in hot broth', 'AddisWang', 'CC BY-SA 3.0', '羊杂割.JPG', 'https://upload.wikimedia.org/wikipedia/commons/c/c7/%E7%BE%8A%E6%9D%82%E5%89%B2.JPG')
+  ],
+  xuzhou: [
+    commonsDish('meatball-hulatang', '肉丸与辣油点缀的徐州辣汤', 'Xuzhou pepper soup with meatballs and chili oil', 'Liuxingy', 'CC BY-SA 4.0', '肉丸胡辣汤.jpg', 'https://upload.wikimedia.org/wikipedia/commons/6/6e/%E8%82%89%E4%B8%B8%E8%83%A1%E8%BE%A3%E6%B1%A4.jpg'),
+    commonsDish('bazirou', '白盘中叠放的酱香把子肉', 'Tender soy-braised bazirou pork stacked on a white plate', 'bryan...', 'CC BY-SA 2.0', 'Food 把子肉, Yi Yuan Peking Cuisine, The Westin Taipei, 頄園, 頄園北京料理, 六福皇宮, 台北威斯汀六福皇宮, 台北 (20222070712).jpg', 'https://upload.wikimedia.org/wikipedia/commons/1/14/Food_%E6%8A%8A%E5%AD%90%E8%82%89%2C_Yi_Yuan_Peking_Cuisine%2C_The_Westin_Taipei%2C_%E9%A0%A4%E5%9C%92%2C_%E9%A0%A4%E5%9C%92%E5%8C%97%E4%BA%AC%E6%96%99%E7%90%86%2C_%E5%85%AD%E7%A6%8F%E7%9A%87%E5%AE%AE%2C_%E5%8F%B0%E5%8C%97%E5%A8%81%E6%96%AF%E6%B1%80%E5%85%AD%E7%A6%8F%E7%9A%87%E5%AE%AE%2C_%E5%8F%B0%E5%8C%97_%2820222070712%29.jpg'),
+    commonsDish('sesame-liangpi', '芝麻酱和黄瓜丝覆盖的宽凉皮', 'Wide liangpi noodles coated with sesame paste and cucumber', 'Steetsweet', 'CC BY-SA 4.0', '麻酱凉皮.jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/a5/%E9%BA%BB%E9%85%B1%E5%87%89%E7%9A%AE.jpg'),
+    commonsDish('meat-sauce-rice-noodles', '红烧肉酱与青菜搭配的米线', 'Rice noodles in broth with braised meat sauce and greens', '茅野ふたば', 'CC BY-SA 4.0', '红烧牛腩肉酱米线（2025年6月28日）.jpg', 'https://upload.wikimedia.org/wikipedia/commons/1/14/%E7%BA%A2%E7%83%A7%E7%89%9B%E8%85%A9%E8%82%89%E9%85%B1%E7%B1%B3%E7%BA%BF%EF%BC%882025%E5%B9%B46%E6%9C%8828%E6%97%A5%EF%BC%89.jpg')
+  ],
+  luoyang: [
+    commonsDish('luoyang-water-banquet', '洛阳真不同水席的汤菜宴面', 'Soup-rich dishes at a traditional Luoyang Water Banquet', 'Aaron Zhu', 'CC BY-SA 3.0', '洛阳“真不同”水宴 - panoramio.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%B4%9B%E9%98%B3%E2%80%9C%E7%9C%9F%E4%B8%8D%E5%90%8C%E2%80%9D%E6%B0%B4%E5%AE%B4%20-%20panoramio.jpg'),
+    commonsDish('luoyang-hulatang', '面筋与蔬菜沉在浓稠的洛阳胡辣汤中', 'Thick Luoyang hulatang with gluten pieces and vegetables', 'Liuxingy', 'CC BY-SA 4.0', '河南胡辣汤.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%B2%B3%E5%8D%97%E8%83%A1%E8%BE%A3%E6%B1%A4.jpg'),
+    commonsDish('xiaojie-guotie', '煎至金黄的洛阳小街锅贴', 'Golden pan-fried guotie dumplings', 'Leiem', 'CC BY-SA 4.0', 'Jiucai guotie.jpg', 'https://upload.wikimedia.org/wikipedia/commons/9/97/Jiucai_guotie.jpg'),
+    commonsDish('jiangmian-tiao', '配豆类和菜码的洛阳浆面条', 'Luoyang fermented-broth noodles with beans and vegetables', 'Fumikas Sagisavas', 'CC0 1.0', 'Knife sliced noodles.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Knife%20sliced%20noodles.jpg')
+  ],
+  kaifeng: [
+    commonsDish('kaifeng-soup-buns', '蒸笼中褶口细密的开封灌汤包', 'Pleated Kaifeng soup buns arranged in a bamboo steamer', 'Windmemories', 'CC BY-SA 4.0', 'Steamed soup buns of Kaifeng.jpg', 'https://upload.wikimedia.org/wikipedia/commons/3/39/Steamed_soup_buns_of_Kaifeng.jpg'),
+    commonsDish('tongzi-chicken', '熟食摊上金黄的开封桶子鸡', 'Golden Kaifeng tongzi chickens displayed at a cooked-food stall', 'Windmemories', 'CC BY-SA 4.0', '20240806 Tong Zi Chicken for sale at Pang Ji.jpg', 'https://upload.wikimedia.org/wikipedia/commons/1/16/20240806_Tong_Zi_Chicken_for_sale_at_Pang_Ji.jpg'),
+    commonsDish('mutton-soup', '羊肉片、葱花和香菜浮在乳白羊汤中', 'Milky mutton soup with sliced lamb, scallions, and cilantro', 'N509FZ', 'CC BY-SA 4.0', 'Shanxian Mutton Soup in Beijing (20230224111441).jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Shanxian_Mutton_Soup_in_Beijing_%2820230224111441%29.jpg'),
+    commonsDish('peanut-candy', '木墩上锤打与整形的开封花生糕', 'Handmade Kaifeng peanut candy being pounded and shaped', 'Caitriana Nicholson', 'CC BY-SA 2.0', 'Making peanut candy 花生糕 (6237580444).jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Making_peanut_candy_%E8%8A%B1%E7%94%9F%E7%B3%95_%286237580444%29.jpg')
   ]
 };
 

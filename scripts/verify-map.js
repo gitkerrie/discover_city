@@ -10,7 +10,7 @@ const port = Number(process.env.MAP_VERIFY_PORT) || 8124;
 const baseUrl = process.env.MAP_VERIFY_URL || `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_CHANNEL || (process.platform === 'win32' ? 'msedge' : 'chrome');
 const screenshotDirectory = path.join(os.tmpdir(), 'taste-china-map-verification');
-const expectedCityCount = 32;
+const expectedCityCount = 35;
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);

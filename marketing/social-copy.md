@@ -324,6 +324,36 @@ Alt text: Taiyuan tounao soup served with pickled leeks.
 
 Hashtags: #ChinaTravel #FoodTravel #Taiyuan #TasteChina
 
+## 33. Xuzhou
+
+Xuzhou is a city to taste through Xuzhou Pepper Soup, Bazirou, Sesame Liangpi, and Meat-Sauce Rice Noodles. Peppery soup, mutton-broth steam, and bold wok flavor power the nights of the Huaihai region.
+
+Start here: https://mitaste.com/city/xuzhou/
+
+Alt text: Xuzhou pepper soup with meatballs and chili oil.
+
+Hashtags: #ChinaTravel #FoodTravel #Xuzhou #TasteChina
+
+## 34. Luoyang
+
+Luoyang is a city to taste through Luoyang Water Banquet, Hulatang, Xiaojie Guotie, and Jiangmian Tiao. Soup runs through every meal as sour heat, wheat, and ancient banquet traditions meet.
+
+Start here: https://mitaste.com/city/luoyang/
+
+Alt text: Soup-rich dishes at a traditional Luoyang Water Banquet.
+
+Hashtags: #ChinaTravel #FoodTravel #Luoyang #TasteChina
+
+## 35. Kaifeng
+
+Kaifeng is a city to taste through Kaifeng Soup Buns, Tongzi Chicken, Mutton Soup, and Peanut Candy. Soup-bun steam meets night-market light, keeping old Bianjing flavors vividly alive.
+
+Start here: https://mitaste.com/city/kaifeng/
+
+Alt text: Pleated Kaifeng soup buns arranged in a bamboo steamer.
+
+Hashtags: #ChinaTravel #FoodTravel #Kaifeng #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics
