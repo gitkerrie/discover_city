@@ -354,6 +354,26 @@ Alt text: Pleated Kaifeng soup buns arranged in a bamboo steamer.
 
 Hashtags: #ChinaTravel #FoodTravel #Kaifeng #TasteChina
 
+## 36. Hong Kong
+
+Hong Kong is a city to taste through Wonton Noodles, Pineapple Bun with Butter, Egg Waffles, and Hong Kong Milk Tea. Springy wonton noodles, silky milk tea, and warm bakery treats set the rhythm of Hong Kong.
+
+Start here: https://mitaste.com/city/hongkong/
+
+Alt text: Wonton noodles and milk tea in Sai Ying Pun, Hong Kong.
+
+Hashtags: #ChinaTravel #FoodTravel #HongKong #TasteChina
+
+## 37. Macao
+
+Macao is a city to taste through Portuguese-style Egg Tarts, Minchi, African Chicken, and Almond Cookies. Caramelized egg tarts and fragrant spices connect Macanese cooking with Chinese bakery traditions.
+
+Start here: https://mitaste.com/city/macau/
+
+Alt text: Macao Portuguese-style egg tarts with caramelized custard.
+
+Hashtags: #ChinaTravel #FoodTravel #Macao #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

@@ -81,7 +81,11 @@ async function main() {
       `
     });
 
-    for (const [selector, filename] of targets) {
+    const requestedSlugs = process.env.CARD_EXPORT_SLUGS?.split(',').filter(Boolean);
+    const exportTargets = requestedSlugs
+      ? targets.filter(([selector]) => requestedSlugs.some(slug => selector === `#card-${slug}`))
+      : targets;
+    for (const [selector, filename] of exportTargets) {
       await page.evaluate(targetSelector => {
         document.querySelectorAll('.export-target').forEach(element => element.classList.remove('export-target'));
         document.querySelector(targetSelector)?.classList.add('export-target');
@@ -129,7 +133,7 @@ async function main() {
     }
 
     if (pageErrors.length) throw new Error(`Browser errors: ${pageErrors.join('; ')}`);
-    console.log(`Exported ${targets.length} social cards to ${path.relative(root, outputDir)}.`);
+    console.log(`Exported ${exportTargets.length} social cards to ${path.relative(root, outputDir)}.`);
   } finally {
     if (browser) await browser.close();
     if (server && !server.killed) server.kill();

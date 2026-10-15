@@ -702,6 +702,37 @@ const foodCitiesData = [
   }
 ];
 
+foodCitiesData.push(
+  {
+    id: 36, slug: 'hongkong', name: '香港', province: '香港特别行政区', group: '经典',
+    coordinates: [114.1694, 22.3193],
+    tagline: '云吞面清鲜弹爽，茶餐厅的奶茶与酥香点心串起港式日常。',
+    description: '香港把粤式手艺与中西交融的茶餐厅文化放进同一张餐桌。云吞面讲究汤鲜、面爽与虾肉弹嫩，菠萝油和奶茶组成午后搭档，街头鸡蛋仔则以刚出炉的蛋香留住脚步。',
+    flavorTags: ['茶餐厅文化', '清鲜面食', '街头蛋香'],
+    dishes: [
+      { name: '云吞面', description: '细蛋面爽弹，鲜虾猪肉云吞饱满，配清鲜汤底，趁热吃最显口感。' },
+      { name: '菠萝油', description: '菠萝包并不含菠萝，酥甜裂纹外皮包着松软面包，夹冷牛油后咸甜交融。' },
+      { name: '鸡蛋仔', description: '蛋浆在蜂窝模具中烤成连串小球，边缘轻脆，内里柔软，出炉时蛋香最浓。' },
+      { name: '港式奶茶', description: '浓红茶经冲泡过滤后加入淡奶，茶味醇厚、口感顺滑，冷热各有风味。' }
+    ],
+    tip: '上午吃云吞面，下午把菠萝油与奶茶一起点；鸡蛋仔尽量选现烤现吃，避免焖软。'
+  },
+  {
+    id: 37, slug: 'macau', name: '澳门', province: '澳门特别行政区', group: '宝藏',
+    coordinates: [113.5439, 22.1987],
+    tagline: '葡挞焦香、香料浓郁，土生葡菜与中式饼食在小城交汇。',
+    description: '澳门的餐桌连接粤式风味、葡式烘焙与土生葡人饮食传统。葡式蛋挞以焦斑和层层酥皮见长，免治把肉末与薯粒炒成家常滋味，非洲鸡展现复合香料的热烈，杏仁饼则留下酥松的手信记忆。',
+    flavorTags: ['土生葡菜', '香料交融', '酥香饼食'],
+    dishes: [
+      { name: '葡式蛋挞', description: '层层酥皮托住柔滑蛋奶馅，高温烘烤形成焦斑，温热时外脆内嫩。' },
+      { name: '免治', description: '肉末与薯粒、洋葱炒出咸香，常配米饭和煎蛋，是土生葡菜中的家常代表。' },
+      { name: '非洲鸡', description: '鸡肉搭配辣椒、蒜与多种香料调成的浓汁，香气丰厚，各家配方略有不同。' },
+      { name: '杏仁饼', description: '绿豆粉与糖、油脂制成酥松饼身，加入杏仁增添坚果香，轻咬便散开。' }
+    ],
+    tip: '蛋挞趁温热品尝，正餐留给免治或非洲鸡；杏仁饼可先试吃，再按口感挑选手信。'
+  }
+);
+
 // English copy is keyed by the stable city slug so favorites and deep links stay language-neutral.
 const foodCitiesEnglish = {
   chengdu: {
@@ -1231,6 +1262,35 @@ const foodCitiesEnglish = {
   }
 };
 
+Object.assign(foodCitiesEnglish, {
+  hongkong: {
+    name: 'Hong Kong', province: 'Hong Kong SAR',
+    tagline: 'Springy wonton noodles, silky milk tea, and warm bakery treats set the rhythm of Hong Kong.',
+    description: 'Hong Kong brings Cantonese craft and the East-meets-West culture of cha chaan teng cafes to one table. Wonton noodles balance clear broth with springy noodles and shrimp fillings, pineapple buns accompany afternoon milk tea, and freshly baked egg waffles perfume the streets.',
+    flavorTags: ['Cha chaan teng culture', 'Fresh noodle soups', 'Street-side baking'],
+    dishes: [
+      { name: 'Wonton Noodles', description: 'Springy fine egg noodles and plump shrimp-and-pork wontons meet a light, savory broth.' },
+      { name: 'Pineapple Bun with Butter', description: 'A soft bun with a crackly sweet crust holds a slab of cold butter; despite its name, it contains no pineapple.' },
+      { name: 'Egg Waffles', description: 'Egg batter bakes into connected little bubbles with crisp edges and soft centers, best eaten straight from the iron.' },
+      { name: 'Hong Kong Milk Tea', description: 'Strong filtered black tea blended with evaporated milk makes a smooth, full-bodied drink, served hot or iced.' }
+    ],
+    tip: 'Try wonton noodles in the morning, pair a buttered pineapple bun with afternoon milk tea, and eat egg waffles freshly baked.'
+  },
+  macau: {
+    name: 'Macao', province: 'Macao SAR',
+    tagline: 'Caramelized egg tarts and fragrant spices connect Macanese cooking with Chinese bakery traditions.',
+    description: 'Macao brings together Cantonese flavors, Portuguese-inspired baking, and Macanese home cooking. Egg tarts offer blistered custard and flaky pastry, minchi turns minced meat and potatoes into comfort food, African chicken layers aromatic spices, and almond cookies provide a crumbly sweet finish.',
+    flavorTags: ['Macanese cooking', 'Layered spices', 'Crumbly bakery treats'],
+    dishes: [
+      { name: 'Portuguese-style Egg Tarts', description: 'Flaky pastry cradles silky custard with caramelized spots, especially delicate while still warm.' },
+      { name: 'Minchi', description: 'Minced meat, diced potatoes, and onion are cooked into a savory Macanese staple, often served with rice and a fried egg.' },
+      { name: 'African Chicken', description: 'Chicken meets a rich sauce of chilies, garlic, and aromatic spices, with recipes varying between kitchens.' },
+      { name: 'Almond Cookies', description: 'Mung bean flour forms a crumbly cookie enriched with almonds for a fragrant, nutty bite.' }
+    ],
+    tip: 'Eat egg tarts warm, save a proper meal for minchi or African chicken, and sample almond cookies before choosing a souvenir box.'
+  }
+});
+
 const dishLicenseUrls = {
   'CC0 1.0': 'https://creativecommons.org/publicdomain/zero/1.0/',
   'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
@@ -1474,6 +1534,21 @@ const foodDishMedia = {
     commonsDish('peanut-candy', '木墩上锤打与整形的开封花生糕', 'Handmade Kaifeng peanut candy being pounded and shaped', 'Caitriana Nicholson', 'CC BY-SA 2.0', 'Making peanut candy 花生糕 (6237580444).jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Making_peanut_candy_%E8%8A%B1%E7%94%9F%E7%B3%95_%286237580444%29.jpg')
   ]
 };
+
+Object.assign(foodDishMedia, {
+  hongkong: [
+    commonsDish('wonton-noodles', '香港西营盘的云吞面与奶茶', 'Wonton noodles and milk tea in Sai Ying Pun, Hong Kong', 'Yaoungendoack', 'CC BY-SA 3.0', 'HK Sai Ying Pun Milk tea 02 Wonton noodle July-2012.JPG', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/HK_Sai_Ying_Pun_Milk_tea_02_Wonton_noodle_July-2012.JPG'),
+    commonsDish('pineapple-bun', '夹着牛油的港式菠萝油', 'Hong Kong pineapple bun filled with butter', 'Dennis Wong', 'CC BY 2.0', 'Pineapple bun.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Pineapple_bun.jpg'),
+    commonsDish('egg-waffles', '纸袋中刚烤好的香港鸡蛋仔', 'Hong Kong egg waffles served in a paper bag', 'Sarah Stierch', 'CC BY-SA 3.0', 'Egg waffle - sarah stierch.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Egg_waffle_-_sarah_stierch.jpg'),
+    commonsDish('milk-tea', '杯中醇厚顺滑的港式奶茶', 'A cup of Hong Kong-style milk tea', 'WiNG', 'CC BY-SA 3.0', 'Hong Kong-style Milk Tea.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Hong_Kong-style_Milk_Tea.jpg')
+  ],
+  macau: [
+    commonsDish('portuguese-egg-tarts', '表面烤出焦斑的澳门葡式蛋挞', 'Macao Portuguese-style egg tarts with caramelized custard', 'Tom Liu', 'CC BY-SA 4.0', 'Macau Eggtart.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Macau_Eggtart.jpg'),
+    commonsDish('minchi', '澳门土生葡菜免治', 'Minchi, a Macanese minced-meat dish', 'Adriao', 'CC BY 3.0', 'Minchi.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Minchi.jpg'),
+    commonsDish('african-chicken', '澳门餐厅供应的非洲鸡', 'African chicken served in Macao', 'Wishds', 'CC BY-SA 3.0', 'African Chicken in Macau!.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Chicken_in_Macau%21.jpg'),
+    commonsDish('almond-cookies', '澳门饼店里的杏仁饼', 'Almond cookies at a bakery in Macao', 'Kofdbelum Wimgari', 'CC BY-SA 4.0', 'MC 澳門 Macau 氹仔 Taipa 官也街 Rua do Cunha 鉅記餅家 Koi Kei Bakery food shop product 杏仁餅 Almond cookies January 2019 SSG try to eat trial eating experience 02.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('MC 澳門 Macau 氹仔 Taipa 官也街 Rua do Cunha 鉅記餅家 Koi Kei Bakery food shop product 杏仁餅 Almond cookies January 2019 SSG try to eat trial eating experience 02.jpg'))
+  ]
+});
 
 foodCitiesData.forEach(city => {
   const media = foodDishMedia[city.slug];
