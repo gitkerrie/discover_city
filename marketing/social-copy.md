@@ -374,6 +374,36 @@ Alt text: Macao Portuguese-style egg tarts with caramelized custard.
 
 Hashtags: #ChinaTravel #FoodTravel #Macao #TasteChina
 
+## 38. Jiujiang
+
+Jiujiang is a city to taste through Jiujiang Fried Rice Noodles, Steamed Pork with Rice Powder, Beer-Braised Duck, and Stir-Fried Beef. Wok-fragrant rice noodles and bold Jiangxi cooking bring everyday warmth to the foot of Mount Lu.
+
+Start here: https://mitaste.com/city/jiujiang/
+
+Alt text: Jiujiang-style fried rice noodles photographed in Jiujiang.
+
+Hashtags: #ChinaTravel #FoodTravel #Jiujiang #TasteChina
+
+## 39. Lijiang
+
+Lijiang is a city to taste through Lijiang Baba, Chickpea Jelly, Mosuo Rice-Cake Chicken, and Rose Pastries. Crisp Naxi flatbreads and refreshing chickpea jelly set a delicious pace through the highland old town.
+
+Start here: https://mitaste.com/city/lijiang/
+
+Alt text: Lijiang baba flatbread with spring onion and egg.
+
+Hashtags: #ChinaTravel #FoodTravel #Lijiang #TasteChina
+
+## 40. Dali
+
+Dali is a city to taste through Grilled Rushan Cheese, Xizhou Baba, Weishan Pork Ersi, and Stir-Fried Aquatic Greens. Toasted milk fans, crisp Xizhou flatbreads, and warming rice noodles reveal the flavors of the Cangshan-Erhai region.
+
+Start here: https://mitaste.com/city/dali/
+
+Alt text: Dali rushan cheese roasting over charcoal with sugar.
+
+Hashtags: #ChinaTravel #FoodTravel #Dali #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

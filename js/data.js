@@ -733,6 +733,63 @@ foodCitiesData.push(
   }
 );
 
+foodCitiesData.push(
+  {
+    id: 38,
+    slug: 'jiujiang',
+    name: '九江',
+    province: '江西',
+    group: '宝藏',
+    coordinates: [116.0019, 29.7051],
+    tagline: '江湖之间，炒粉的锅气与赣菜的鲜辣，接上庐山脚下的烟火日常。',
+    description: '九江北临长江、邻近鄱阳湖，餐桌兼有水乡鲜味与赣菜的浓香。炒粉是认识城市日常的入口，粉蒸肉、啤酒鸭和小炒牛肉展现江西家常馆子的蒸、焖与快炒；萝卜饼、茶饼和修水哨子则值得在街巷与周边县市继续寻找。',
+    flavorTags: ['赣北烟火', '鲜辣锅气', '米食日常'],
+    dishes: [
+      { name: '九江炒粉', description: '米粉与蔬菜、肉丝等配料大火快炒，根根裹上酱香，爽滑中带着锅气。' },
+      { name: '粉蒸肉', description: '肉片裹上调味米粉蒸至软糯，米香吸收肉汁，是当地也常见的赣菜家常味。' },
+      { name: '啤酒鸭', description: '鸭块以啤酒和香料焖烧入味，酱汁浓香，常用辣椒增添鲜辣层次。' },
+      { name: '小炒牛肉', description: '牛肉切薄后与辣椒、蒜等快速翻炒，口感鲜嫩，体现江西家常小炒的利落。' }
+    ],
+    tip: '早餐或夜宵先尝炒粉，正餐点几道赣菜分享；另留一段老城散步时间，寻找萝卜饼与茶饼。'
+  },
+  {
+    id: 39,
+    slug: 'lijiang',
+    name: '丽江',
+    province: '云南',
+    group: '宝藏',
+    coordinates: [100.2253, 26.8721],
+    tagline: '纳西粑粑的酥香、鸡豆凉粉的清爽，在高原古城里交替登场。',
+    description: '丽江饮食以纳西风味为线索，也连接宁蒗、泸沽湖一带的摩梭餐桌。丽江粑粑酥香扎实，鸡豆凉粉冷热皆宜，饵块与鸡肉搭配出米香浓郁的地方菜，玫瑰鲜花饼则带来云南烘焙的甜口。腊排骨也是继续探索当地餐馆的好方向。',
+    flavorTags: ['纳西风味', '豆香米香', '高原古城'],
+    dishes: [
+      { name: '丽江粑粑', description: '面团抹油后反复折叠烙熟，有甜咸不同口味，外层酥香，内里柔韧。' },
+      { name: '鸡豆凉粉', description: '鸡豆制成细腻凉粉，可凉拌也可煎热，配辣椒、醋和蒜汁，豆香与酸辣相衬。' },
+      { name: '摩梭饵块鸡', description: '宁蒗、泸沽湖一带的地方风味，软韧饵块与鸡肉同烹，吸收汤汁与肉香。' },
+      { name: '鲜花饼', description: '酥皮包入可食用玫瑰制成的甜馅，是在丽江也常见的云南点心。' }
+    ],
+    tip: '粑粑与凉粉适合边逛边少量品尝；饵块鸡可留给多人正餐，去泸沽湖时再深入体验摩梭风味。'
+  },
+  {
+    id: 40,
+    slug: 'dali',
+    name: '大理',
+    province: '云南',
+    group: '宝藏',
+    coordinates: [100.1653, 25.6969],
+    tagline: '乳扇奶香、喜洲粑粑焦香与一碗饵丝，铺开苍洱之间的白族滋味。',
+    description: '大理的风味从白族乳食与米面点心展开。乳扇烤热后奶香浓郁，喜洲粑粑有甜咸两种性格，巍山的火巴肉饵丝将软烂猪肉与米食接在一起，清炒海菜则呈现当地餐桌清鲜的一面。可以沿大理古城、喜洲和巍山分段认识这些味道。',
+    flavorTags: ['白族乳食', '苍洱清鲜', '古镇米面'],
+    dishes: [
+      { name: '烤乳扇', description: '薄片乳扇烤软后卷起，可配玫瑰糖等甜料，奶香与微酸交织。' },
+      { name: '喜洲粑粑', description: '圆形面饼烤出焦香外壳，咸口常配肉末葱花，甜口常用糖与玫瑰馅。' },
+      { name: '巍山火巴肉饵丝', description: '猪肉慢煮至酥软，配细软饵丝与肉汤，再用葱花、腌菜等提味。' },
+      { name: '清炒海菜', description: '当地也称“水性杨花”的海菜，烹熟后柔嫩清鲜，是白族餐桌的一道时蔬。' }
+    ],
+    tip: '乳扇和粑粑趁热吃；喜洲、巍山各有地方口味，分开安排更从容，海菜按当季供应点选。'
+  }
+);
+
 // English copy is keyed by the stable city slug so favorites and deep links stay language-neutral.
 const foodCitiesEnglish = {
   chengdu: {
@@ -1291,9 +1348,55 @@ Object.assign(foodCitiesEnglish, {
   }
 });
 
+Object.assign(foodCitiesEnglish, {
+  jiujiang: {
+    name: 'Jiujiang',
+    province: 'Jiangxi',
+    tagline: 'Wok-fragrant rice noodles and bold Jiangxi cooking bring everyday warmth to the foot of Mount Lu.',
+    description: 'Jiujiang lies beside the Yangtze and near Poyang Lake, bringing freshwater traditions together with aromatic Jiangxi cooking. Fried rice noodles introduce the daily rhythm, while rice-powder pork, beer-braised duck, and quick-fried beef show the regional restaurant repertoire. Seek out radish pastries, tea cakes, and Xiushui shaozi for more local discoveries.',
+    flavorTags: ['Northern Jiangxi flavor', 'Fresh chili and wok heat', 'Everyday rice noodles'],
+    dishes: [
+      { name: 'Jiujiang Fried Rice Noodles', description: 'Rice noodles meet vegetables, shredded meat, and soy seasoning over fierce heat for a springy, fragrant plate.' },
+      { name: 'Steamed Pork with Rice Powder', description: 'Seasoned rice powder coats pork slices and absorbs their juices as they steam into a tender Jiangxi comfort dish.' },
+      { name: 'Beer-Braised Duck', description: 'Duck slowly cooks with beer and aromatics into a savory sauce, often lifted with fresh chili.' },
+      { name: 'Stir-Fried Beef', description: 'Thin beef slices are quickly tossed with chilies and garlic, a lively example of Jiangxi home-style cooking.' }
+    ],
+    tip: 'Begin with fried rice noodles, share Jiangxi dishes at a proper meal, and leave an old-town walk for radish pastries and tea cakes.'
+  },
+  lijiang: {
+    name: 'Lijiang',
+    province: 'Yunnan',
+    tagline: 'Crisp Naxi flatbreads and refreshing chickpea jelly set a delicious pace through the highland old town.',
+    description: 'Lijiang connects Naxi food traditions with the Mosuo tables of Ninglang and Lugu Lake. Layered baba flatbreads contrast with chickpea jelly served cool or warm; rice cakes cooked with chicken provide a hearty regional meal, while rose pastries bring a sweet Yunnan finish. Cured pork ribs offer another direction for exploring local restaurants.',
+    flavorTags: ['Naxi traditions', 'Beans and rice cakes', 'Highland old town'],
+    dishes: [
+      { name: 'Lijiang Baba', description: 'Oiled dough is folded and cooked into a layered flatbread, with sweet or savory versions and a crisp, fragrant surface.' },
+      { name: 'Chickpea Jelly', description: 'Fine-textured chickpea jelly is served chilled or pan-fried with chili, vinegar, and garlic.' },
+      { name: 'Mosuo Rice-Cake Chicken', description: 'A Ninglang and Lugu Lake regional dish pairing chicken with soft, chewy erkuai rice cakes that absorb the cooking juices.' },
+      { name: 'Rose Pastries', description: 'Flaky pastry wraps a sweet edible-rose filling in a Yunnan bakery favorite also found throughout Lijiang.' }
+    ],
+    tip: 'Sample flatbreads and jelly in small portions, share rice-cake chicken at a proper meal, and explore more Mosuo flavors around Lugu Lake.'
+  },
+  dali: {
+    name: 'Dali',
+    province: 'Yunnan',
+    tagline: 'Toasted milk fans, crisp Xizhou flatbreads, and warming rice noodles reveal the flavors of the Cangshan-Erhai region.',
+    description: 'Dali food unfolds through Bai dairy traditions and rice-and-wheat snacks. Rushan cheese turns fragrant over heat, Xizhou baba comes sweet or savory, Weishan pork rice noodles marry tender meat with a soft rice base, and cooked aquatic greens reveal a lighter side of the table. Explore these tastes across Dali Old Town, Xizhou, and Weishan.',
+    flavorTags: ['Bai dairy traditions', 'Fresh lake-region greens', 'Old-town rice and wheat'],
+    dishes: [
+      { name: 'Grilled Rushan Cheese', description: 'Thin sheets of milk cheese soften over heat and roll around sweet fillings such as rose syrup, with a gently tangy dairy aroma.' },
+      { name: 'Xizhou Baba', description: 'A round flatbread with a browned crust, filled with pork and scallions or a sweet sugar-and-rose mixture.' },
+      { name: 'Weishan Pork Ersi', description: 'Slow-cooked pork tops soft rice-cake noodles in meat broth, brightened with scallions and pickled vegetables.' },
+      { name: 'Stir-Fried Aquatic Greens', description: 'Locally called shuixingyanghua, these tender cooked greens are a seasonal vegetable in Bai cuisine.' }
+    ],
+    tip: 'Eat cheese and flatbreads hot, give Xizhou and Weishan separate stops, and order aquatic greens when they are in season.'
+  }
+});
+
 const dishLicenseUrls = {
   'CC0 1.0': 'https://creativecommons.org/publicdomain/zero/1.0/',
   'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
+  'CC BY 2.5': 'https://creativecommons.org/licenses/by/2.5/',
   'CC BY 3.0': 'https://creativecommons.org/licenses/by/3.0/',
   'CC BY-SA 2.0': 'https://creativecommons.org/licenses/by-sa/2.0/',
   'CC BY-SA 3.0': 'https://creativecommons.org/licenses/by-sa/3.0/',
@@ -1547,6 +1650,27 @@ Object.assign(foodDishMedia, {
     commonsDish('minchi', '澳门土生葡菜免治', 'Minchi, a Macanese minced-meat dish', 'Adriao', 'CC BY 3.0', 'Minchi.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Minchi.jpg'),
     commonsDish('african-chicken', '澳门餐厅供应的非洲鸡', 'African chicken served in Macao', 'Wishds', 'CC BY-SA 3.0', 'African Chicken in Macau!.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Chicken_in_Macau%21.jpg'),
     commonsDish('almond-cookies', '澳门饼店里的杏仁饼', 'Almond cookies at a bakery in Macao', 'Kofdbelum Wimgari', 'CC BY-SA 4.0', 'MC 澳門 Macau 氹仔 Taipa 官也街 Rua do Cunha 鉅記餅家 Koi Kei Bakery food shop product 杏仁餅 Almond cookies January 2019 SSG try to eat trial eating experience 02.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('MC 澳門 Macau 氹仔 Taipa 官也街 Rua do Cunha 鉅記餅家 Koi Kei Bakery food shop product 杏仁餅 Almond cookies January 2019 SSG try to eat trial eating experience 02.jpg'))
+  ]
+});
+
+Object.assign(foodDishMedia, {
+  jiujiang: [
+    commonsDish('fried-rice-noodles', '九江酒店供应的当地炒米粉', 'Jiujiang-style fried rice noodles photographed in Jiujiang', 'N509FZ', 'CC BY-SA 4.0', 'Fried rice noodles at a hotel in Jiujiang (20170118082245).jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('Fried rice noodles at a hotel in Jiujiang (20170118082245).jpg')),
+    commonsDish('rice-powder-pork', '米粉包裹蒸熟的粉蒸肉（菜品示意）', 'Steamed pork with rice powder, representative dish photograph', 'Ruocaled', 'CC BY 2.0', '粉蒸肉.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/05/%E7%B2%89%E8%92%B8%E8%82%89.jpg'),
+    commonsDish('beer-braised-duck', '赣菜啤酒鸭（南昌拍摄的同菜品示意）', 'Jiangxi beer-braised duck, representative photograph taken in Nanchang', 'Sherbet', 'CC BY 2.5', 'Stewed Duck in Beer, Jiangxi cuisine.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('Stewed Duck in Beer, Jiangxi cuisine.jpg')),
+    commonsDish('stir-fried-beef', '赣菜小炒牛肉（南昌拍摄的同菜品示意）', 'Jiangxi stir-fried beef, representative photograph taken in Nanchang', 'Sherbet', 'CC BY 2.5', 'Stir-fried yellow beef, Jiangxi cuisine.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('Stir-fried yellow beef, Jiangxi cuisine.jpg'))
+  ],
+  lijiang: [
+    commonsDish('lijiang-baba', '丽江街头供应的葱花鸡蛋粑粑', 'Lijiang baba flatbread with spring onion and egg', 'Alpha', 'CC BY-SA 2.0', '丽江粑粑 Lijiang Ba Ba Bread with spring onion and egg - street vendor CNY4.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('丽江粑粑 Lijiang Ba Ba Bread with spring onion and egg - street vendor CNY4.jpg')),
+    commonsDish('chickpea-jelly', '丽江鸡豆凉粉', 'Lijiang chickpea jelly with seasonings', 'Kent Wang', 'CC BY-SA 2.0', '丽江鸡豌豆凉粉 - Chicken pea jelly.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('丽江鸡豌豆凉粉 - Chicken pea jelly.jpg')),
+    commonsDish('mosuo-rice-cake-chicken', '宁蒗餐馆中的摩梭饵块鸡', 'Mosuo rice-cake chicken at a restaurant in Ninglang', 'N509FZ', 'CC BY-SA 4.0', 'Mosuo Erkuai Chicken at Luguyao Restaurant, Ninglang (20230930185158).jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('Mosuo Erkuai Chicken at Luguyao Restaurant, Ninglang (20230930185158).jpg')),
+    commonsDish('rose-pastry', '露出玫瑰花馅的云南鲜花饼（菜品示意）', 'Yunnan rose pastries showing their filling, representative dish photograph', 'Hyuki', 'CC0 1.0', '云南玫瑰鲜花饼-2164122.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/cb/%E4%BA%91%E5%8D%97%E7%8E%AB%E7%91%B0%E9%B2%9C%E8%8A%B1%E9%A5%BC-2164122.jpg')
+  ],
+  dali: [
+    { ...commonsDish('grilled-rushan', '大理炭火上烘烤并加糖的乳扇', 'Dali rushan cheese roasting over charcoal with sugar', 'rduta', 'CC BY 2.0', 'Dali Rushan.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dali_Rushan.jpg'), cropPosition: 'south' },
+    commonsDish('xizhou-baba', '大理喜洲出售的咸味粑粑', 'Savory Xizhou baba flatbread sold in Dali', 'Mx. Granger', 'CC0 1.0', 'Xizhou baba.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Xizhou_baba.jpg'),
+    commonsDish('weishan-pork-ersi', '配软烂猪肉与葱花的巍山火巴肉饵丝', 'Weishan ersi rice noodles with tender pork and scallions', '瑞丽江的河水', 'CC BY-SA 4.0', '巍山耙肉饵丝.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('巍山耙肉饵丝.jpg')),
+    commonsDish('aquatic-greens', '大理餐馆供应的白族海菜', 'Cooked aquatic greens served at a restaurant in Dali', 'Mx. Granger', 'CC0 1.0', '水性杨花.jpg', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent('水性杨花.jpg'))
   ]
 });
 

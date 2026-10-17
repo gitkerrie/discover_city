@@ -742,6 +742,14 @@ class FoodMapApp {
       ].join(' ').toLocaleLowerCase();
 
       return haystack.includes(term);
+    }).sort((left, right) => {
+      const nameRank = city => {
+        const names = [city.name, city.slug, this.getCityContent(city, 'en').name]
+          .map(name => name.toLocaleLowerCase());
+        if (names.includes(term)) return 0;
+        return names.some(name => name.startsWith(term)) ? 1 : 2;
+      };
+      return nameRank(left) - nameRank(right);
     });
   }
 

@@ -77,11 +77,11 @@ function download(url) {
   return process.platform === 'win32' ? downloadWithPowerShell(url) : downloadWithFetch(url);
 }
 
-async function encodeImage(input) {
+async function encodeImage(input, cropPosition = 'attention') {
   for (const quality of [80, 76, 72, 68, 64, 60, 56, 52, 48, 44, 40, 36, 32, 28]) {
     const output = await sharp(input)
       .rotate()
-      .resize(1200, 900, { fit: 'cover', position: 'attention' })
+      .resize(1200, 900, { fit: 'cover', position: cropPosition })
       .webp({ quality, effort: 6 })
       .toBuffer();
 
@@ -102,7 +102,7 @@ async function prepare(item) {
     }
   }
   const downloaded = await download(item.originalUrl);
-  const encoded = await encodeImage(downloaded);
+  const encoded = await encodeImage(downloaded, item.cropPosition);
   fs.writeFileSync(outputPath, encoded);
   return `${item.outputPath} (${Math.round(encoded.length / 1024)} KB)`;
 }
