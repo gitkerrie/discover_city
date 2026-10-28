@@ -164,3 +164,15 @@
 | 大理 | 喜洲粑粑 | Xizhou Baba | Mx. Granger | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Xizhou%20baba.jpg) |
 | 大理 | 巍山火巴肉饵丝 | Weishan Pork Ersi | 瑞丽江的河水 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:%E5%B7%8D%E5%B1%B1%E8%80%99%E8%82%89%E9%A5%B5%E4%B8%9D.jpg) |
 | 大理 | 清炒海菜 | Stir-Fried Aquatic Greens | Mx. Granger | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:%E6%B0%B4%E6%80%A7%E6%9D%A8%E8%8A%B1.jpg) |
+| 常州 | 常州大麻糕 | Changzhou Sesame Cakes | Vesekskiy | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Changzhou%20sesame%20cake%2002.jpg) |
+| 常州 | 豆斋饼 | Douzhai Soybean Cakes | François Nguyen | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Douzhaibing.jpg) |
+| 常州 | 横山桥蜜汁豆腐 | Hengshanqiao Sweet-Marinated Tofu | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Hengshanqiao%20sweet%20marinated%20tofu.jpg) |
+| 常州 | 天宁寺素面 | Tianning Temple Vegetarian Noodles | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Tianning%20Temple%20assorted%20vegetarian%20noodles.jpg) |
+| 唐山 | 煨肘子 | Slow-Braised Pork Knuckle | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Braised%20pork%20knuckles.jpg) |
+| 唐山 | 糖炒栗子 | Sugar-Roasted Chestnuts | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Sugar-roasted%20chestnuts%20(1).jpg) |
+| 唐山 | 清蒸皮皮虾 | Steamed Mantis Shrimp | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Steamed%20mantis%20shrimp.jpg) |
+| 唐山 | 清煮海蟹 | Boiled Sea Crab | Jason M. C., Han | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Boiled%20crabs%20in%20a%20Earlier%20Autumn%20Dish.jpg) |
+| 大连 | 大连焖子 | Dalian Menzi | JesseW900 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Dalian%20Menzi.JPG) |
+| 大连 | 咸鱼饼子 | Salted Fish with Corn Cakes | JesseW900 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Salted%20fish%20Dalian.JPG) |
+| 大连 | 清煮海蟹 | Boiled Sea Crab | Jason M. C., Han | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Boiled%20crabs%20in%20a%20Earlier%20Autumn%20Dish.jpg) |
+| 大连 | 家常水饺 | Homestyle Dumplings | CEphoto, Uwe Aranas | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | [查看来源](https://commons.wikimedia.org/wiki/File:Dalian%20Liaoning%20China%20Homemade-Jiaotze-01.jpg) |

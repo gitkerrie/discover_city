@@ -1674,6 +1674,126 @@ Object.assign(foodDishMedia, {
   ]
 });
 
+foodCitiesData.push(
+  {
+    id: 41,
+    slug: 'changzhou',
+    name: '常州',
+    province: '江苏',
+    group: '宝藏',
+    coordinates: [119.9741, 31.8112],
+    tagline: '大麻糕的芝麻香与一碗素面，串起运河龙城的早餐日常。',
+    description: '常州的饮食藏在面馆、点心铺与乡镇豆制品里。大麻糕烤出层层酥香，豆斋饼把豆渣变成朴素小点，横山桥蜜汁豆腐带来甜咸滋味，天宁寺素面则以蔬菜浇头与热汤呈现清爽的一餐。继续探访老店，还能遇到豆腐汤、银丝面和加蟹小笼包。',
+    flavorTags: ['运河点心', '豆香酥香', '江南鲜甜'],
+    dishes: [
+      { name: '常州大麻糕', description: '椭圆面饼覆满芝麻，烤出酥脆层次，有甜咸不同口味，适合配热汤或粥。' },
+      { name: '豆斋饼', description: '也称豆渣饼，以豆渣等制成小饼，豆香质朴，是常州地方小吃的一种。' },
+      { name: '横山桥蜜汁豆腐', description: '豆腐经调味卤制，甜咸酱汁包裹表面，既能佐餐，也可作小菜。' },
+      { name: '天宁寺素面', description: '细面配蔬菜等素浇头与热汤，清鲜不腻，是游览天宁寺一带时可体验的面食。' }
+    ],
+    tip: '早餐先尝热麻糕，再走进面馆；豆制品与点心可少量分享，留胃口给豆腐汤和当地小笼。'
+  },
+  {
+    id: 42,
+    slug: 'tangshan',
+    name: '唐山',
+    province: '河北',
+    group: '宝藏',
+    coordinates: [118.1802, 39.6309],
+    tagline: '煨肘子的醇厚、板栗的甜香与渤海海鲜，展现冀东山海之间的滋味。',
+    description: '唐山风味连接燕山与渤海：煨肘子以慢火见功，迁西板栗带来山地物产的甜香，乐亭和曹妃甸沿海的鱼虾蟹贝则讲究时令与鲜度。本页从肘子、糖炒栗子和两种清鲜海味展开；棋子烧饼、蜂蜜麻糖与饹馇也是逛老街时值得继续寻找的标志性小吃。',
+    flavorTags: ['冀东浓香', '燕山栗香', '渤海鲜味'],
+    dishes: [
+      { name: '煨肘子', description: '肘子以调味汤汁慢火煨至皮糯肉软，酱香醇厚，是唐山传统餐桌的一道大菜。' },
+      { name: '糖炒栗子', description: '板栗炒熟后壳亮仁糯，甜香温暖；迁西板栗是探访唐山山地物产的好线索。' },
+      { name: '清蒸皮皮虾', description: '皮皮虾是乐亭等沿海地区的海产之一，清蒸保留鲜甜，适合按当季供应点选。' },
+      { name: '清煮海蟹', description: '海蟹简单煮熟后拆壳取肉，配姜醋品尝，呈现冀东沿海餐桌的清鲜一面。' }
+    ],
+    tip: '市区尝传统大菜，沿海按季节选海鲜；点单前确认品种、重量和价格，老街另留一站给棋子烧饼与饹馇。'
+  },
+  {
+    id: 43,
+    slug: 'dalian',
+    name: '大连',
+    province: '辽宁',
+    group: '经典',
+    coordinates: [121.6147, 38.9140],
+    tagline: '焖子的焦香、咸鱼饼子的扎实与一桌海味，写出辽东海港的家常。',
+    description: '大连的风味兼有辽东海鲜与北方家常。焖子煎出焦壳后配芝麻酱和蒜汁，咸鱼饼子把鱼鲜与玉米面香放在一起，清煮海蟹突出海产本味，家常水饺则让一餐有了温暖收尾。想进一步认识当地海味，也可寻找鲅鱼水饺等不同馅料。',
+    flavorTags: ['辽东海鲜', '煎香蒜香', '北方家常'],
+    dishes: [
+      { name: '大连焖子', description: '淀粉凝成块后煎至表面焦香，浇上芝麻酱、蒜汁等调料，外香内软。' },
+      { name: '咸鱼饼子', description: '咸香鱼肉配玉米面饼子，鱼的浓鲜与粗粮的甜香相互衬托。' },
+      { name: '清煮海蟹', description: '海蟹以简单烹调突出鲜甜，可配姜醋蘸汁，按时令选择更能吃出海港滋味。' },
+      { name: '家常水饺', description: '面皮包入肉、蔬菜或海鲜等不同馅料，煮熟后趁热吃，是当地家庭聚餐的常见主食。' }
+    ],
+    tip: '焖子适合做逛街小吃，咸鱼搭饼子一起吃；海鲜先确认重量和价格，水饺馅料按当天菜单选择。'
+  }
+);
+
+Object.assign(foodCitiesEnglish, {
+  changzhou: {
+    name: 'Changzhou', province: 'Jiangsu',
+    tagline: 'Sesame-scented flatbreads and a bowl of vegetarian noodles introduce daily life beside the Grand Canal.',
+    description: 'Changzhou rewards visits to noodle shops, bakeries, and neighborhood tofu makers. Layered sesame cakes contrast with humble soybean-pulp cakes, Hengshanqiao tofu brings sweet-savory flavor, and Tianning Temple noodles offer vegetable toppings in warming broth. Tofu soup, fine silk noodles, and crab-filled soup buns invite further exploration.',
+    flavorTags: ['Canal-side snacks', 'Sesame and soy', 'Jiangnan sweetness'],
+    dishes: [
+      { name: 'Changzhou Sesame Cakes', description: 'Oval, sesame-covered flatbreads bake into crisp layers, with sweet and savory versions to accompany soup or congee.' },
+      { name: 'Douzhai Soybean Cakes', description: 'Also called douzha cakes, these small soybean-pulp cakes are a modest local snack with a gentle bean aroma.' },
+      { name: 'Hengshanqiao Sweet-Marinated Tofu', description: 'Seasoned tofu carries a sweet-savory glaze and works as a small side dish or part of a shared meal.' },
+      { name: 'Tianning Temple Vegetarian Noodles', description: 'Fine noodles meet vegetable toppings and hot broth for a light meal around the Tianning Temple area.' }
+    ],
+    tip: 'Start with warm sesame cakes, then visit a noodle shop; share small tofu dishes and leave room for tofu soup or local soup buns.'
+  },
+  tangshan: {
+    name: 'Tangshan', province: 'Hebei',
+    tagline: 'Slow-braised pork, fragrant chestnuts, and Bohai seafood connect eastern Hebei mountains with the coast.',
+    description: 'Tangshan flavors span the Yanshan mountains and Bohai coast. Slow-braised pork offers a rich centerpiece, Qianxi chestnuts introduce mountain produce, and the coastal areas of Laoting and Caofeidian supply seasonal seafood. These four dishes are an introduction; seek out qizi pastries, honey matáng sweets, and gecha bean pancakes on a separate snack walk.',
+    flavorTags: ['Eastern Hebei richness', 'Mountain chestnuts', 'Bohai seafood'],
+    dishes: [
+      { name: 'Slow-Braised Pork Knuckle', description: 'Pork knuckle slowly cooks in seasoned broth until the skin softens and the meat becomes tender, a traditional Tangshan banquet dish.' },
+      { name: 'Sugar-Roasted Chestnuts', description: 'Roasted chestnuts have glossy shells and sweet, soft centers; Qianxi chestnuts are a notable local mountain product.' },
+      { name: 'Steamed Mantis Shrimp', description: 'Mantis shrimp from coastal areas such as Laoting are simply steamed to emphasize their natural sweetness.' },
+      { name: 'Boiled Sea Crab', description: 'Simply cooked sea crab, often paired with ginger and vinegar, reveals the lighter side of the eastern Hebei coast.' }
+    ],
+    tip: 'Try traditional dishes in town and seasonal seafood by the coast; confirm species, weight, and price before ordering, and save a snack stop for qizi pastries and gecha.'
+  },
+  dalian: {
+    name: 'Dalian', province: 'Liaoning',
+    tagline: 'Crisp-edged menzi, salted fish with corn cakes, and seafood tell the everyday story of a Liaodong port.',
+    description: 'Dalian combines Liaodong seafood with northern home cooking. Menzi starch jelly is pan-fried and dressed with sesame sauce and garlic; salted fish meets hearty corn cakes; boiled sea crab keeps the focus on the catch; and homemade dumplings round out a family meal. Spanish-mackerel dumplings offer another direction for exploring local fillings.',
+    flavorTags: ['Liaodong seafood', 'Garlicky street snacks', 'Northern home cooking'],
+    dishes: [
+      { name: 'Dalian Menzi', description: 'Starch-jelly cubes are pan-fried until crisp-edged, then dressed with sesame sauce and garlic for a soft-centered street snack.' },
+      { name: 'Salted Fish with Corn Cakes', description: 'Savory salted fish pairs with cornmeal cakes, balancing concentrated fish flavor with gently sweet grain.' },
+      { name: 'Boiled Sea Crab', description: 'Simply boiled crab highlights its natural sweetness, with ginger-vinegar dipping sauce and seasonal availability.' },
+      { name: 'Homestyle Dumplings', description: 'Dumplings with meat, vegetable, or seafood fillings are boiled and served hot as a familiar centerpiece of family meals.' }
+    ],
+    tip: 'Snack on menzi, eat salted fish together with its corn cakes, and confirm seafood weights and prices; choose dumpling fillings from the actual menu.'
+  }
+});
+
+Object.assign(foodDishMedia, {
+  changzhou: [
+    commonsDish('sesame-cakes', '常州大麻糕的芝麻外壳与层次', 'Sesame-covered Changzhou flatbreads', 'Vesekskiy', 'CC BY-SA 4.0', 'Changzhou sesame cake 02.jpg', 'https://upload.wikimedia.org/wikipedia/commons/7/73/Changzhou_sesame_cake_02.jpg'),
+    commonsDish('douzhai-cakes', '常州豆斋饼', 'Changzhou douzhai soybean-pulp cakes', 'François Nguyen', 'CC BY 2.0', 'Douzhaibing.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/84/Douzhaibing.jpg'),
+    commonsDish('hengshanqiao-tofu', '横山桥蜜汁豆腐', 'Hengshanqiao sweet-marinated tofu', 'Fumikas Sagisavas', 'CC0 1.0', 'Hengshanqiao sweet marinated tofu.jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Hengshanqiao_sweet_marinated_tofu.jpg'),
+    commonsDish('tianning-noodles', '天宁寺什锦素面', 'Tianning Temple noodles with assorted vegetarian toppings', 'Fumikas Sagisavas', 'CC0 1.0', 'Tianning Temple assorted vegetarian noodles.jpg', 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Tianning_Temple_assorted_vegetarian_noodles.jpg')
+  ],
+  tangshan: [
+    commonsDish('braised-pork-knuckle', '煨肘子同类菜品示意，非唐山店铺实拍', 'Representative braised pork knuckle, not photographed at a Tangshan restaurant', 'Fumikas Sagisavas', 'CC0 1.0', 'Braised pork knuckles.jpg', 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Braised_pork_knuckles.jpg'),
+    commonsDish('sugar-roasted-chestnuts', '糖炒栗子菜品示意，非迁西产地认证照片', 'Representative sugar-roasted chestnuts; Qianxi origin is not asserted for this photograph', 'Fumikas Sagisavas', 'CC0 1.0', 'Sugar-roasted chestnuts (1).jpg', 'https://upload.wikimedia.org/wikipedia/commons/7/74/Sugar-roasted_chestnuts_%281%29.jpg'),
+    commonsDish('steamed-mantis-shrimp', '清蒸皮皮虾菜品示意', 'Representative steamed mantis shrimp photograph', 'Fumikas Sagisavas', 'CC0 1.0', 'Steamed mantis shrimp.jpg', 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Steamed_mantis_shrimp.jpg'),
+    commonsDish('boiled-sea-crab', '清煮海蟹菜品示意，原图摄于大连', 'Representative boiled sea crab photograph taken in Dalian', 'Jason M. C., Han', 'CC BY-SA 4.0', 'Boiled crabs in a Earlier Autumn Dish.jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/24/Boiled_crabs_in_a_Earlier_Autumn_Dish.jpg')
+  ],
+  dalian: [
+    commonsDish('menzi', '大连焖子', 'Dalian menzi starch-jelly snack', 'JesseW900', 'CC BY-SA 4.0', 'Dalian Menzi.JPG', 'https://upload.wikimedia.org/wikipedia/commons/8/80/Dalian_Menzi.JPG'),
+    commonsDish('salted-fish-corn-cakes', '大连咸鱼饼子', 'Salted fish with corn cakes in Dalian', 'JesseW900', 'CC BY-SA 4.0', 'Salted fish Dalian.JPG', 'https://upload.wikimedia.org/wikipedia/commons/5/53/Salted_fish_Dalian.JPG'),
+    commonsDish('boiled-sea-crab', '大连家宴中的清煮海蟹', 'Boiled sea crabs at a family meal in Dalian', 'Jason M. C., Han', 'CC BY-SA 4.0', 'Boiled crabs in a Earlier Autumn Dish.jpg', 'https://upload.wikimedia.org/wikipedia/commons/2/24/Boiled_crabs_in_a_Earlier_Autumn_Dish.jpg'),
+    commonsDish('homestyle-dumplings', '大连家庭制作的水饺，图片不限定馅料', 'Homemade dumplings in Dalian; the photograph does not identify their filling', 'CEphoto, Uwe Aranas', 'CC BY-SA 3.0', 'Dalian Liaoning China Homemade-Jiaotze-01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/85/Dalian_Liaoning_China_Homemade-Jiaotze-01.jpg')
+  ]
+});
+
 foodCitiesData.forEach(city => {
   const media = foodDishMedia[city.slug];
   const english = foodCitiesEnglish[city.slug];

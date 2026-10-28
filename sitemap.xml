@@ -89,4 +89,10 @@
   <url><loc>https://mitaste.com/zh/city/lijiang/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mitaste.com/city/dali/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://mitaste.com/zh/city/dali/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/changzhou/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/changzhou/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/tangshan/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/tangshan/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mitaste.com/city/dalian/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mitaste.com/zh/city/dalian/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

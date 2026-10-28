@@ -404,6 +404,36 @@ Alt text: Dali rushan cheese roasting over charcoal with sugar.
 
 Hashtags: #ChinaTravel #FoodTravel #Dali #TasteChina
 
+## 41. Changzhou
+
+Changzhou is a city to taste through Changzhou Sesame Cakes, Douzhai Soybean Cakes, Hengshanqiao Sweet-Marinated Tofu, and Tianning Temple Vegetarian Noodles. Sesame-scented flatbreads and a bowl of vegetarian noodles introduce daily life beside the Grand Canal.
+
+Start here: https://mitaste.com/city/changzhou/
+
+Alt text: Sesame-covered Changzhou flatbreads.
+
+Hashtags: #ChinaTravel #FoodTravel #Changzhou #TasteChina
+
+## 42. Tangshan
+
+Tangshan is a city to taste through Slow-Braised Pork Knuckle, Sugar-Roasted Chestnuts, Steamed Mantis Shrimp, and Boiled Sea Crab. Slow-braised pork, fragrant chestnuts, and Bohai seafood connect eastern Hebei mountains with the coast.
+
+Start here: https://mitaste.com/city/tangshan/
+
+Alt text: Representative braised pork knuckle, not photographed at a Tangshan restaurant.
+
+Hashtags: #ChinaTravel #FoodTravel #Tangshan #TasteChina
+
+## 43. Dalian
+
+Dalian is a city to taste through Dalian Menzi, Salted Fish with Corn Cakes, Boiled Sea Crab, and Homestyle Dumplings. Crisp-edged menzi, salted fish with corn cakes, and seafood tell the everyday story of a Liaodong port.
+
+Start here: https://mitaste.com/city/dalian/
+
+Alt text: Dalian menzi starch-jelly snack.
+
+Hashtags: #ChinaTravel #FoodTravel #Dalian #TasteChina
+
 ## Comparison Posts
 
 ### Start with the classics

@@ -97,6 +97,14 @@ assert(searchApp.searchCities('grilled chicken rack').map(city => city.slug).joi
 assert(searchApp.searchCities('头脑').map(city => city.slug).join(',') === 'taiyuan', '新增中文菜名搜索未命中太原');
 assert(searchApp.searchCities('Dali')[0]?.slug === 'dali', '大理英文精确城市名应排在大列巴菜名匹配之前');
 assert(searchApp.searchCities('Dali').some(city => city.slug === 'harbin'), '精确城市排序不应移除原有菜名匹配');
+for (const [slug, chineseName, englishName] of [
+  ['changzhou', '常州', 'Changzhou'],
+  ['tangshan', '唐山', 'Tangshan'],
+  ['dalian', '大连', 'Dalian']
+]) {
+  assert(searchApp.searchCities(chineseName)[0]?.slug === slug, `${chineseName} 中文城市搜索失败`);
+  assert(searchApp.searchCities(englishName)[0]?.slug === slug, `${englishName} 英文城市搜索失败`);
+}
 assert(searchApp.searchFeaturedFoods('兰州拉面').map(food => food.slug).join(',') === 'lanzhou-beef-noodles', '新增美食中文别名搜索失败');
 assert(searchApp.searchFeaturedFoods('soup dumplings').some(food => food.slug === 'xiaolongbao'), '新增美食英文搜索失败');
 assert(searchApp.searchFeaturedFoods('早茶').map(food => food.slug).join(',') === 'morning-tea', '饮食场景搜索失败');
