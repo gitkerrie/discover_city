@@ -53,6 +53,14 @@ function jpegDimensions(...segments) {
   throw new Error(`${segments.at(-1)} has no JPEG dimensions`);
 }
 
+const mapHomepage = read('index.html');
+const mapSchema = JSON.parse(mapHomepage.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+assert(mapSchema.mainEntity.numberOfItems === cities.length, '地图首页结构化数据城市数量过期');
+assert(mapSchema.mainEntity.itemListElement.length === cities.length, '地图首页结构化数据城市列表不完整');
+assert(mapHomepage.includes(`<strong>${cities.length}</strong> <span data-i18n="citiesUnit">`), '地图首页城市计数过期');
+assert(mapHomepage.includes(`<strong>${dishCount}</strong> <span data-i18n="dishesUnit">`), '地图首页菜品计数过期');
+assert(cities.every(city => mapSchema.mainEntity.itemListElement.some(item => item.url === `${siteUrl}/city/${city.slug}/`)), '地图首页结构化数据缺少城市');
+
 cities.forEach(city => {
   const englishPage = read('city', city.slug, 'index.html');
   const chinesePage = read('zh', 'city', city.slug, 'index.html');
